@@ -115,15 +115,8 @@
             width: 200px; /* Kích thước khung hình */
             height: 200px;
             opacity: 1; 
-            
-            /* Cấu hình hiển thị ảnh đơn */
-            background-repeat: no-repeat;
-            background-size: contain; /* Đảm bảo ảnh 200x200px vừa khung */
-            
-            /* DEBUG: Giúp dễ dàng nhận biết vùng đang bay lơ lửng */
-            border: 1px dashed rgba(255, 255, 255, 0.5); 
-            background-color: rgba(128, 128, 128, 0.1); 
-            border-radius: 50%; 
+            image-rendering: pixelated; 
+            image-rendering: crisp-edges;
         }
         
         /* ------------------------------------- */
