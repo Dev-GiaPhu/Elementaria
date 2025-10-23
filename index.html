@@ -8,10 +8,10 @@
 <style>
 /* --- 1. BIẾN MÀU (COLOR VARIABLES) --- */
 :root{
-  --bg-dark:#080d15; /* Nền tối hơn */
-  --bg-card:#0f151f; /* Nền card tối, có chiều sâu */
-  --accent-main:#f6d365; /* Vàng kim loại */
-  --accent-glow:#80ffd5; /* Xanh ngọc phát sáng */
+  --bg-dark:#080d15;
+  --bg-card:#0f151f;
+  --accent-main:#f6d365;
+  --accent-glow:#80ffd5;
   --text-muted:#aab7c6;
   --text-light:#ffffff;
 }
@@ -21,8 +21,8 @@
 body{
   margin:0;
   font-family:'Roboto', sans-serif;
-  /* Đã chuẩn hóa: Image_Web/Background.png */
-  background:#000 url('Image_Web/Background.png') center/cover no-repeat fixed;
+  /* Đường dẫn ảnh nền (Cùng cấp) */
+  background:#000 url('Background.png') center/cover no-repeat fixed;
   color:var(--text-muted);
   overflow-x:hidden;
   line-height:1.6;
@@ -51,7 +51,7 @@ header img{
   height:80px;
   width:auto;
   border-radius:8px;
-  box-shadow:0 0 15px rgba(128, 255, 213, 0.5); /* Glow Xanh Ngọc */
+  box-shadow:0 0 15px rgba(128, 255, 213, 0.5);
 }
 header .title{flex:1;}
 header h1{margin:0; font-size:24px; color:var(--accent-main);}
@@ -70,7 +70,7 @@ section{
   border-radius:15px;
   margin-bottom:30px;
   border:1px solid rgba(128, 255, 213, 0.1);
-  box-shadow:0 0 25px rgba(128, 255, 213, 0.1); /* Shadow nhẹ màu xanh ngọc */
+  box-shadow:0 0 25px rgba(128, 255, 213, 0.1);
   transition:transform 0.3s ease;
 }
 section:hover{
@@ -105,7 +105,7 @@ section li{margin-bottom:8px;}
 }
 .thumb:hover img{
   transform:scale(1.05);
-  box-shadow:0 0 15px rgba(246,211,101,0.5); /* Glow khi hover */
+  box-shadow:0 0 15px rgba(246,211,101,0.5);
 }
 
 /* --- 6. OVERLAY (LIGHTBOX) --- */
@@ -173,7 +173,7 @@ section li{margin-bottom:8px;}
   width:auto;
   height:auto;
   image-rendering:pixelated;
-  transform:scale(2.5); /* Phóng to hơn */
+  transform:scale(2.5);
   z-index:50;
   transition:transform 0.5s linear,left 0.5s linear,top 0.5s linear;
 }
@@ -182,7 +182,7 @@ section li{margin-bottom:8px;}
 <body>
 
 <header>
-    <img src="Image_Web/Logo.png" alt="Logo Elementaria">
+    <img src="Logo.png" alt="Logo Elementaria">
   <div class="title">
     <h1>Elementaria — ASM2</h1>
     <p>Nguyễn Gia Phú · PS47618 — Nhập môn lập trình game</p>
@@ -296,7 +296,7 @@ section li{margin-bottom:8px;}
 <div id="overlay" onclick="closeOverlay(event)"><div class="box"><span class="close" onclick="closeOverlay(event)">×</span><img src="" alt="Ảnh phóng to"></div></div>
 <div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
 <div class="facebook-icon" onclick="window.open('https://facebook.com/JemNaNa','_blank')">Facebook: Gia Phú</div>
-<img id="player" class="player" src="Image_Web/Player_Normal_Idle1.png" alt="Player Character">
+<img id="player" class="player" src="PLayer_Normal_Idle1.png" alt="Player Character">
 
 <script>
 // Cấu hình số lượng ảnh cho mỗi section (Tổng cộng 57 ảnh)
@@ -322,14 +322,14 @@ const adjusted_sequence = [
 ];
 
 const slots=['images-in-game','unity','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11','f12','f13','f14','f15','f16'];
-const basePath='Image_Web/Picture';
+// Đường dẫn cơ sở: "Picture" (Cùng cấp)
+const basePath='Picture'; 
 const ext='.png';
 const maxPicture=57;
 
 function appendThumb(container,src,caption){
   const div=document.createElement('div'); div.className='thumb';
   const img=document.createElement('img'); img.src=src; img.alt=caption; img.loading='lazy';
-  // Đã loại bỏ caption để khắc phục lỗi PictureX.png
   div.appendChild(img); container.appendChild(div);
   img.addEventListener('click',()=>openOverlay(src));
   img.onerror=()=>{img.style.opacity=0.2; img.alt='(Ảnh không tìm thấy) '+caption};
@@ -352,7 +352,7 @@ function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementB
     const container=document.querySelector(`[data-slot="${slotName}"]`);
     for(let i=0;i<adjusted_sequence[s];i++){
       if(pic>maxPicture) break;
-      // Đường dẫn ảnh PictureX.png
+      // Đường dẫn ảnh PictureX.png (Cùng cấp)
       if(container) appendThumb(container,basePath+pic+ext,'Picture'+pic+'.png');
       else appendThumb(document.querySelector('[data-slot="extra"]'),basePath+pic+ext,'Picture'+pic+'.png');
       pic++;
@@ -363,26 +363,26 @@ function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementB
 
 // player animation
 const player=document.getElementById('player');
-// Tên file đã chuẩn hóa (chữ 'P' thường): Player_Normal_Idle1.png
+// Tên file đã sửa: PL viết hoa (Cùng cấp)
 const playerStates={
-  'Normal':['Player_Normal_Idle1.png','Player_Normal_Idle2.png','Player_Normal_Idle3.png','Player_Normal_Idle4.png'],
-  'Ice':['Player_Ice_Idle1.png','Player_Ice_Idle2.png','Player_Ice_Idle3.png','Player_Ice_Idle4.png'],
-  'Fire':['Player_Fire_Idle1.png','Player_Fire_Idle2.png','Player_Fire_Idle3.png','Player_Fire_Idle4.png'],
-  'Stone':['Player_Stone_Idle1.png','Player_Stone_Idle2.png','Player_Stone_Idle3.png','Player_Stone_Idle4.png'],
-  'Wind':['Player_Wind_Idle1.png','Player_Wind_Idle2.png','Player_Wind_Idle3.png','Player_Wind_Idle4.png']
+  'Normal':['PLayer_Normal_Idle1.png','PLayer_Normal_Idle2.png','PLayer_Normal_Idle3.png','PLayer_Normal_Idle4.png'],
+  'Ice':['PLayer_Ice_Idle1.png','PLayer_Ice_Idle2.png','PLayer_Ice_Idle3.png','PLayer_Ice_Idle4.png'],
+  'Fire':['PLayer_Fire_Idle1.png','PLayer_Fire_Idle2.png','PLayer_Fire_Idle3.png','PLayer_Fire_Idle4.png'],
+  'Stone':['PLayer_Stone_Idle1.png','PLayer_Stone_Idle2.png','PLayer_Stone_Idle3.png','PLayer_Stone_Idle4.png'],
+  'Wind':['PLayer_Wind_Idle1.png','PLayer_Wind_Idle2.png','PLayer_Wind_Idle3.png','PLayer_Wind_Idle4.png']
 };
 let animFrames=playerStates['Normal'];
 let frame=0;
 setInterval(()=>{
-  // Đường dẫn ảnh Player animation
-  player.src='Image_Web/'+animFrames[frame];
+  // Đường dẫn ảnh Player animation (Cùng cấp)
+  player.src=animFrames[frame];
   frame=(frame+1)%animFrames.length;
 },200);
 
 // player scroll position update
 function updatePlayerPosition(){
   const scrollY=window.scrollY + window.innerHeight/2;
-  const sectionHeight=document.body.scrollHeight / 5; /* Chia 5 phần chính để thay đổi dạng */
+  const sectionHeight=document.body.scrollHeight / 5;
   let section=Math.floor(scrollY/sectionHeight);
   if(section>4) section=4;
 
