@@ -59,8 +59,8 @@
             background-color: transparent;
         }
         .logo {
-            max-height: 240px;
-            margin-bottom: 40px;
+            max-height: 600px;
+            margin-bottom: 100px;
         }
         #hero h2 {
             font-size: 4em;
@@ -100,7 +100,7 @@
             border-color: var(--color-highlight);
         }
 
-        /* CÁC ICON ELEMENT BAY KHẮP TRANG (SPRITE ANIMATION) */
+        /* CÁC ICON ELEMENT BAY KHẮP TRANG (IMAGE-CYCLE ANIMATION) */
         .element-orbit {
             position: fixed; 
             top: 0;
@@ -116,20 +116,16 @@
             height: 200px;
             opacity: 1; 
             
-            /* Cấu hình cho Sprite Animation */
+            /* Cấu hình hiển thị ảnh đơn */
             background-repeat: no-repeat;
-            image-rendering: pixelated; 
-            image-rendering: crisp-edges; 
+            background-size: contain; /* Đảm bảo ảnh 200x200px vừa khung */
+            
+            /* DEBUG: Giúp dễ dàng nhận biết vùng đang bay lơ lửng */
+            border: 1px dashed rgba(255, 255, 255, 0.5); 
+            background-color: rgba(128, 128, 128, 0.1); 
+            border-radius: 50%; 
         }
         
-        /* ------------------------------------- */
-        /* KEYFRAMES: HOẠT ẢNH SPRITE IDLE (CHUNG CHO CẢ 5 DẠNG) */
-        /* ------------------------------------- */
-        @keyframes idle-animation {
-            /* Sheet 800px (4 frames * 200px). Chuyển vị trí nền 800px trong 4 bước */
-            to { background-position-x: -800px; }
-        }
-
         /* ------------------------------------- */
         /* KEYFRAMES: HOẠT ẢNH FLOAT RANDOM (3 Quỹ đạo) */
         /* ------------------------------------- */
@@ -154,48 +150,77 @@
         }
 
         /* ------------------------------------- */
-        /* CẤU HÌNH TỪNG ELEMENT (5 DẠNG) */
+        /* KEYFRAMES: HOẠT ẢNH IDLE TỪ TỪNG TỆP ẢNH */
         /* ------------------------------------- */
 
-        /* NORMAL ELEMENT (Dạng mới, dùng float-random-3) */
+        /* 1. NORMAL IDLE ANIMATION */
+        @keyframes idle-normal-animation {
+            0%, 100% { background-image: url('image_web/player_Normal_Idle1.png'); }
+            25% { background-image: url('image_web/player_Normal_Idle2.png'); }
+            50% { background-image: url('image_web/player_Normal_Idle3.png'); }
+            75% { background-image: url('image_web/player_Normal_Idle4.png'); }
+        }
+
+        /* 2. FIRE IDLE ANIMATION */
+        @keyframes idle-fire-animation {
+            0%, 100% { background-image: url('image_web/player_Fire_Idle1.png'); }
+            25% { background-image: url('image_web/player_Fire_Idle2.png'); }
+            50% { background-image: url('image_web/player_Fire_Idle3.png'); }
+            75% { background-image: url('image_web/player_Fire_Idle4.png'); }
+        }
+
+        /* 3. ICE IDLE ANIMATION */
+        @keyframes idle-ice-animation {
+            0%, 100% { background-image: url('image_web/player_Ice_Idle1.png'); }
+            25% { background-image: url('image_web/player_Ice_Idle2.png'); }
+            50% { background-image: url('image_web/player_Ice_Idle3.png'); }
+            75% { background-image: url('image_web/player_Ice_Idle4.png'); }
+        }
+
+        /* 4. STONE IDLE ANIMATION */
+        @keyframes idle-stone-animation {
+            0%, 100% { background-image: url('image_web/player_Stone_Idle1.png'); }
+            25% { background-image: url('image_web/player_Stone_Idle2.png'); }
+            50% { background-image: url('image_web/player_Stone_Idle3.png'); }
+            75% { background-image: url('image_web/player_Stone_Idle4.png'); }
+        }
+
+        /* 5. WIND IDLE ANIMATION */
+        @keyframes idle-wind-animation {
+            0%, 100% { background-image: url('image_web/player_Wind_Idle1.png'); }
+            25% { background-image: url('image_web/player_Wind_Idle2.png'); }
+            50% { background-image: url('image_web/player_Wind_Idle3.png'); }
+            75% { background-image: url('image_web/player_Wind_Idle4.png'); }
+        }
+
+
+        /* ------------------------------------- */
+        /* ÁP DỤNG ANIMATION CHO TỪNG ELEMENT */
+        /* ------------------------------------- */
+
         .element-normal {
-            background-image: url('image_web/player_Normal_Idle_Sheet.png'); 
-            background-size: 800px 200px; 
             animation: float-random-3 75s linear infinite alternate, 
-                       idle-animation 0.5s steps(4) infinite; 
-            animation-delay: -45s; /* Độ trễ độc lập */
+                       idle-normal-animation 0.5s linear infinite; /* 0.5s/4 frames = 0.125s mỗi khung */
+            animation-delay: -45s; 
         }
         
-        /* FIRE ELEMENT (Dùng float-random-1) */
         .element-fire {
-            background-image: url('image_web/player_Fire_Idle_Sheet.png'); 
-            background-size: 800px 200px; 
             animation: float-random-1 70s ease-in-out infinite alternate, 
-                       idle-animation 0.5s steps(4) infinite; 
-            /* animation-delay: 0s (default) */
+                       idle-fire-animation 0.5s linear infinite; 
         }
-        /* ICE ELEMENT (Dùng float-random-2) */
         .element-ice {
-            background-image: url('image_web/player_Ice_Idle_Sheet.png'); 
-            background-size: 800px 200px; 
             animation: float-random-2 85s linear infinite alternate, 
-                       idle-animation 0.5s steps(4) infinite; 
+                       idle-ice-animation 0.5s linear infinite; 
             animation-delay: -15s; 
         }
-        /* STONE ELEMENT (Dùng float-random-1, khác tốc độ/delay) */
         .element-stone {
-            background-image: url('image_web/player_Stone_Idle_Sheet.png'); 
-            background-size: 800px 200px; 
             animation: float-random-1 60s ease-in-out infinite alternate, 
-                       idle-animation 0.5s steps(4) infinite; 
+                       idle-stone-animation 0.5s linear infinite; 
             animation-delay: -30s; 
         }
-        /* WIND ELEMENT (Dùng float-random-2, khác tốc độ/delay) */
         .element-wind {
-            background-image: url('image_web/player_Wind_Idle_Sheet.png'); 
-            background-size: 800px 200px; 
             animation: float-random-2 95s linear infinite alternate, 
-                       idle-animation 0.5s steps(4) infinite; 
+                       idle-wind-animation 0.5s linear infinite; 
             animation-delay: -5s; 
         }
 
