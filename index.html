@@ -39,9 +39,19 @@
   header .title p{margin:4px 0 0;color:#d7e3f0}
 
   /* sections as panels. each 'element' section will control overlay & character */
-  section.element{
-    position:relative;padding:34px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.6);overflow:visible;margin-bottom:26px;backdrop-filter: blur(2px);
-  }
+section.element {
+  position: relative;
+  padding: 34px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.18); /* lớp kính sáng nhẹ */
+  backdrop-filter: blur(10px) brightness(1.15);
+  -webkit-backdrop-filter: blur(10px) brightness(1.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+  overflow: visible;
+  margin-bottom: 26px;
+  color: #111; /* chữ tối hơn */
+}
+
   /* content container sits above the background character */
   .element .content{position:relative;z-index:6;display:grid;grid-template-columns:1fr;gap:12px}
   .element .content .inner{background:transparent;padding:6px 0}
