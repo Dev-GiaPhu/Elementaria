@@ -3,126 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elementaria - Báo Cáo Tính Năng Game (Đã Sửa Lỗi)</title>
+    <title>Elementaria - The Elemental Action Platformer</title>
     <style>
+        /* CSS Reset and Basic Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #1a1a2e; /* Màu nền tối, phù hợp với game */
+            color: #e0e0e0;
+            line-height: 1.6;
         }
         .container {
             width: 90%;
-            max-width: 1000px;
-            margin: 20px auto;
-            background-color: white;
-            padding: 30px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
+        /* Header and Logo */
         header {
+            background-color: #2c2c54;
+            padding: 15px 0;
             text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #4a90e2;
         }
-        h1 {
-            color: #4a90e2;
-            margin-bottom: 5px;
+        .logo {
+            max-height: 80px;
+            vertical-align: middle;
+            margin-right: 20px;
         }
-        h2 {
-            border-left: 5px solid #ff7f50; 
-            padding-left: 10px;
-            margin-top: 35px;
-            color: #333;
+        header h1 {
+            display: inline-block;
+            color: #ffcc00; /* Màu vàng nổi bật */
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
-        ul.main-toc {
-            list-style: none;
-            padding: 0;
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            text-align: center;
+            padding: 100px 0;
+            background: url('image_web/picture1.png') no-repeat center center/cover; /* Ảnh Key Art */
+            color: white;
+            min-height: 400px;
         }
-        ul.main-toc > li {
-            background-color: #e9f5ff;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 1.1em;
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Lớp phủ mờ */
+            z-index: 1;
+        }
+        #hero .content {
+            position: relative;
+            z-index: 2;
+        }
+        #hero h2 {
+            font-size: 3.5em;
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #00bcd4;
+        }
+        #hero p {
+            font-size: 1.5em;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #ff7f50;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
             font-weight: bold;
-            color: #0056b3;
-            border-left: 4px solid #4a90e2;
+            border-radius: 8px;
+            transition: background-color 0.3s;
         }
-        .feature-item {
-            font-weight: normal;
-            font-size: 1em;
-            color: #333;
-            margin-top: 5px;
+        .cta-button:hover {
+            background-color: #e56d45;
         }
-        .technical-info {
-            font-style: italic;
-            color: #666;
-            margin-left: 20px;
-            margin-top: 3px;
+
+        /* Feature Sections */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #3c3c64;
+        }
+        .section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #ffcc00;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .feature-card {
+            background-color: #2c2c54;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: calc(33% - 20px);
+            min-width: 300px;
+            text-align: center;
+        }
+        .feature-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 2px solid #00bcd4;
+        }
+        .feature-card h3 {
+            color: #00bcd4;
+            margin-top: 0;
+        }
+        .feature-card p {
+            font-size: 0.95em;
+            color: #b0b0d0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #2c2c54;
+            font-size: 0.8em;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>ELEMENTARIA - MỤC LỤC TÍNH NĂNG GAME</h1>
-            <p>Dựa trên file báo cáo **PS47618_Nguyen Gia Phu_ASM2_GAM104.pdf**</p>
-        </header>
+    <header>
+        <div class="container">
+            <img src="image_web/logo.png" alt="Elementaria Logo" class="logo">
+            <h1>ELEMENTARIA</h1>
+        </div>
+    </header>
 
-        <h2>Các Mục Nội Dung Chính</h2>
-        <ul class="main-toc">
-            <li>
-                Thông tin cơ bản (Trang 3-4)
-                <div class="feature-item">**Thể loại:** FlatForm, Action Platformer.</div>
-                <div class="feature-item">**Cốt truyện:** Nhân vật sở hữu 4 nguyên tố (Lửa, Nước, Đá, Khí) chiến đấu với quái vật khối đá.</div>
-                <div class="technical-info">Sử dụng công cụ **Unity** và các **Prefabs** chính (Golem, Ice_Butlet, Player New, Wind_Skill).</div>
-            </li>
-            <li>
-                Tính năng 1 & 2: Điều khiển, Xử lý Trạng thái & Hệ thống Dạng (Trang 4-6)
-                <div class="feature-item">Điều khiển bằng **Keyboard** và **Button** trên màn hình.</div>
-                <div class="technical-info">Sử dụng biến **Type** (kiểu Int) và **Switch** để quy định **5 hình dạng** nhân vật (Ice, Fire, Stone, Wind, Base).</div>
-            </li>
-            <li>
-                Tính năng 3 & 4: Menu Chuyển Dạng & Cooldown (Trang 7-8)
-                <div class="feature-item">**Menu chọn nhân vật** được kích hoạt khi ấn **Q**.</div>
-                <div class="technical-info">Có **Mini UI** cho phép chuyển dạng bằng Click chuột. Sau khi chuyển dạng có **Cooldown** để ngăn chuyển đổi liên tục.</div>
-            </li>
-            <li>
-                Tính năng 5 & 6: Thanh Máu (Heath Bar) & Hồi Máu (Trang 9-10)
-                <div class="feature-item">Sử dụng Node **Slider** cho thanh máu.</div>
-                <div class="technical-info">Tính năng **Hồi máu tự động** sau **5s** không nhận sát thương (với máu thấp hơn Max Heath).</div>
-            </li>
-            <li>
-                Tính năng 7 & 8: Chết (Death) & Tương tác Môi trường (Trang 11-12)
-                <div class="feature-item">Kích hoạt **Animation Death** và hiện menu **GameOver** khi máu $\le 0$ hoặc rơi xuống vực (Y $\le -12$).</div>
-                <div class="technical-info">Xử lý **Lava** và **Water** bằng cách bật/tắt Collider theo dạng nhân vật.</div>
-            </li>
-            <li>
-                Tính năng 9 & 10: Hiệu ứng Chiều sâu & Kĩ Năng Nhân Vật (Trang 13-14)
-                <div class="feature-item">Sử dụng **Camera Mode Perspective** và sắp xếp **Layer Map** theo trục Z để tạo cảm giác chiều sâu.</div>
-                <div class="feature-item">Kĩ năng đa dạng: **Ice** (làm chậm), **Fire** (gây cháy, nockback), **Stone** (tăng máu/dame), **Wind** (hất tung).</div>
-            </li>
-            <li>
-                Tính năng 11 & 12: Xử lý Hình ảnh & Hiệu ứng Sát thương (Trang 18-19)
-                <div class="technical-info">Sử dụng **Volume** với **Bloom** và **Chromatic Aberration** để tạo hiệu ứng ánh sáng và hình ảnh.</div>
-                <div class="technical-info">Thanh máu chuyển màu **cam** sau khi nhận sát thương, sau 0.5s quay lại màu **đỏ**.</div>
-            </li>
-            <li>
-                Tính năng 13, 14, 15, 16 (Coin, Nockback, ESC, Door) (Trang 20-22)
-                <div class="feature-item">**Coin:** Tăng 1 điểm khi tiêu diệt Enemy.</div>
-                <div class="feature-item">**Nockback:** Dùng **Add Force** và biến **Right** để xác định hướng đẩy lùi.</div>
-                <div class="feature-item">**ESC:** Dùng để ẩn tất cả UI trên màn hình.</div>
-                <div class="feature-item">**Door:** Va chạm sẽ hiện màn hình **Win** và load scene về Menu.</div>
-            </li>
-        </ul>
+    <section id="hero">
+        <div class="content">
+            <h2>The Elemental Action Platformer</h2>
+            <p>Khám phá thế giới Elementaria, nơi bạn làm chủ 4 nguyên tố Lửa, Nước, Đá, Khí để chiến đấu chống lại các khối đá nguyên tố hỗn loạn. Chuyển đổi linh hoạt để sống sót!</p>
+            <a href="#features" class="cta-button">KHÁM PHÁ CÁC TÍNH NĂNG</a>
+        </div>
+    </section>
 
-        <footer>
-            <p>Trang web mẫu do AI tạo ra để tóm tắt các tính năng cốt lõi trong báo cáo game Elementaria.</p>
-        </footer>
-    </div>
+    <section id="features" class="section">
+        <div class="container">
+            <h2>Tính Năng Cốt Lõi</h2>
+            <div class="feature-grid">
+                
+                <div class="feature-card">
+                    <img src="image_web/picture6.png" alt="Hệ thống Dạng" loading="lazy">
+                    <h3>Hệ Thống 5 Dạng Nguyên Tố</h3>
+                    <p>Nhân vật chính sở hữu 5 hình dạng (Base, Lửa, Băng, Đá, Khí). Mỗi dạng mang lại các chỉ số, nội tại và kĩ năng hoàn toàn khác biệt, buộc người chơi phải thay đổi chiến thuật liên tục.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 2 & 10)</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture15.png" alt="Kỹ năng Lửa và Nockback" loading="lazy">
+                    <h3>Chiến Đấu Hành Động Tốc Độ</h3>
+                    <p>Sử dụng kỹ năng độc đáo: Băng làm chậm, Lửa gây cháy và đẩy lùi (Nockback), Khí hất tung và thay đổi trọng lực, Đá tăng cường sức mạnh. Hệ thống chiến đấu đòi hỏi phản xạ nhanh và sự kết hợp chiêu thức.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 10 & 14)</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture9.png" alt="Thanh Máu và Hồi chiêu" loading="lazy">
+                    <h3>Quản Lý Thanh Máu & UI</h3>
+                    <p>Thanh máu (Heath Bar) được quản lý chặt chẽ, giữ tỉ lệ phần trăm khi chuyển dạng. Có cơ chế hồi máu tự động sau 5s không nhận sát thương. Giao diện Mini UI giúp chuyển dạng nhanh chóng với Cooldown hợp lý.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 3, 5 & 6)</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture13.png" alt="Tương tác Môi trường và Chiều sâu" loading="lazy">
+                    <h3>Thử Thách Môi Trường</h3>
+                    <p>Tương tác với các yếu tố như Lava và Water. Nhân vật phải ở đúng dạng nguyên tố để vượt qua mà không bị mất máu. Sử dụng kỹ thuật sắp xếp Layer Map theo trục Z và Camera Perspective để tạo chiều sâu.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 8 & 9)</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture17.png" alt="Hiệu ứng đồ họa" loading="lazy">
+                    <h3>Hiệu Ứng Hình Ảnh Đẹp Mắt</h3>
+                    <p>Game được trang bị các hiệu ứng đồ họa hiện đại như **Bloom** (ánh sáng rực rỡ) và **Chromatic Aberration** (tạo độ sâu trường ảnh), mang lại trải nghiệm thị giác sống động và chân thực.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 11)</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture22.png" alt="Cánh cửa chiến thắng" loading="lazy">
+                    <h3>Chiến Thắng và Kết Thúc</h3>
+                    <p>Mục tiêu cuối cùng là đi đến cánh cửa (Door) để hoàn thành màn chơi. Đồng thời, thu thập Coin (tăng điểm khi tiêu diệt quái vật) và xử lý các trạng thái Chết/GameOver một cách mượt mà.</p>
+                    <p class="technical-info">(Báo cáo: Tính năng 7, 13 & 16)</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Elementaria Game Showcase. Powered by Nguyễn Gia Phú's GAM104 Project.</p>
+            <p>Trang web mẫu được tạo từ file báo cáo PDF.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
