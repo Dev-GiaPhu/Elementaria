@@ -1,405 +1,149 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elementaria Project - Nguyễn Gia Phú PS47618</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-/* --- 1. BIẾN MÀU (COLOR VARIABLES) --- */
-:root{
-  --bg-dark:#080d15;
-  --bg-card:#0f151f;
-  --accent-main:#f6d365;
-  --accent-glow:#80ffd5;
-  --text-muted:#aab7c6;
-  --text-light:#ffffff;
-}
-
-/* --- 2. GLOBAL STYLES --- */
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:'Roboto', sans-serif;
-  /* SỬA LỖI: Sử dụng background.png (viết thường) */
-  background:#000 url('/Image_Web/background.png') center/cover no-repeat fixed;
-  color:var(--text-muted);
-  overflow-x:hidden;
-  line-height:1.6;
-}
-a{color:var(--accent-glow); text-decoration:none; transition:color 0.2s;}
-a:hover{color:var(--accent-main);}
-h1, h2, h3{font-weight:700; color:var(--text-light);}
-h2{color:var(--accent-main); font-size:2rem; margin-top:0; border-bottom:1px solid rgba(246,211,101,0.1); padding-bottom:10px;}
-h3{color:var(--accent-glow); font-size:1.25rem; margin-bottom:8px;}
-
-/* --- 3. HEADER & NAVIGATION --- */
-header{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  padding:28px 24px;
-  background:rgba(15, 21, 31, 0.9);
-  backdrop-filter:blur(8px);
-  border-bottom:2px solid var(--accent-main);
-  box-shadow:0 0 25px rgba(246,211,101,0.2);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-header img{
-  height:80px;
-  width:auto;
-  border-radius:8px;
-  box-shadow:0 0 15px rgba(128, 255, 213, 0.5);
-}
-header .title{flex:1;}
-header h1{margin:0; font-size:24px; color:var(--accent-main);}
-header p{margin:4px 0 0; color:var(--text-light); font-weight:300;}
-
-/* --- 4. MAIN CONTENT & SECTIONS --- */
-main{
-  max-width:1200px;
-  margin:30px auto;
-  padding:0 24px 150px;
-  position:relative;
-}
-section{
-  background:var(--bg-card);
-  padding:25px;
-  border-radius:15px;
-  margin-bottom:30px;
-  border:1px solid rgba(128, 255, 213, 0.1);
-  box-shadow:0 0 25px rgba(128, 255, 213, 0.1);
-  transition:transform 0.3s ease;
-}
-section:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 35px rgba(128, 255, 213, 0.2);
-}
-section ul{padding-left:20px;}
-section li{margin-bottom:8px;}
-
-/* --- 5. GALLERY & THUMBNAILS --- */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  margin-top:15px;
-}
-.thumb{
-  position:relative;
-  overflow:hidden;
-  border-radius:12px;
-  background:var(--bg-dark);
-  padding:8px;
-  border:1px solid rgba(255,255,255,0.05);
-}
-.thumb img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius:8px;
-  display:block;
-  transition:transform .3s ease, box-shadow .3s ease;
-}
-.thumb:hover img{
-  transform:scale(1.05);
-  box-shadow:0 0 15px rgba(246,211,101,0.5);
-}
-
-/* --- 6. OVERLAY (LIGHTBOX) --- */
-#overlay{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.95);
-  backdrop-filter:blur(6px);
-  z-index:200;
-}
-#overlay.show{display:flex;animation:fadeIn .3s ease;}
-#overlay .box{
-  max-width:95%;
-  max-height:95%;
-  position:relative;
-}
-#overlay img{
-  max-width:100%;
-  max-height:100%;
-  border-radius:12px;
-  border:3px solid var(--accent-main);
-  box-shadow:0 0 30px rgba(128, 255, 213, 0.8);
-  display:block;
-}
-#overlay .close{
-  position:absolute;
-  right:-15px;
-  top:-15px;
-  background:var(--accent-main);
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--bg-dark);
-  font-size:24px;
-  cursor:pointer;
-  box-shadow:0 6px 20px rgba(0,0,0,0.8);
-  font-weight:bold;
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* --- 7. FOOTER STICKY & PLAYER ANIMATION --- */
-.student-fixed, .facebook-icon{
-  position:fixed;
-  right:20px;
-  background:var(--bg-card);
-  padding:8px 15px;
-  border-radius:10px;
-  color:var(--text-muted);
-  font-size:14px;
-  box-shadow:0 0 15px rgba(128, 255, 213, 0.3);
-  z-index:90;
-  border:1px solid rgba(128, 255, 213, 0.1);
-}
-.student-fixed{bottom:20px;}
-.facebook-icon{bottom:70px; cursor:pointer;}
-.player{
-  position:fixed;
-  bottom:0;
-  width:auto;
-  height:auto;
-  image-rendering:pixelated;
-  transform:scale(2.5);
-  z-index:50;
-  transition:transform 0.5s linear,left 0.5s linear,top 0.5s linear;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementaria - Thông Tin Game (Nguyễn Gia Phú)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ccc;
+        }
+        h1 {
+            color: #4a90e2;
+            margin-bottom: 5px;
+        }
+        h2 {
+            border-left: 5px solid #4a90e2;
+            padding-left: 10px;
+            margin-top: 30px;
+            color: #333;
+        }
+        .info-box {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9f5ff;
+            border-radius: 6px;
+        }
+        .info-box div {
+            flex: 1;
+            padding: 0 10px;
+        }
+        .feature-list {
+            list-style: disc;
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        .download-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .download-links a:hover {
+            background-color: #357bd8;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    <img src="/Image_Web/Logo.png" alt="Logo Elementaria">
-  <div class="title">
-    <h1>Elementaria — ASM2</h1>
-    <p>Nguyễn Gia Phú · PS47618 — Nhập môn lập trình game</p>
-  </div>
-  <div style="text-align:right"><small style="color:var(--accent-glow)">FPT Polytechnic · 2025</small></div>
-</header>
+    <div class="container">
+        <header>
+            <h1>ELEMENTARIA</h1>
+            <p>Báo cáo ASM 2 - Môn Nhập Môn Lập Trình Game (GAM104)</p>
+            <p><strong>Sinh viên:</strong> Nguyễn Gia Phú - PS47618 | <strong>Lớp:</strong> GA21201</p>
+        </header>
 
-<main>
-    <section id="overview">
-    <h2>Tổng quan</h2>
-    <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
-    <h3>Cốt chuyện</h3>
-    <p>Nhập vai với 1 nhân vật sở hữu 4 nguyên tố: Lửa, Nước, Đá, Khí. Phải chiến đấu với các quái vật là các khối đá nguyên tố hỗn loạn để đến cánh cửa ma thuật cuối hành trình. Mỗi nguyên tố ảnh hưởng tới chỉ số, nội tại, kĩ năng của nhân vật; người chơi phải chuyển đổi nguyên tố phù hợp để vượt thử thách.</p>
-  </section>
+        <h2>Tóm Tắt Game</h2>
+        <div class="info-box">
+            <div>
+                <strong>Thể loại:</strong>
+                [cite_start]<p>FlatForm, Action Platformer [cite: 276]</p>
+            </div>
+            <div>
+                <strong>Nhân vật chính:</strong>
+                [cite_start]<p>Sở hữu 4 nguyên tố: Lửa, Nước, Đá và Khí[cite: 278].</p>
+            </div>
+            <div>
+                <strong>Mục tiêu:</strong>
+                [cite_start]<p>Chiến đấu với quái vật là các khối đá nguyên tố hỗn loạn để đến được cánh cửa ma thuật[cite: 279].</p>
+            </div>
+        </div>
 
-    <section id="images-in-game">
-    <h2>Hình Ảnh Trong Game</h2>
-    <div class="gallery" data-slot="images-in-game"></div>
-  </section>
+        [cite_start]<p>Mỗi nguyên tố ảnh hưởng đến chỉ số, nội tại và kĩ năng, đòi hỏi người chơi phải chuyển đổi linh hoạt giữa các dạng nguyên tố để vượt qua thử thách[cite: 280].</p>
 
-    <section id="unity-prefabs">
-    <h2>Unity · Prefabs</h2>
-    <p>Quái vật, viên đạn kĩ năng… được tạo prefabs để gọi ra nhiều lần với cùng dạng và thông số.</p>
-    <div class="gallery" data-slot="unity"></div>
-  </section>
+        <h2>Các Tính Năng Nổi Bật</h2>
+        <ul class="feature-list">
+            <li>
+                [cite_start]<strong>Hệ thống 5 Dạng Nhân Vật:</strong> Nhân vật có 5 hình dạng (được quy định bởi biến Type kiểu Int), mỗi dạng có chức năng và kĩ năng riêng[cite: 327].
+                <ul>
+                    [cite_start]<li>**Ice (Băng):** Có skill bắn đạn băng, làm chậm vận tốc của quái vật[cite: 463, 464].</li>
+                    [cite_start]<li>**Fire (Lửa):** Sử dụng trigger hitbox vùng tấn công, gây hiệu ứng cháy và nockback (đẩy lùi) đối thủ[cite: 465].</li>
+                    [cite_start]<li>**Stone (Đá):** Không có kĩ năng riêng nhưng tăng máu và dame nhiều hơn[cite: 466].</li>
+                    [cite_start]<li>**Wind (Khí):** Giảm trọng lực (gravity) của nhân vật, tăng độ lớn bật nhảy và tốc độ di chuyển tạo cảm giác nhẹ nhàng, đồng thời có skill hất tung quái vật[cite: 467, 468].</li>
+                </ul>
+            </li>
+            <li>
+                [cite_start]<strong>Thanh Máu (Heath Bar):</strong> Dùng node Slider, cập nhật theo phần trăm máu và Max Value là Max Heath[cite: 375]. [cite_start]Có logic giữ tỉ lệ phần trăm máu khi chuyển đổi giữa các dạng có Max Heath khác nhau[cite: 376].
+            </li>
+            <li>
+                [cite_start]<strong>Hồi Máu Tự Động:</strong> Player sẽ hồi máu (+1 Heath) sau 5s không nhận sát thương và máu thấp hơn Max Heath[cite: 427, 428].
+            </li>
+            <li>
+                <strong>Chuyển Dạng (Menu/Cooldown):</strong> Có Menu chọn nhân vật (khi ấn Q) và Mini UI để chuyển dạng bằng chuột. [cite_start]Sau khi chuyển dạng sẽ có thời gian Cooldown để ngăn chuyển đổi liên tục[cite: 355, 368].
+            </li>
+            <li>
+                [cite_start]<strong>Hiệu Ứng Đồ Họa:</strong> Sử dụng Volume với Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt[cite: 469].
+            </li>
+            <li>
+                [cite_start]<strong>Hiệu Ứng Nockback:</strong> Sử dụng node Add Force và biến "Right" (xác định hướng tấn công) để đẩy lùi đối tượng bị tấn công theo hướng chính xác[cite: 474, 475].
+            </li>
+        </ul>
 
-    <section id="features">
-    <h2>Các tính năng (Chi tiết kỹ thuật)</h2>
+        <h2>Link Tải & Xem Chi Tiết</h2>
+        <p>Để xem chi tiết tất cả các tính năng và code, bạn có thể tải project tại các liên kết sau:</p>
+        <div class="download-links">
+            [cite_start]<a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Tải về (Google Drive)</a> [cite: 478]
+            [cite_start]<a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Xem Code (Github)</a> [cite: 478]
+        </div>
 
-    <h3>Tính năng 1: Input và Kiểm soát di chuyển (Picture 4 - 6)</h3>
-    <p>Em dùng INPUT bằng cả Keyboard và Button trên màn hình để có thể chơi được bằng nhiều cách và thêm biến Hit Time khi đánh sẽ set Hit Time là true thì lúc này player sẽ không di chuyển được.</p>
-    <div class="gallery" data-slot="f1"></div>
-
-    <h3>Tính năng 2: Quản lý 5 dạng nhân vật (Picture 7 - 9)</h3>
-    <p>Nhân vật có 5 hình dạng em dùng biến Type kiểu Int và Switch, mỗi giá trị từ 0 – 4 sẽ quy định các chức năng của dạng đó mà không có các chức năng dạng khác được bật.</p>
-    <div class="gallery" data-slot="f2"></div>
-
-    <h3>Tính năng 3: Menu chọn nhân vật (Picture 10 - 12)</h3>
-    <p>Menu chọn nhân vật sẽ xuất hiện khi ấn Q: em dùng get input khi ấn Q sẽ bật UI menu lên và với Type dạng nào thì sẽ vô hiệu hóa nút dạng đó để không biến thành dạng hiện tại và gọi event thoát menu khi chọn player xong để thực hiện lệnh ẩn menu.</p>
-    <div class="gallery" data-slot="f3"></div>
-
-    <h3>Tính năng 4: Mini UI và Cooldown (Picture 13 - 15)</h3>
-    <p>Mini UI đổi nhân vật tương tự Menu ở trên, có thể ấn để chuyển đổi dạng nhưng dành cho Input bằng Click chuột. Sau khi chọn ở Mini Menu này hay Menu bên trên sẽ có một khoảng thời gian cooldown không thể chuyển dạng liên tục; em bật UI ảnh cooldown lên nút để ngăn người dùng bấm và dùng Node Cooldown sau 1 thời gian sẽ tắt ảnh cooldown để người chơi có thể ấn lại được. Mỗi dạng sẽ có một icon được hiện màu vàng tương ứng để hiển thị dạng player đã chọn theo biến Type.</p>
-    <div class="gallery" data-slot="f4"></div>
-
-    <h3>Tính năng 5: Health Bar và Thay đổi Max Health (Picture 16 - 18)</h3>
-    <p>Health Bar: Dùng node Slider và cập nhật Value theo phần trăm máu và Max Value bằng biến Max Health. Để giữ tỉ lệ phần trăm máu sau khi đổi giữa các dạng có Max Health khác nhau thì em tạo thêm 1 biến tên MaxHealthOld để lưu Max Health của dạng trước trước khi set Max Health mới và dùng công thức: <code>Health = MaxHealthNew * (OldHealth / MaxHealthOld)</code></p>
-    <div class="gallery" data-slot="f5"></div>
-
-    <h3>Tính năng 6: Cơ chế Hồi máu tự động (Picture 19 - 21)</h3>
-    <p>Player hồi máu sau 5s không nhận sát thương và máu thấp hơn Max Health. Em dùng event Hit khi mỗi lần bị Enemy đánh và mỗi lần bị đánh sẽ reset cooldown lại 5s; tức sau khi bị đánh thì máu thấp hơn Max Health và 5s kế tiếp mới được đặt Health + 1.</p>
-    <div class="gallery" data-slot="f6"></div>
-
-    <h3>Tính năng 7: Player Death và Game Over (Picture 22 - 24)</h3>
-    <p>Player Death: em dùng node Op Update để kiểm tra khi Player có máu &lt;= 0 và Y &lt; -12 sẽ set bool Death ở Animator để thực hiện Animation Death của player và hiện menu GameOver và Destroy Player sau vài giây thực hiện animation.</p>
-    <div class="gallery" data-slot="f7"></div>
-
-    <h3>Tính năng 8: Tương tác Dung nham và Nước (Picture 25 - 27)</h3>
-    <p>Dung nham và nước sẽ bật tắt collider thêm dạng nhân vật (khi player ở dạng lava thì collider sẽ được bật để player đi qua); nếu ở dạng khác thì player sẽ bị rơi xuống và đặt máu về -5 (đặt về -5 để tránh player hồi máu vì không có event hit lúc này).</p>
-    <div class="gallery" data-slot="f8"></div>
-
-    <h3>Tính năng 9: Hiệu ứng Thị sai (Parallax Layer Map) (Picture 28)</h3>
-    <p>Layer Map được sắp xếp xa gần theo trục z và camera mode Perspective để tạo cảm giác không gian chân thực khi di chuyển.</p>
-    <div class="gallery" data-slot="f9"></div>
-
-    <h3>Tính năng 10: Kĩ năng Nhân vật (Picture 29 - 31)</h3>
-    <p>Kĩ năng nhân vật: với các dạng khác nhau nhân vật sẽ chạy các lệnh khác nhau với Switch với cùng 1 input và dùng node Once và Cooldown để tạo thời gian hồi chiêu sau mỗi lần dùng. Player sẽ có các skill khác nhau:</p>
-    <ul>
-      <li>**Normal**: player ở dạng mặc định các thông số bình thường và không có skill.</li>
-      <li>**Ice**: Skill bắn đạn băng, **làm chậm** quái vật.</li>
-      <li>**Fire**: Bật trigger hitbox gây **cháy** (trừ máu lặp lại) và **Nockback**.</li>
-      <li>**Stone**: Không có kĩ năng, máu và damage tăng cao.</li>
-      <li>**Wind**: Giảm gravity, tăng bật nhảy/tốc độ. Skill tạo hiệu ứng **hất tung** và lơ lửng.</li>
-    </ul>
-    <div class="gallery" data-slot="f10"></div>
-
-    <h3>Tính năng 11: Xử lí hình ảnh – đồ hoạ (Volume/Bloom/Aberration) (Picture 32 - 33)</h3>
-    <p>Em dùng thêm Volume với các mục như Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt.</p>
-    <div class="gallery" data-slot="f11"></div>
-
-    <h3>Tính năng 12: Hiệu ứng Thanh máu khi nhận sát thương (Picture 34 - 45)</h3>
-    <p>Hiệu ứng thanh máu sau khi nhận sát thương: em dùng node set color thanh máu thành màu cam và dùng node cooldown để delay sau 0.5s sẽ đặt màu thanh máu lại màu đỏ.</p>
-    <div class="gallery" data-slot="f12"></div>
-
-    <h3>Tính năng 13: Hiển thị Coin (Picture 46 - 48)</h3>
-    <p>Hiển thị Coin: em tạo biến Coin dạng INT để lưu số Coin, sau khi player kill được Enemy sẽ add 1 điểm vào Coin. Em dùng On Update để cập nhật Text điểm hiển thị trên UI bằng cách set Text bằng giá trị của biến Coin.</p>
-    <div class="gallery" data-slot="f13"></div>
-
-    <h3>Tính năng 14: Hiệu ứng Nockback (Picture 49 - 51)</h3>
-    <p>Hiệu ứng Nockback: mỗi khi có trigger va chạm với hitbox tấn công sẽ truyền event cùng với biến Right được cập nhật True/False khi di chuyển để xác định đối tượng tấn công đang xoay bên nào. Ở đối tượng bị tấn công sẽ xét giá trị biến Right mà thực hiện hướng Nockback với node Add Force.</p>
-    <div class="gallery" data-slot="f14"></div>
-
-    <h3>Tính năng 15: Phím ESC (Tắt/Bật UI) (Picture 52 - 55)</h3>
-    <p>ESC: em dùng ON Update kiểm tra khi người dùng ấn key ESC thì nó sẽ chạy lệnh ẩn tất cả UI trên màn hình.</p>
-    <div class="gallery" data-slot="f15"></div>
-
-    <h3>Tính năng 16: Door (Màn hình Win) (Picture 56 - 57)</h3>
-    <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màn hình Win và sau 2s sẽ load scene về Menu.</p>
-    <div class="gallery" data-slot="f16"></div>
-
-  </section>
-
-  <section id="links">
-    <h2>Liên kết tải về</h2>
-    <p>Drive: <a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Tải từ Google Drive</a></p>
-    <p>GitHub: <a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Xem mã nguồn</a></p>
-  </section>
-
-</main>
-
-<div id="overlay" onclick="closeOverlay(event)"><div class="box"><span class="close" onclick="closeOverlay(event)">×</span><img src="" alt="Ảnh phóng to"></div></div>
-<div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
-<div class="facebook-icon" onclick="window.open('https://facebook.com/JemNaNa','_blank')">Facebook: Gia Phú</div>
-<img id="player" class="player" src="/Image_Web/PLayer_Normal_Idle1.png" alt="Player Character">
-
-<script>
-// Cấu hình số lượng ảnh cho mỗi section (Tổng cộng 57 ảnh)
-const adjusted_sequence = [
-  2,  // images-in-game: P1, P2
-  1,  // unity: P3
-  3,  // f1: P4, P5, P6
-  3,  // f2: P7, P8, P9
-  3,  // f3: P10, P11, P12
-  3,  // f4: P13, P14, P15
-  3,  // f5: P16, P17, P18
-  3,  // f6: P19, P20, P21
-  3,  // f7: P22, P23, P24
-  3,  // f8: P25, P26, P27
-  1,  // f9: P28
-  3,  // f10: P29, P30, P31
-  2,  // f11: P32, P33
-  12, // f12: P34 - P45
-  3,  // f13: P46, P47, P48
-  3,  // f14: P49, P50, P51
-  4,  // f15: P52, P53, P54, P55
-  2   // f16: P56, P57
-];
-
-const slots=['images-in-game','unity','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11','f12','f13','f14','f15','f16'];
-// ĐƯỜNG DẪN CŨ: /Image_Web/Picture
-const basePath='/Image_Web/Picture'; 
-const ext='.png';
-const maxPicture=57;
-
-function appendThumb(container,src,caption){
-  const div=document.createElement('div'); div.className='thumb';
-  const img=document.createElement('img'); img.src=src; img.alt=caption; img.loading='lazy';
-  div.appendChild(img); container.appendChild(div);
-  img.addEventListener('click',()=>openOverlay(src));
-  img.onerror=()=>{img.style.opacity=0.2; img.alt='(Ảnh không tìm thấy) '+caption};
-}
-
-function openOverlay(src){
-  const overlay=document.getElementById('overlay');
-  overlay.querySelector('img').src=src;
-  overlay.classList.add('show'); document.body.style.overflow='hidden';
-}
-
-function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementById('overlay'); overlay.classList.remove('show'); document.body.style.overflow='auto';}
-
-// populate galleries
-(function populate(){
-  let pic=1;
-  let slotIdx=0;
-  for(let s=0;s<adjusted_sequence.length;s++){
-    const slotName=slots[slotIdx]||'extra';
-    const container=document.querySelector(`[data-slot="${slotName}"]`);
-    for(let i=0;i<adjusted_sequence[s];i++){
-      if(pic>maxPicture) break;
-      // Dùng đường dẫn cũ
-      if(container) appendThumb(container,basePath+pic+ext,'Picture'+pic+'.png');
-      else appendThumb(document.querySelector('[data-slot="extra"]'),basePath+pic+ext,'Picture'+pic+'.png');
-      pic++;
-    }
-    slotIdx++;
-  }
-})();
-
-// player animation
-const player=document.getElementById('player');
-// ĐƯỜNG DẪN CŨ: /Image_Web/PLayer_... (PL viết hoa)
-const playerStates={
-  'Normal':['/Image_Web/PLayer_Normal_Idle1.png','/Image_Web/PLayer_Normal_Idle2.png','/Image_Web/PLayer_Normal_Idle3.png','/Image_Web/PLayer_Normal_Idle4.png'],
-  'Ice':['/Image_Web/PLayer_Ice_Idle1.png','/Image_Web/PLayer_Ice_Idle2.png','/Image_Web/PLayer_Ice_Idle3.png','/Image_Web/PLayer_Ice_Idle4.png'],
-  'Fire':['/Image_Web/PLayer_Fire_Idle1.png','/Image_Web/PLayer_Fire_Idle2.png','/Image_Web/PLayer_Fire_Idle3.png','/Image_Web/PLayer_Fire_Idle4.png'],
-  'Stone':['/Image_Web/PLayer_Stone_Idle1.png','/Image_Web/PLayer_Stone_Idle2.png','/Image_Web/PLayer_Stone_Idle3.png','/Image_Web/PLayer_Stone_Idle4.png'],
-  'Wind':['/Image_Web/PLayer_Wind_Idle1.png','/Image_Web/PLayer_Wind_Idle2.png','/Image_Web/PLayer_Wind_Idle3.png','/Image_Web/PLayer_Wind_Idle4.png']
-};
-let animFrames=playerStates['Normal'];
-let frame=0;
-setInterval(()=>{
-  // Đường dẫn ảnh Player animation
-  player.src=animFrames[frame];
-  frame=(frame+1)%animFrames.length;
-},200);
-
-// player scroll position update
-function updatePlayerPosition(){
-  const scrollY=window.scrollY + window.innerHeight/2;
-  const sectionHeight=document.body.scrollHeight / 5;
-  let section=Math.floor(scrollY/sectionHeight);
-  if(section>4) section=4;
-
-  // alternate left/right
-  let side=(section%2===0)?20:window.innerWidth-160;
-  player.style.left=side+'px';
-  player.style.top=(sectionHeight*section + sectionHeight/2 - player.offsetHeight/2)+'px';
-
-  // change animation per section
-  const types=['Normal','Ice','Fire','Stone','Wind'];
-  animFrames=playerStates[types[section%types.length]];
-}
-
-window.addEventListener('scroll',updatePlayerPosition);
-window.addEventListener('resize',updatePlayerPosition);
-updatePlayerPosition();
-</script>
+        <footer>
+            <p>Tài liệu này được tạo tự động dựa trên file báo cáo PS47618_Nguyen Gia Phu_ASM2_GAM104.pdf.</p>
+            <p>FPT POLYTECHNIC COLLEGE - NHẬP MÔN LẬP TRÌNH GAME</p>
+        </footer>
+    </div>
 
 </body>
 </html>
