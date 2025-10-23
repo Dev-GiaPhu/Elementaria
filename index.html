@@ -3,151 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elementaria Project - Kiểm tra bố cục</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Kiểm tra Giao Diện Đơn Giản</title>
 <style>
-/* --- 1. BIẾN MÀU (COLOR VARIABLES) --- */
-:root{
-  --bg-dark:#080d15; /* Màu xanh đen đậm */
-  --bg-card:#0f151f;
-  --accent-main:#f6d365;
-  --text-muted:#aab7c6;
-  --text-light:#ffffff;
+/* CSS NỘI TUYẾN TỐI GIẢN */
+:root {
+    --bg-main: #0a2f1c; /* Màu xanh lá đậm tĩnh */
+    --bg-header: #134e48;
+    --bg-section: #2e605d;
+    --text-color: #e0ffff;
 }
-
-/* --- 2. GLOBAL STYLES --- */
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:'Roboto', sans-serif;
-  /* SỬ DỤNG MÀU NỀN TĨNH */
-  background:var(--bg-dark); 
-  color:var(--text-muted);
-  overflow-x:hidden;
-  line-height:1.6;
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-main); /* Nền xanh lục để dễ nhận biết */
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    min-height: 200vh; /* Kéo dài trang để kiểm tra cuộn */
 }
-h1, h2, h3{font-weight:700; color:var(--text-light);}
-h2{color:var(--accent-main); font-size:2rem; margin-top:0;}
-
-/* --- 3. HEADER & NAVIGATION (Kiểm tra Sticky Header) --- */
-header{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  padding:28px 24px;
-  background:rgba(15, 21, 31, 0.9);
-  backdrop-filter:blur(8px);
-  border-bottom:2px solid var(--accent-main);
-  position:sticky;
-  top:0;
-  z-index:100;
+header {
+    background: var(--bg-header);
+    padding: 20px;
+    text-align: center;
+    position: sticky; /* Kiểm tra Header dính */
+    top: 0;
+    z-index: 100;
 }
-header img{
-  height:80px;
-  width:auto;
-  border-radius:8px;
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
-header h1{margin:0; font-size:24px; color:var(--accent-main);}
-
-/* --- 4. MAIN CONTENT & SECTIONS (Kiểm tra Centering và Padding) --- */
-main{
-  max-width:1200px;
-  margin:30px auto;
-  padding:0 24px 150px;
-}
-section{
-  background:var(--bg-card);
-  padding:25px;
-  border-radius:15px;
-  margin-bottom:30px;
-  border:1px solid rgba(128, 255, 213, 0.1);
-}
-.placeholder-text {
-    height: 150px; /* Tạo chiều cao để kiểm tra scroll */
-    background: rgba(255, 255, 255, 0.05);
+section {
+    background: var(--bg-section);
+    padding: 20px;
+    margin-bottom: 20px;
     border-radius: 8px;
-    padding: 15px;
-    color: var(--text-muted);
-}
-
-/* --- 5. PLAYER ANIMATION (Kiểm tra Fixed/Sticky Player) --- */
-.player{
-  position:fixed;
-  bottom:0;
-  width:auto;
-  height:auto;
-  transform:scale(2.5);
-  z-index:50;
-  transition:transform 0.5s linear,left 0.5s linear,top 0.5s linear;
 }
 </style>
 </head>
 <body>
 
 <header>
-    <img src="/Image_Web/Logo.png" alt="Logo">
-  <div class="title">
-    <h1>Kiểm tra giao diện</h1>
-    <p>Màu nền: Xanh đen đậm</p>
-  </div>
+    <h1>TEST GIAO DIỆN - NỀN MÀU XANH LỤC ĐẬM</h1>
 </header>
 
 <main>
-    <h2>Phần 1: Tổng quan</h2>
-    <section id="overview">
-      <h3>Bố cục đã được load</h3>
-      <p>Nếu bạn thấy nền màu xanh đen, header dính và nội dung được căn giữa, thì bố cục CSS đã hoạt động đúng. Vấn đề chỉ còn nằm ở đường dẫn tệp ảnh nền.</p>
-      <div class="placeholder-text">Đây là khu vực nội dung mẫu</div>
-    </section>
+    <section>
+        <h2>Phần 1: Nội dung chính</h2>
+        <p>Nếu bạn thấy nền màu xanh lục, và header cố định (sticky), thì bố cục đã hoạt động.</p>
+    </section>
 
-    <h2>Phần 2: Tính năng</h2>
-    <section id="features1">
-      <h3>Tính năng mẫu 1</h3>
-      <p>Kiểm tra cuộn trang để xem player và header có hoạt động đúng không.</p>
-      <div class="placeholder-text">Nội dung placeholder 2</div>
-    </section>
+    <section>
+        <h2>Phần 2: Kiểm tra Cuộn Trang</h2>
+        <p>Vui lòng cuộn xuống để đảm bảo header vẫn ở trên cùng.</p>
+    </section>
 
-    <h2>Phần 3: Kết thúc</h2>
-    <section id="features2">
-      <h3>Tính năng mẫu 2</h3>
-      <p>Phần này dùng để kéo dài trang, buộc player phải di chuyển theo vị trí scroll.</p>
-      <div class="placeholder-text">Nội dung placeholder 3 (kết thúc trang)</div>
-    </section>
-
+    <section style="height: 500px;">
+        <h2>Phần 3: Phần kéo dài</h2>
+        <p>Đoạn này giúp bạn cuộn trang.</p>
+    </section>
 </main>
-
-<div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
-<img id="player" class="player" src="/Image_Web/PLayer_Normal_Idle1.png" alt="Player Character">
-
-<script>
-// Đoạn script tối giản chỉ để kiểm tra hoạt động của Player khi cuộn trang
-const player=document.getElementById('player');
-// SỬA: Dùng đường dẫn tuyệt đối /Image_Web/PLayer_... (PL viết hoa)
-const playerStates={
-  'Normal':['/Image_Web/PLayer_Normal_Idle1.png'], // Giữ lại 1 frame để test
-  'Ice':['/Image_Web/PLayer_Ice_Idle1.png']
-};
-let animFrames=playerStates['Normal'];
-
-// player scroll position update
-function updatePlayerPosition(){
-  const scrollY=window.scrollY + window.innerHeight/2;
-  // Sử dụng chiều cao cố định để test vị trí
-  const sectionHeight=document.body.scrollHeight / 3; 
-  let section=Math.floor(scrollY/sectionHeight);
-  if(section>2) section=2;
-
-  // alternate left/right
-  let side=(section%2===0)?20:window.innerWidth-160;
-  player.style.left=side+'px';
-  // player nhảy lên vị trí giữa của phần hiện tại
-  player.style.top=(sectionHeight*section + sectionHeight/2 - player.offsetHeight/2)+'px';
-}
-
-window.addEventListener('scroll',updatePlayerPosition);
-window.addEventListener('resize',updatePlayerPosition);
-updatePlayerPosition();
-</script>
 
 </body>
 </html>
