@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elementaria - The Elemental Action Platformer</title>
+    <title>Elementaria - Game Showcase</title>
     <style>
         /* ======================================= */
         /* 1. HIỆU ỨNG NỀN PARALLAX VÀ CƠ BẢN */
         /* ======================================= */
+        :root {
+            --color-primary: #008b8b; /* Xanh ngọc đậm */
+            --color-secondary: #004d4d; /* Xanh biển đậm (Hỗ trợ) */
+            --color-highlight: #ffcc00; /* Vàng (Nổi bật) */
+            --color-text: #e0f7fa; /* Trắng xanh */
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            color: #e0e0e0;
+            color: var(--color-text);
             
             /* Thiết lập nền Parallax */
-            background-image: url('background.png');
+            background-image: url('image_web/background.png');
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Tạo hiệu ứng nền cố định */
-            background-size: cover; /* Đảm bảo ảnh nền phủ kín */
-            background-color: #1a1a2e; /* Màu dự phòng nếu ảnh không tải được */
+            background-attachment: fixed; 
+            background-size: cover; 
+            background-color: #002626; /* Màu dự phòng */
         }
         .container {
             width: 90%;
@@ -31,49 +37,41 @@
         /* Lớp phủ cho nội dung để dễ đọc */
         .section {
             padding: 60px 0;
-            /* Tạo một lớp phủ tối (có độ trong suốt) cho các section để nội dung dễ đọc hơn */
-            background-color: rgba(26, 26, 46, 0.75); 
+            background-color: rgba(0, 38, 38, 0.75); /* Màu nền đậm, trong suốt */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* ======================================= */
-        /* 2. HEADER VÀ HERO SECTION */
+        /* 2. HERO SECTION (Tích hợp Logo và Tên game) */
         /* ======================================= */
-        header {
-            background-color: rgba(44, 44, 84, 0.9);
-            padding: 15px 0;
-            text-align: center;
-            /* Hiệu ứng làm mờ nền phía sau (Chỉ hoạt động trên các trình duyệt hiện đại) */
-            backdrop-filter: blur(5px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo { max-height: 60px; vertical-align: middle; margin-right: 20px; }
-        header h1 {
-            display: inline-block;
-            color: #ffcc00; 
-            font-size: 2.2em;
-            margin: 0;
-        }
         #hero {
             position: relative;
             text-align: center;
-            padding: 120px 0;
-            background: none; /* Đã có background cho Body */
+            padding: 150px 0 120px;
             min-height: 400px;
         }
+        .logo {
+            max-height: 120px;
+            margin-bottom: 20px;
+        }
         #hero h2 {
-            font-size: 3.5em;
+            font-size: 4em;
+            margin: 0;
             text-transform: uppercase;
             letter-spacing: 5px;
-            color: #00bcd4;
+            color: var(--color-primary); /* Xanh ngọc đậm */
+            text-shadow: 0 0 10px var(--color-primary), 0 0 20px rgba(0, 139, 139, 0.5);
+        }
+        #hero p {
+            font-size: 1.5em;
+            max-width: 600px;
+            margin: 20px auto;
         }
         .cta-button {
             display: inline-block;
             padding: 15px 30px;
-            background-color: #ff7f50;
-            color: white;
+            background-color: var(--color-highlight);
+            color: #1a1a1a;
             text-decoration: none;
             font-size: 1.2em;
             font-weight: bold;
@@ -81,7 +79,7 @@
             margin-top: 20px;
             transition: background-color 0.3s;
         }
-        .cta-button:hover { background-color: #e56d45; }
+        .cta-button:hover { background-color: #e5b300; }
 
         /* ======================================= */
         /* 3. CARD VÀ HIỆU ỨNG LÀM MỜ (GLASS MORPHISM) */
@@ -89,7 +87,7 @@
         .section h2 {
             text-align: center;
             font-size: 2.5em;
-            color: #ffcc00;
+            color: var(--color-highlight);
             margin-bottom: 40px;
             text-transform: uppercase;
         }
@@ -108,16 +106,16 @@
             text-align: center;
             
             /* Hiệu ứng Làm mờ nền phía dưới Card */
-            background-color: rgba(44, 44, 84, 0.6); /* Nền tối hơn và trong suốt */
-            backdrop-filter: blur(10px); /* Kỹ thuật làm mờ (Glass Morphism) */
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Viền mỏng, trong suốt */
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Đổ bóng nổi */
+            background-color: rgba(0, 77, 77, 0.7); /* Nền xanh biển đậm, trong suốt */
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
             
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .feature-card:hover {
-            transform: translateY(-5px); /* Hiệu ứng nổi lên khi hover */
-            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
         }
         .feature-card img {
             width: 100%;
@@ -126,16 +124,16 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 15px;
-            border: 3px solid #00bcd4;
+            border: 3px solid var(--color-primary); /* Viền xanh ngọc */
         }
         .feature-card h3 {
-            color: #00bcd4;
+            color: var(--color-primary);
             margin-top: 0;
             font-size: 1.4em;
         }
         .technical-info {
             font-size: 0.85em;
-            color: #ccc;
+            color: #b3e5fc; /* Màu xanh nhạt */
         }
 
         /* ======================================= */
@@ -144,7 +142,7 @@
         footer {
             text-align: center;
             padding: 20px 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             font-size: 0.8em;
             color: #777;
         }
@@ -152,16 +150,10 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <img src="image_web/logo.png" alt="Elementaria Logo" class="logo">
-            <h1>ELEMENTARIA</h1>
-        </div>
-    </header>
-
     <section id="hero">
         <div class="content container">
-            <h2>The Elemental Action Platformer</h2>
+            <img src="image_web/logo.png" alt="Elementaria Logo" class="logo">
+            <h2>ELEMENTARIA</h2>
             <p>Khám phá thế giới Elementaria, nơi bạn làm chủ 4 nguyên tố Lửa, Nước, Đá, Khí để chiến đấu chống lại các khối đá nguyên tố hỗn loạn. Chuyển đổi linh hoạt để sống sót!</p>
             <a href="#features" class="cta-button">KHÁM PHÁ CÁC TÍNH NĂNG</a>
         </div>
@@ -169,52 +161,138 @@
 
     <section id="features" class="section">
         <div class="container">
-            <h2>Tính Năng Cốt Lõi</h2>
+            <h2>Hình Ảnh Các Tính Năng Trong Game</h2>
             <div class="feature-grid">
                 
                 <div class="feature-card">
-                    <img src="image_web/picture6.png" alt="Hệ thống Dạng" loading="lazy">
-                    <h3>Hệ Thống 5 Dạng Nguyên Tố</h3>
-                    <p>Nhân vật chính sở hữu 5 hình dạng (Base, Lửa, Băng, Đá, Khí). Mỗi dạng mang lại các chỉ số, nội tại và kĩ năng hoàn toàn khác biệt, buộc người chơi phải thay đổi chiến thuật liên tục.</p>
-                    <p class="technical-info"> (Tính năng 2 & 10) </p>
+                    <img src="image_web/picture2.png" alt="Điều khiển Game" loading="lazy">
+                    <h3>1. Điều khiển & Trạng thái</h3>
+                    <p>Sử dụng Input Keyboard và Button. Xử lý trạng thái bị đánh bằng biến Hit Time để ngăn di chuyển.</p>
+                    <img src="image_web/picture3.png" alt="Điều khiển Game" loading="lazy">
                 </div>
 
                 <div class="feature-card">
-                    <img src="image_web/picture15.png" alt="Kỹ năng Lửa và Nockback" loading="lazy">
-                    <h3>Chiến Đấu Hành Động Tốc Độ</h3>
-                    <p>Sử dụng kỹ năng độc đáo: Băng làm chậm, Lửa gây cháy và đẩy lùi (Nockback), Khí hất tung và thay đổi trọng lực. Hệ thống chiến đấu đòi hỏi phản xạ nhanh và sự kết hợp chiêu thức.</p>
-                    <p class="technical-info"> (Tính năng 10 & 14) </p>
+                    <img src="image_web/picture4.png" alt="Hệ thống Dạng" loading="lazy">
+                    <h3>2. Hệ Thống 5 Dạng Nguyên Tố</h3>
+                    <p>Dùng biến Type (Int) và Switch để quy định 5 hình dạng nhân vật với chỉ số và chức năng khác nhau.</p>
                 </div>
 
                 <div class="feature-card">
-                    <img src="image_web/picture9.png" alt="Thanh Máu và Hồi chiêu" loading="lazy">
-                    <h3>Quản Lý Thanh Máu & UI</h3>
-                    <p>Thanh máu được quản lý chặt chẽ. Cơ chế hồi máu tự động sau 5s không nhận sát thương. Giao diện Mini UI giúp chuyển dạng nhanh chóng với Cooldown hợp lý.</p>
-                    <p class="technical-info"> (Tính năng 3, 5 & 6) </p>
-                </div>
-
-                <div class="feature-card">
-                    <img src="image_web/picture13.png" alt="Tương tác Môi trường và Chiều sâu" loading="lazy">
-                    <h3>Thử Thách Môi Trường</h3>
-                    <p>Tương tác với các yếu tố như Lava và Water, đòi hỏi nhân vật phải ở đúng dạng nguyên tố. Kỹ thuật sắp xếp Layer Map theo trục Z tạo chiều sâu cho màn chơi.</p>
-                    <p class="technical-info"> (Tính năng 8 & 9) </p>
-                </div>
-
-                <div class="feature-card">
-                    <img src="image_web/picture17.png" alt="Hiệu ứng đồ họa" loading="lazy">
-                    <h3>Hiệu Ứng Hình Ảnh Đẹp Mắt</h3>
-                    <p>Game được trang bị các hiệu ứng đồ họa hiện đại như **Bloom** (ánh sáng rực rỡ) và **Chromatic Aberration** (tạo độ sâu trường ảnh), mang lại trải nghiệm thị giác sống động.</p>
-                    <p class="technical-info"> (Tính năng 11) </p>
-                </div>
-
-                <div class="feature-card">
-                    <img src="image_web/picture22.png" alt="Cánh cửa chiến thắng" loading="lazy">
-                    <h3>Chiến Thắng và Kết Thúc</h3>
-                    <p>Mục tiêu là đi đến cánh cửa (Door) để hoàn thành màn chơi. Đồng thời, thu thập **Coin** và xử lý các trạng thái Chết/GameOver một cách mượt mà.</p>
-                    <p class="technical-info"> (Tính năng 7, 13 & 16) </p>
+                    <img src="image_web/picture5.png" alt="Menu chuyển dạng" loading="lazy">
+                    <h3>3. Menu Chuyển Dạng</h3>
+                    <p>Menu chọn nhân vật khi ấn Q. Sau khi chọn sẽ có thời gian Cooldown để ngăn chuyển đổi liên tục.</p>
+                    <img src="image_web/picture6.png" alt="Mini UI" loading="lazy">
+                    <img src="image_web/picture7.png" alt="Cooldown" loading="lazy">
                 </div>
                 
-            </div>
+                <div class="feature-card">
+                    <img src="image_web/picture8.png" alt="Thanh Máu" loading="lazy">
+                    <h3>4. Thanh Máu (Heath Bar)</h3>
+                    <p>Sử dụng Node Slider và có logic giữ tỉ lệ phần trăm máu khi chuyển đổi giữa các dạng có Max Heath khác nhau.</p>
+                    <img src="image_web/picture9.png" alt="Máu theo phần trăm" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture10.png" alt="Hồi Máu" loading="lazy">
+                    <h3>5. Hồi Máu Tự Động</h3>
+                    <p>Player hồi máu sau 5s không nhận sát thương và máu thấp hơn Max Heath. Event Hit sẽ reset Cooldown này.</p>
+                    <img src="image_web/picture11.png" alt="Logic Hồi Máu" loading="lazy">
+                    <img src="image_web/picture12.png" alt="Cooldown Hồi Máu" loading="lazy">
+                    <img src="image_web/picture13.png" alt="Reset Cooldown" loading="lazy">
+                </div>
+                
+                <div class="feature-card">
+                    <img src="image_web/picture14.png" alt="Điều kiện chết" loading="lazy">
+                    <h3>6. Chết (Death)</h3>
+                    <p>Kích hoạt Animation Death và hiện menu GameOver khi máu $\le 0$ hoặc rơi xuống vực (Y $\le -12$).</p>
+                    <img src="image_web/picture15.png" alt="Kích hoạt Game Over" loading="lazy">
+                    <img src="image_web/picture16.png" alt="Menu Game Over" loading="lazy">
+                    <img src="image_web/picture17.png" alt="Reset Game" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture18.png" alt="Lava" loading="lazy">
+                    <h3>7. Dung Nham và Nước</h3>
+                    <p>Xử lý va chạm với môi trường Lava/Water. Phải ở đúng dạng nguyên tố (VD: Fire với Lava) để không bị mất máu.</p>
+                    <img src="image_web/picture19.png" alt="Va chạm Lava" loading="lazy">
+                    <img src="image_web/picture20.png" alt="Xử lý Water" loading="lazy">
+                    <img src="image_web/picture21.png" alt="Bật Collider Water" loading="lazy">
+                    <img src="image_web/picture22.png" alt="Va chạm Water" loading="lazy">
+                    <img src="image_web/picture23.png" alt="Nền Water" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture24.png" alt="Hiệu ứng Chiều sâu" loading="lazy">
+                    <h3>8. Hiệu ứng Chiều sâu</h3>
+                    <p>Sử dụng Camera Mode Perspective và sắp xếp Layer Map theo trục Z để tạo cảm giác không gian chân thực.</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture25.png" alt="Kĩ năng Lửa" loading="lazy">
+                    <h3>9. Kĩ năng Lửa</h3>
+                    <p>Sử dụng Trigger Hitbox vùng tấn công, gây hiệu ứng cháy và nockback (đẩy lùi) đối thủ.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="image_web/picture26.png" alt="Kĩ năng Băng" loading="lazy">
+                    <h3>10. Kĩ Năng Nguyên Tố</h3>
+                    <p>Băng làm chậm (1), Khí giảm trọng lực/hất tung (1,2), Đá tăng chỉ số (3), Hồi chiêu (1,4).</p>
+                    <img src="image_web/picture27.png" alt="Kĩ năng Băng" loading="lazy">
+                    <img src="image_web/picture28.png" alt="Kĩ năng Khí" loading="lazy">
+                    <img src="image_web/picture29.png" alt="Kĩ năng Khí" loading="lazy">
+                    <img src="image_web/picture30.png" alt="Kĩ năng Khí" loading="lazy">
+                    <img src="image_web/picture31.png" alt="Kĩ năng Đá" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture32.png" alt="Volume" loading="lazy">
+                    <h3>11. Xử lý Hình ảnh (Volume)</h3>
+                    <p>Sử dụng Volume với Bloom và Chromatic Aberration để tạo hiệu ứng ánh sáng và độ sâu trường ảnh.</p>
+                    <img src="image_web/picture33.png" alt="Trước Volume" loading="lazy">
+                    <img src="image_web/picture34.png" alt="Sau Volume" loading="lazy">
+                    <img src="image_web/picture35.png" alt="Ảnh đồ họa" loading="lazy">
+                </div>
+                
+                <div class="feature-card">
+                    <img src="image_web/picture36.png" alt="Hiệu ứng Sát thương" loading="lazy">
+                    <h3>12. Hiệu ứng Sát thương</h3>
+                    <p>Thanh máu chuyển màu cam sau khi nhận sát thương và quay về màu đỏ sau 0.5s.</p>
+                    <img src="image_web/picture37.png" alt="Logic hiệu ứng sát thương" loading="lazy">
+                    <img src="image_web/picture38.png" alt="Màu máu" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture39.png" alt="Coin" loading="lazy">
+                    <h3>13. Hiện thị Coin</h3>
+                    <p>Sử dụng biến Coin (INT). Sau khi Player kill Enemy sẽ thêm 1 điểm vào Coin và cập nhật Text điểm trên UI.</p>
+                    <img src="image_web/picture40.png" alt="Add Coin" loading="lazy">
+                    <img src="image_web/picture41.png" alt="Cập nhật Text" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture42.png" alt="Nockback" loading="lazy">
+                    <h3>14. Hiệu ứng Nockback</h3>
+                    <p>Sử dụng biến **Right** để xác định hướng tấn công và dùng Node **Add Force** để đẩy lùi đối tượng bị tấn công theo hướng chính xác.</p>
+                    <img src="image_web/picture43.png" alt="Logic Nockback" loading="lazy">
+                    <img src="image_web/picture44.png" alt="Xác định hướng tấn công" loading="lazy">
+                    <img src="image_web/picture45.png" alt="Thực hiện Nockback" loading="lazy">
+                    <img src="image_web/picture46.png" alt="Trở lại sau Nockback" loading="lazy">
+                </div>
+                
+                <div class="feature-card">
+                    <img src="image_web/picture47.png" alt="ESC" loading="lazy">
+                    <h3>15. Phím ESC</h3>
+                    <p>Kiểm tra khi người dùng ấn key ESC thì sẽ chạy lệnh ẩn tất cả UI trên màn hình.</p>
+                    <img src="image_web/picture48.png" alt="Logic ẩn UI" loading="lazy">
+                </div>
+
+                <div class="feature-card">
+                    <img src="image_web/picture49.png" alt="Door" loading="lazy">
+                    <h3>16. Cửa Kết Thúc (Door)</h3>
+                    <p>Khi Player va chạm với vật gắn tag là Door sẽ hiện màn hình Win và load scene về Menu sau 2s.</p>
+                </div>
+
+                </div>
         </div>
     </section>
 
