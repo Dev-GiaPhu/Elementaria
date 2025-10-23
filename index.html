@@ -42,7 +42,6 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            display: block;
         }
         .section {
             padding: 60px 0;
@@ -56,7 +55,9 @@
             text-align: center;
             padding: 150px 0 120px;
             min-height: 400px;
-            overflow: hidden; /* Giữ các icon bay trong khu vực hero */
+            /* Đảm bảo nội dung hero không bị che bởi các icon cố định */
+            z-index: 10; 
+            background-color: transparent;
         }
         .logo {
             max-height: 120px;
@@ -69,7 +70,7 @@
             letter-spacing: 5px;
             color: var(--color-highlight); 
             z-index: 10;
-            position: relative; /* Đảm bảo chữ nằm trên các icon */
+            position: relative;
             
             /* Font chữ Metal & Hiệu ứng 3D/Dập nổi */
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -100,70 +101,58 @@
             border-color: var(--color-highlight);
         }
 
-        /* CÁC ICON ELEMENT BAY XUNG QUANH */
+        /* CÁC ICON ELEMENT BAY KHẮP TRANG (ĐÃ SỬA) */
         .element-orbit {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px; /* Đường kính quỹ đạo */
-            height: 500px; 
+            position: fixed; /* Cố định trên toàn bộ màn hình */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh; 
             pointer-events: none; /* Cho phép click xuyên qua */
+            z-index: 5; /* Nằm dưới nội dung chính (z-index 10) */
         }
         .element-icon {
             position: absolute;
-            width: 200px; 
+            width: 200px; /* SỬA: Tăng kích thước lên 200px */
             height: 200px;
-            border-radius: 50%;
-            opacity: 1;
+            opacity: 0.7; /* Giảm opacity để đỡ che nội dung */
             object-fit: contain;
             
-            /* ĐÃ SỬA: Loại bỏ hiệu ứng phát sáng (Glow) */
-            /* Tạo hiệu ứng phát sáng - đã bị loại bỏ theo yêu cầu */ 
-            
-            /* ĐÃ SỬA: Giữ pixel sắc nét (ko vỡ pixel) */
+            /* Đã loại bỏ Glow và giữ pixel sắc nét */
             image-rendering: pixelated; 
             image-rendering: crisp-edges; 
         }
 
-        /* Define the circular orbit animation */
-        @keyframes circle-orbit {
-            /* translate(250px) = 1/2 chiều rộng .element-orbit */
-            0% { transform: rotate(0deg) translate(250px) rotate(0deg); }
-            100% { transform: rotate(360deg) translate(250px) rotate(-360deg); }
+        /* Define the new, more random orbit animation (ĐÃ SỬA) */
+        @keyframes float-random-1 {
+            0% { transform: translate(10vw, 20vh) rotate(0deg) scale(1); }
+            25% { transform: translate(80vw, 70vh) rotate(45deg) scale(1.1); }
+            50% { transform: translate(30vw, 90vh) rotate(90deg) scale(0.9); }
+            75% { transform: translate(5vw, 50vh) rotate(135deg) scale(1.2); }
+            100% { transform: translate(10vw, 20vh) rotate(180deg) scale(1); }
+        }
+        @keyframes float-random-2 {
+            0% { transform: translate(90vw, 80vh) rotate(0deg) scale(0.9); }
+            30% { transform: translate(20vw, 15vh) rotate(-45deg) scale(1.2); }
+            60% { transform: translate(65vw, 40vh) rotate(-90deg) scale(1.1); }
+            100% { transform: translate(90vw, 80vh) rotate(-180deg) scale(0.9); }
         }
 
         /* Apply animation with different start times/speeds */
         .element-1 {
-            top: 50%;
-            left: 50%;
-            margin-top: -35px; /* 1/2 chiều cao icon */
-            margin-left: -35px; /* 1/2 chiều rộng icon */
-            animation: circle-orbit 20s linear infinite;
+            animation: float-random-1 70s ease-in-out infinite alternate;
         }
         .element-2 {
-            top: 50%;
-            left: 50%;
-            margin-top: -35px;
-            margin-left: -35px;
-            animation: circle-orbit 25s linear infinite reverse; /* Ngược chiều */
-            animation-delay: -5s; 
+            animation: float-random-2 85s linear infinite alternate;
+            animation-delay: -15s; 
         }
         .element-3 {
-            top: 50%;
-            left: 50%;
-            margin-top: -35px;
-            margin-left: -35px;
-            animation: circle-orbit 18s linear infinite;
-            animation-delay: -10s; 
+            animation: float-random-1 60s ease-in-out infinite alternate;
+            animation-delay: -30s; 
         }
         .element-4 {
-            top: 50%;
-            left: 50%;
-            margin-top: -35px;
-            margin-left: -35px;
-            animation: circle-orbit 22s linear infinite reverse;
-            animation-delay: -15s; 
+            animation: float-random-2 95s linear infinite alternate;
+            animation-delay: -5s; 
         }
 
         /* ======================================= */
@@ -241,7 +230,7 @@
             padding: 25px;
             border-radius: 15px;
             width: 100%; 
-            display: block; /* Đảm bảo nội dung xếp dọc */
+            display: block; 
             text-align: left;
             
             background-color: rgba(0, 77, 77, 0.7); 
@@ -277,8 +266,8 @@
         }
         .card-images img {
             width: 100%;
-            height: 150px; /* Chiều cao cố định để tạo hiệu ứng lưới đồng đều */
-            object-fit: cover; /* Giữ tỷ lệ và bao phủ ô */
+            height: 150px; 
+            object-fit: cover; 
             display: block;
             cursor: pointer;
             border: none;
@@ -291,12 +280,12 @@
             border-left: 5px solid var(--color-primary);
             padding-left: 10px;
         }
-        .feature-card h4 { /* Dùng cho TNN 10/11 để chia nhỏ nội dung */
+        .feature-card h4 { 
             color: var(--color-highlight);
             font-size: 1.4em;
             margin-top: 20px;
             margin-bottom: 10px;
-            text-align: center; /* Canh giữa tiêu đề nhỏ */
+            text-align: center;
         }
         .list-unstyled {
             list-style: none;
@@ -326,21 +315,29 @@
         #social-icon:hover {
             background-color: #145cb7;
         }
+
+        /* CHÂN TRANG (FOOTER) - ĐÃ SỬA */
+        footer {
+            padding: 20px 0;
+            text-align: center; /* SỬA: Canh giữa footer */
+            background-color: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid var(--color-primary);
+        }
     </style>
 </head>
 <body>
+    
+    <div class="element-orbit">
+        <img src="image_web/player_Fire_Idle1.png" alt="Fire Element" class="element-icon element-1">
+        <img src="image_web/player_Ice_Idle1.png" alt="Ice Element" class="element-icon element-2">
+        <img src="image_web/player_Stone_Idle1.png" alt="Stone Element" class="element-icon element-3">
+        <img src="image_web/player_Wind_Idle1.png" alt="Wind Element" class="element-icon element-4">
+    </div>
+
     <section id="hero">
         <div class="content container">
             <img src="image_web/logo.png" alt="Elementaria Logo" class="logo">
             <h2>ELEMENTARIA</h2>
-            
-            <div class="element-orbit">
-                <img src="image_web/player_Fire_Idle1.png" alt="Fire Element" class="element-icon element-1">
-                <img src="image_web/player_Ice_Idle1.png" alt="Ice Element" class="element-icon element-2">
-                <img src="image_web/player_Stone_Idle1.png" alt="Stone Element" class="element-icon element-3">
-                <img src="image_web/player_Wind_Idle1.png" alt="Wind Element" class="element-icon element-4">
-            </div>
-
             <a href="#features" class="cta-button">XEM CÁC TÍNH NĂNG ĐỘC ĐÁO</a>
         </div>
     </section>
@@ -653,7 +650,6 @@
                     imageName = `pictur35.png`; // Ảnh chen vào
                 } else {
                     // i = 37 tương ứng với picture36.png (i-1)
-                    // i = 58 tương ứng với picture57.png (i-1)
                     imageName = `picture${i - 1}.png`; 
                 }
 
