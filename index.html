@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elementaria - Thông Tin Game (Nguyễn Gia Phú)</title>
+    <title>Elementaria - Báo Cáo Tính Năng Game (Đã Sửa Lỗi)</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,56 +24,43 @@
         header {
             text-align: center;
             padding-bottom: 20px;
-            border-bottom: 2px solid #ccc;
+            border-bottom: 2px solid #4a90e2;
         }
         h1 {
             color: #4a90e2;
             margin-bottom: 5px;
         }
         h2 {
-            border-left: 5px solid #4a90e2;
+            border-left: 5px solid #ff7f50; 
             padding-left: 10px;
-            margin-top: 30px;
+            margin-top: 35px;
             color: #333;
         }
-        .info-box {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
+        ul.main-toc {
+            list-style: none;
+            padding: 0;
+        }
+        ul.main-toc > li {
             background-color: #e9f5ff;
-            border-radius: 6px;
-        }
-        .info-box div {
-            flex: 1;
-            padding: 0 10px;
-        }
-        .feature-list {
-            list-style: disc;
-            margin-left: 20px;
-            line-height: 1.6;
-        }
-        .download-links a {
-            display: inline-block;
-            margin-right: 15px;
-            padding: 10px 20px;
-            background-color: #4a90e2;
-            color: white;
-            text-decoration: none;
+            margin-bottom: 15px;
+            padding: 15px;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #0056b3;
+            border-left: 4px solid #4a90e2;
         }
-        .download-links a:hover {
-            background-color: #357bd8;
+        .feature-item {
+            font-weight: normal;
+            font-size: 1em;
+            color: #333;
+            margin-top: 5px;
         }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 0.9em;
+        .technical-info {
+            font-style: italic;
             color: #666;
+            margin-left: 20px;
+            margin-top: 3px;
         }
     </style>
 </head>
@@ -81,67 +68,59 @@
 
     <div class="container">
         <header>
-            <h1>ELEMENTARIA</h1>
-            <p>Báo cáo ASM 2 - Môn Nhập Môn Lập Trình Game (GAM104)</p>
-            <p><strong>Sinh viên:</strong> Nguyễn Gia Phú - PS47618 | <strong>Lớp:</strong> GA21201</p>
+            <h1>ELEMENTARIA - MỤC LỤC TÍNH NĂNG GAME</h1>
+            <p>Dựa trên file báo cáo **PS47618_Nguyen Gia Phu_ASM2_GAM104.pdf**</p>
         </header>
 
-        <h2>Tóm Tắt Game</h2>
-        <div class="info-box">
-            <div>
-                <strong>Thể loại:</strong>
-                [cite_start]<p>FlatForm, Action Platformer [cite: 276]</p>
-            </div>
-            <div>
-                <strong>Nhân vật chính:</strong>
-                [cite_start]<p>Sở hữu 4 nguyên tố: Lửa, Nước, Đá và Khí[cite: 278].</p>
-            </div>
-            <div>
-                <strong>Mục tiêu:</strong>
-                [cite_start]<p>Chiến đấu với quái vật là các khối đá nguyên tố hỗn loạn để đến được cánh cửa ma thuật[cite: 279].</p>
-            </div>
-        </div>
-
-        [cite_start]<p>Mỗi nguyên tố ảnh hưởng đến chỉ số, nội tại và kĩ năng, đòi hỏi người chơi phải chuyển đổi linh hoạt giữa các dạng nguyên tố để vượt qua thử thách[cite: 280].</p>
-
-        <h2>Các Tính Năng Nổi Bật</h2>
-        <ul class="feature-list">
+        <h2>Các Mục Nội Dung Chính</h2>
+        <ul class="main-toc">
             <li>
-                [cite_start]<strong>Hệ thống 5 Dạng Nhân Vật:</strong> Nhân vật có 5 hình dạng (được quy định bởi biến Type kiểu Int), mỗi dạng có chức năng và kĩ năng riêng[cite: 327].
-                <ul>
-                    [cite_start]<li>**Ice (Băng):** Có skill bắn đạn băng, làm chậm vận tốc của quái vật[cite: 463, 464].</li>
-                    [cite_start]<li>**Fire (Lửa):** Sử dụng trigger hitbox vùng tấn công, gây hiệu ứng cháy và nockback (đẩy lùi) đối thủ[cite: 465].</li>
-                    [cite_start]<li>**Stone (Đá):** Không có kĩ năng riêng nhưng tăng máu và dame nhiều hơn[cite: 466].</li>
-                    [cite_start]<li>**Wind (Khí):** Giảm trọng lực (gravity) của nhân vật, tăng độ lớn bật nhảy và tốc độ di chuyển tạo cảm giác nhẹ nhàng, đồng thời có skill hất tung quái vật[cite: 467, 468].</li>
-                </ul>
+                Thông tin cơ bản (Trang 3-4)
+                <div class="feature-item">**Thể loại:** FlatForm, Action Platformer.</div>
+                <div class="feature-item">**Cốt truyện:** Nhân vật sở hữu 4 nguyên tố (Lửa, Nước, Đá, Khí) chiến đấu với quái vật khối đá.</div>
+                <div class="technical-info">Sử dụng công cụ **Unity** và các **Prefabs** chính (Golem, Ice_Butlet, Player New, Wind_Skill).</div>
             </li>
             <li>
-                [cite_start]<strong>Thanh Máu (Heath Bar):</strong> Dùng node Slider, cập nhật theo phần trăm máu và Max Value là Max Heath[cite: 375]. [cite_start]Có logic giữ tỉ lệ phần trăm máu khi chuyển đổi giữa các dạng có Max Heath khác nhau[cite: 376].
+                Tính năng 1 & 2: Điều khiển, Xử lý Trạng thái & Hệ thống Dạng (Trang 4-6)
+                <div class="feature-item">Điều khiển bằng **Keyboard** và **Button** trên màn hình.</div>
+                <div class="technical-info">Sử dụng biến **Type** (kiểu Int) và **Switch** để quy định **5 hình dạng** nhân vật (Ice, Fire, Stone, Wind, Base).</div>
             </li>
             <li>
-                [cite_start]<strong>Hồi Máu Tự Động:</strong> Player sẽ hồi máu (+1 Heath) sau 5s không nhận sát thương và máu thấp hơn Max Heath[cite: 427, 428].
+                Tính năng 3 & 4: Menu Chuyển Dạng & Cooldown (Trang 7-8)
+                <div class="feature-item">**Menu chọn nhân vật** được kích hoạt khi ấn **Q**.</div>
+                <div class="technical-info">Có **Mini UI** cho phép chuyển dạng bằng Click chuột. Sau khi chuyển dạng có **Cooldown** để ngăn chuyển đổi liên tục.</div>
             </li>
             <li>
-                <strong>Chuyển Dạng (Menu/Cooldown):</strong> Có Menu chọn nhân vật (khi ấn Q) và Mini UI để chuyển dạng bằng chuột. [cite_start]Sau khi chuyển dạng sẽ có thời gian Cooldown để ngăn chuyển đổi liên tục[cite: 355, 368].
+                Tính năng 5 & 6: Thanh Máu (Heath Bar) & Hồi Máu (Trang 9-10)
+                <div class="feature-item">Sử dụng Node **Slider** cho thanh máu.</div>
+                <div class="technical-info">Tính năng **Hồi máu tự động** sau **5s** không nhận sát thương (với máu thấp hơn Max Heath).</div>
             </li>
             <li>
-                [cite_start]<strong>Hiệu Ứng Đồ Họa:</strong> Sử dụng Volume với Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt[cite: 469].
+                Tính năng 7 & 8: Chết (Death) & Tương tác Môi trường (Trang 11-12)
+                <div class="feature-item">Kích hoạt **Animation Death** và hiện menu **GameOver** khi máu $\le 0$ hoặc rơi xuống vực (Y $\le -12$).</div>
+                <div class="technical-info">Xử lý **Lava** và **Water** bằng cách bật/tắt Collider theo dạng nhân vật.</div>
             </li>
             <li>
-                [cite_start]<strong>Hiệu Ứng Nockback:</strong> Sử dụng node Add Force và biến "Right" (xác định hướng tấn công) để đẩy lùi đối tượng bị tấn công theo hướng chính xác[cite: 474, 475].
+                Tính năng 9 & 10: Hiệu ứng Chiều sâu & Kĩ Năng Nhân Vật (Trang 13-14)
+                <div class="feature-item">Sử dụng **Camera Mode Perspective** và sắp xếp **Layer Map** theo trục Z để tạo cảm giác chiều sâu.</div>
+                <div class="feature-item">Kĩ năng đa dạng: **Ice** (làm chậm), **Fire** (gây cháy, nockback), **Stone** (tăng máu/dame), **Wind** (hất tung).</div>
+            </li>
+            <li>
+                Tính năng 11 & 12: Xử lý Hình ảnh & Hiệu ứng Sát thương (Trang 18-19)
+                <div class="technical-info">Sử dụng **Volume** với **Bloom** và **Chromatic Aberration** để tạo hiệu ứng ánh sáng và hình ảnh.</div>
+                <div class="technical-info">Thanh máu chuyển màu **cam** sau khi nhận sát thương, sau 0.5s quay lại màu **đỏ**.</div>
+            </li>
+            <li>
+                Tính năng 13, 14, 15, 16 (Coin, Nockback, ESC, Door) (Trang 20-22)
+                <div class="feature-item">**Coin:** Tăng 1 điểm khi tiêu diệt Enemy.</div>
+                <div class="feature-item">**Nockback:** Dùng **Add Force** và biến **Right** để xác định hướng đẩy lùi.</div>
+                <div class="feature-item">**ESC:** Dùng để ẩn tất cả UI trên màn hình.</div>
+                <div class="feature-item">**Door:** Va chạm sẽ hiện màn hình **Win** và load scene về Menu.</div>
             </li>
         </ul>
 
-        <h2>Link Tải & Xem Chi Tiết</h2>
-        <p>Để xem chi tiết tất cả các tính năng và code, bạn có thể tải project tại các liên kết sau:</p>
-        <div class="download-links">
-            [cite_start]<a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Tải về (Google Drive)</a> [cite: 478]
-            [cite_start]<a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Xem Code (Github)</a> [cite: 478]
-        </div>
-
         <footer>
-            <p>Tài liệu này được tạo tự động dựa trên file báo cáo PS47618_Nguyen Gia Phu_ASM2_GAM104.pdf.</p>
-            <p>FPT POLYTECHNIC COLLEGE - NHẬP MÔN LẬP TRÌNH GAME</p>
+            <p>Trang web mẫu do AI tạo ra để tóm tắt các tính năng cốt lõi trong báo cáo game Elementaria.</p>
         </footer>
     </div>
 
