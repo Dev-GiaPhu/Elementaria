@@ -55,6 +55,7 @@
             text-align: center;
             padding: 150px 0 120px;
             min-height: 400px;
+            overflow: hidden; /* Giữ các icon bay trong khu vực hero */
         }
         .logo {
             max-height: 120px;
@@ -66,6 +67,8 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             color: var(--color-highlight); 
+            z-index: 10;
+            position: relative; /* Đảm bảo chữ nằm trên các icon */
             
             /* Font chữ Metal & Hiệu ứng 3D/Dập nổi */
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -94,6 +97,68 @@
         .cta-button:hover { 
             background-color: #e5b300; 
             border-color: var(--color-highlight);
+        }
+
+        /* CÁC ICON ELEMENT BAY XUNG QUANH */
+        .element-orbit {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px; /* Đường kính quỹ đạo */
+            height: 500px; 
+            pointer-events: none; /* Cho phép click xuyên qua */
+            /* Outline: 1px dashed red; /* Debug: Bỏ sau khi xong */
+        }
+        .element-icon {
+            position: absolute;
+            width: 70px; 
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0.8;
+            object-fit: contain;
+            /* Tạo hiệu ứng phát sáng */
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.7)); 
+        }
+
+        /* Define the circular orbit animation */
+        @keyframes circle-orbit {
+            /* translate(250px) = 1/2 chiều rộng .element-orbit */
+            0% { transform: rotate(0deg) translate(250px) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(250px) rotate(-360deg); }
+        }
+
+        /* Apply animation with different start times/speeds */
+        .element-1 {
+            top: 50%;
+            left: 50%;
+            margin-top: -35px; /* 1/2 chiều cao icon */
+            margin-left: -35px; /* 1/2 chiều rộng icon */
+            animation: circle-orbit 20s linear infinite;
+        }
+        .element-2 {
+            top: 50%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left: -35px;
+            animation: circle-orbit 25s linear infinite reverse; /* Ngược chiều */
+            animation-delay: -5s; 
+        }
+        .element-3 {
+            top: 50%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left: -35px;
+            animation: circle-orbit 18s linear infinite;
+            animation-delay: -10s; 
+        }
+        .element-4 {
+            top: 50%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left: -35px;
+            animation: circle-orbit 22s linear infinite reverse;
+            animation-delay: -15s; 
         }
 
         /* ======================================= */
@@ -237,6 +302,24 @@
             padding: 5px 10px;
             border-radius: 5px;
         }
+        /* Icon Mạng Xã Hội */
+        #social-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #1877f2;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+        #social-icon:hover {
+            background-color: #145cb7;
+        }
     </style>
 </head>
 <body>
@@ -244,7 +327,13 @@
         <div class="content container">
             <img src="image_web/logo.png" alt="Elementaria Logo" class="logo">
             <h2>ELEMENTARIA</h2>
-            <p>The Elemental Action Platformer</p>
+            <div class="element-orbit">
+                <img src="image_web/icon_fire.png" alt="Fire Element" class="element-icon element-1">
+                <img src="image_web/icon_water.png" alt="Water Element" class="element-icon element-2">
+                <img src="image_web/icon_stone.png" alt="Stone Element" class="element-icon element-3">
+                <img src="image_web/icon_wind.png" alt="Wind Element" class="element-icon element-4">
+            </div>
+
             <a href="#features" class="cta-button">XEM CÁC TÍNH NĂNG ĐỘC ĐÁO</a>
         </div>
     </section>
@@ -426,8 +515,9 @@
                     </div>
                     <div class="card-images">
                         <a href="#lightbox-34"><img src="image_web/picture34.png" alt="Logic Fire Skill 1" loading="lazy"></a>
-                        <a href="#lightbox-35"><img src="image_web/picture35.png" alt="Logic Fire Skill 2" loading="lazy"></a>
-                        <a href="#lightbox-36"><img src="image_web/picture36.png" alt="Logic Fire Skill 3" loading="lazy"></a>
+                        <a href="#lightbox-35"><img src="image_web/picture35.png" alt="Logic Fire Skill 2 (Ảnh mới thêm)" loading="lazy"></a>
+                        <a href="#lightbox-36"><img src="image_web/picture36.png" alt="Logic Fire Skill 3 (Ảnh dịch chuyển từ 35 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-37"><img src="image_web/picture37.png" alt="Logic Fire Skill 4 (Ảnh dịch chuyển từ 36 cũ)" loading="lazy"></a>
                     </div>
                     
                     <div class="card-content">
@@ -435,7 +525,7 @@
                         <p>ở dạng này không có kĩ năng nhưng biến máu và dame tăng nhiều hơn.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-37"><img src="image_web/picture37.png" alt="Logic Stone Type" loading="lazy"></a>
+                        <a href="#lightbox-38"><img src="image_web/picture38.png" alt="Logic Stone Type (Ảnh dịch chuyển từ 37 cũ)" loading="lazy"></a>
                     </div>
 
                     <div class="card-content">
@@ -443,10 +533,10 @@
                         <p>dạng này biến gravity giảm và độ lớn bật nhảy và tốc độ di chuyển cao hơn tạo cảm giác nhẹ nhàng lơ lững. Skill tạo ra viên đạn tương tự bên trên nhưng sẽ đặt gravity quái thấp và add forge khiến quái đánh bay lên và lơ lững trong vài giây rồi set mọi thứ lại tạo cho cảm giác quái được hất tung và lơ lững.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-38"><img src="image_web/picture38.png" alt="Logic Wind Skill 1" loading="lazy"></a>
-                        <a href="#lightbox-39"><img src="image_web/picture39.png" alt="Logic Wind Skill 2" loading="lazy"></a>
-                        <a href="#lightbox-40"><img src="image_web/picture40.png" alt="Logic Wind Skill 3" loading="lazy"></a>
-                        <a href="#lightbox-41"><img src="image_web/picture41.png" alt="Logic Wind Skill 4" loading="lazy"></a>
+                        <a href="#lightbox-39"><img src="image_web/picture39.png" alt="Logic Wind Skill 1 (Ảnh dịch chuyển từ 38 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-40"><img src="image_web/picture40.png" alt="Logic Wind Skill 2 (Ảnh dịch chuyển từ 39 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-41"><img src="image_web/picture41.png" alt="Logic Wind Skill 3 (Ảnh dịch chuyển từ 40 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-42"><img src="image_web/picture42.png" alt="Logic Wind Skill 4 (Ảnh dịch chuyển từ 41 cũ)" loading="lazy"></a>
                     </div>
                 </div>
 
@@ -460,12 +550,12 @@
                         <div class="card-content" style="padding: 0;">
                             <h4>Trước khi thêm Volume</h4>
                         </div>
-                        <a href="#lightbox-42"><img src="image_web/picture42.png" alt="Ảnh Trước Volume" loading="lazy"></a>
+                        <a href="#lightbox-43"><img src="image_web/picture43.png" alt="Ảnh Trước Volume (Ảnh dịch chuyển từ 42 cũ)" loading="lazy"></a>
                         
                         <div class="card-content" style="padding: 0;">
                             <h4>Sau khi thêm Volume</h4>
                         </div>
-                        <a href="#lightbox-43"><img src="image_web/picture43.png" alt="Ảnh Sau Volume" loading="lazy"></a>
+                        <a href="#lightbox-44"><img src="image_web/picture44.png" alt="Ảnh Sau Volume (Ảnh dịch chuyển từ 43 cũ)" loading="lazy"></a>
                     </div>
                 </div>
                 
@@ -475,7 +565,7 @@
                         <p>Hiệu ứng thanh máu sau khi nhận sát thương: em dùng Node set color thanh máu thành màu cam cà dùng node cooldown để delay sau 0.5s sẽ đặt màu thanh máu lại màu đỏ.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-44"><img src="image_web/picture44.png" alt="Ảnh tính năng 12-1" loading="lazy"></a>
+                        <a href="#lightbox-45"><img src="image_web/picture45.png" alt="Ảnh tính năng 12-1 (Ảnh dịch chuyển từ 44 cũ)" loading="lazy"></a>
                     </div>
                 </div>
 
@@ -485,7 +575,7 @@
                         <p>Hiện thị Coin: em tạo biến Coin dạng INT để lưu số Coin, sau khi player kill được Enemy sẽ add 1 điểm vào Coin. Và em dùng On Update để cập nhật Text điểm hiển thị trên UI bằng cách set Text bằng gái trị của biến Coin.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-45"><img src="image_web/picture45.png" alt="Ảnh tính năng 13-1" loading="lazy"></a>
+                        <a href="#lightbox-46"><img src="image_web/picture46.png" alt="Ảnh tính năng 13-1 (Ảnh dịch chuyển từ 45 cũ)" loading="lazy"></a>
                     </div>
                 </div>
 
@@ -495,8 +585,8 @@
                         <p>Hiệu ứng Nockback: mỗi khi có trigger va chạm với hitbox tấn công sẽ truyền event cùng với biến Right được cập nhật True False khi di chuyển để xác định đối tượng tấn công đang xoay bên nào. Và ở đối tượng bị tấn công sẽ xét giá trị biến Right mà thực hiện hướng Nockback với node Add Forge.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-46"><img src="image_web/picture46.png" alt="Ảnh tính năng 14-1" loading="lazy"></a>
-                        <a href="#lightbox-47"><img src="image_web/picture47.png" alt="Ảnh tính năng 14-2" loading="lazy"></a>
+                        <a href="#lightbox-47"><img src="image_web/picture47.png" alt="Ảnh tính năng 14-1 (Ảnh dịch chuyển từ 46 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-48"><img src="image_web/picture48.png" alt="Ảnh tính năng 14-2 (Ảnh dịch chuyển từ 47 cũ)" loading="lazy"></a>
                     </div>
                 </div>
                 
@@ -506,9 +596,9 @@
                         <p>ESC: em dùng ON Update kiểm tra khi người dùng ấn key ESC thì nó sẽ chạy lệnh ẩn tất cả UI trên màng hình.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-48"><img src="image_web/picture48.png" alt="Ảnh tính năng 15-1" loading="lazy"></a>
-                        <a href="#lightbox-49"><img src="image_web/picture49.png" alt="Ảnh tính năng 15-2" loading="lazy"></a>
-                        <a href="#lightbox-50"><img src="image_web/picture50.png" alt="Ảnh tính năng 15-3" loading="lazy"></a>
+                        <a href="#lightbox-49"><img src="image_web/picture49.png" alt="Ảnh tính năng 15-1 (Ảnh dịch chuyển từ 48 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-50"><img src="image_web/picture50.png" alt="Ảnh tính năng 15-2 (Ảnh dịch chuyển từ 49 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-51"><img src="image_web/picture51.png" alt="Ảnh tính năng 15-3 (Ảnh dịch chuyển từ 50 cũ)" loading="lazy"></a>
                     </div>
                 </div>
 
@@ -518,13 +608,13 @@
                         <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màng hình Win và sau 2s sẽ load scene về Menu.</p>
                     </div>
                     <div class="card-images">
-                        <a href="#lightbox-51"><img src="image_web/picture51.png" alt="Ảnh tính năng 16-1" loading="lazy"></a>
-                        <a href="#lightbox-52"><img src="image_web/picture52.png" alt="Ảnh tính năng 16-2" loading="lazy"></a>
-                        <a href="#lightbox-53"><img src="image_web/picture53.png" alt="Ảnh tính năng 16-3" loading="lazy"></a>
-                        <a href="#lightbox-54"><img src="image_web/picture54.png" alt="Ảnh tính năng 16-4" loading="lazy"></a>
-                        <a href="#lightbox-55"><img src="image_web/picture55.png" alt="Ảnh tính năng 16-5" loading="lazy"></a>
-                        <a href="#lightbox-56"><img src="image_web/picture56.png" alt="Ảnh tính năng 16-6" loading="lazy"></a>
-                        <a href="#lightbox-57"><img src="image_web/picture57.png" alt="Ảnh tính năng 16-7" loading="lazy"></a>
+                        <a href="#lightbox-52"><img src="image_web/picture52.png" alt="Ảnh tính năng 16-1 (Ảnh dịch chuyển từ 51 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-53"><img src="image_web/picture53.png" alt="Ảnh tính năng 16-2 (Ảnh dịch chuyển từ 52 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-54"><img src="image_web/picture54.png" alt="Ảnh tính năng 16-3 (Ảnh dịch chuyển từ 53 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-55"><img src="image_web/picture55.png" alt="Ảnh tính năng 16-4 (Ảnh dịch chuyển từ 54 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-56"><img src="image_web/picture56.png" alt="Ảnh tính năng 16-5 (Ảnh dịch chuyển từ 55 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-57"><img src="image_web/picture57.png" alt="Ảnh tính năng 16-6 (Ảnh dịch chuyển từ 56 cũ)" loading="lazy"></a>
+                        <a href="#lightbox-58"><img src="image_web/picture58.png" alt="Ảnh tính năng 16-7 (Ảnh dịch chuyển từ 57 cũ)" loading="lazy"></a>
                     </div>
                 </div>
             </div>
@@ -533,7 +623,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const numImages = 57; 
+            const numImages = 58; 
             const body = document.body;
             for (let i = 1; i <= numImages; i++) {
                 const lightboxHtml = `
