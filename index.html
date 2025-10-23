@@ -156,29 +156,116 @@
       <p>ASM2 – Nguyễn Gia Phú – PS47618</p>
     </header>
 
-    <section>
-      <h2>Tổng quan</h2>
-      <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
-      <p>Cốt truyện: Nhập vai nhân vật sở hữu 4 nguyên tố: Lửa, Nước, Đá, Khí. Phải chiến đấu với quái vật hỗn loạn để đến cánh cửa ma thuật cuối hành trình...</p>
-    </section>
-
-    <section>
-      <h2>Hình ảnh trong game</h2>
-      <div class="gallery">
-        <img src="Image_Web/Picture1.png">
-        <img src="Image_Web/Picture2.png">
+    <section id="overview" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Tổng quan</h2>
+          <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
+          <h3>Cốt chuyện</h3>
+          <p>Nhập vai với 1 nhân vật sở hữu 4 nguyên tố: Lửa, nước, đá và khí. Phải chiến đấu với các quái vật là các khối đá nguyên tố hỗn loạn để đến được cánh cửa ma thuật ở cuối hành trình. Mỗi nguyên tố sẽ có ảnh hưởng đến chỉ số, nội tại, kĩ năng của nhân vật; nhân vật sẽ phải chuyển đổi giữa các nguyên tố sao cho phù hợp với tình hình để vượt qua thử thách.</p>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>Các tính năng chính</h2>
-      <p>Chi tiết các tính năng được mô tả đầy đủ theo tài liệu gốc, bao gồm hệ thống chuyển nguyên tố, hiệu ứng, UI, Volume, và gameplay logic.</p>
-      <div class="gallery">
-        <img src="Image_Web/Picture3.png">
-        <img src="Image_Web/Picture4.png">
+    <section id="images-in-game" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Hình Ảnh Trong Game</h2>
+          <div class="gallery" data-slot="images-in-game"></div>
+        </div>
       </div>
     </section>
 
+    <section id="unity" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Unity · Prefabs</h2>
+          <p>Quái vật, các viên đạn kĩ năng,… được tạo prefabs để được gọi ra nhiều lần nhưng cùng 1 dạng và thông số.</p>
+          <div class="gallery" data-slot="unity"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 features sections, each with detail and gallery placeholder -->
+    <section id="features" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Các tính năng (nguyên văn)</h2>
+
+          <h3>Tính năng 1</h3>
+          <p>Em dùng INPUT bằng cả Keyboard và Button trên màn hình để có thể chơi được bằng nhiều cách và thêm biến Hit Time khi đánh sẽ set Hit Time là true thì lúc này player sẽ không di chuyển được.</p>
+          <div class="gallery" data-slot="f1"></div>
+
+          <h3>Tính năng 2</h3>
+          <p>Nhân vật có 5 hình dạng em dùng biến Type kiểu Int và Switch, mỗi giá trị từ 0 – 4 sẽ quy định các chức năng của dạng đó mà không có các chức năng dạng khác được bật.</p>
+          <div class="gallery" data-slot="f2"></div>
+
+          <h3>Tính năng 3</h3>
+          <p>Menu chọn nhân vật sẽ xuất hiện khi ấn Q: em dùng get input khi ấn Q sẽ bật UI menu lên và với Type dạng nào thì sẽ vô hiệu hóa nút dạng đó để không biến thành dạng hiện tại và gọi event thoát menu khi chọn player xong để thực hiện lệnh ẩn menu.</p>
+          <div class="gallery" data-slot="f3"></div>
+
+          <h3>Tính năng 4</h3>
+          <p>Mini UI đổi nhân vật tương tự Menu ở trên, có thể ấn để chuyển đổi dạng nhưng dành cho Input bằng Click chuột. Sau khi chọn ở Mini Menu này hay Menu bên trên sẽ có một khoảng thời gian cooldown không thể chuyển dạng liên tục; ở tính năng này em bật UI ảnh cooldown lên nút để ngăn người dùng bấm và dùng Node Cooldown sau 1 thời gian sẽ tắt ảnh cooldown để người chơi có thể ấn lại được. Mỗi dạng sẽ có một icon được hiện màu vàng tương ứng để hiển thị dạng player đã chọn theo biến Type.</p>
+          <div class="gallery" data-slot="f4"></div>
+
+          <h3>Tính năng 5</h3>
+          <p>Health Bar: Dùng node Slider và cập nhật Value theo phần trăm máu và Max Value bằng biến Max Health. Để giữ tỉ lệ phần trăm máu sau khi đổi giữa các dạng có Max Health khác nhau thì em tạo thêm 1 biến tên MaxHealthOld để lưu Max Health của dạng trước trước khi set Max Health mới và dùng công thức: <br><code>Health = MaxHealthNew * (OldHealth / MaxHealthOld)</code></p>
+          <div class="gallery" data-slot="f5"></div>
+
+          <h3>Tính năng 6</h3>
+          <p>Player hồi máu sau 5s không nhận sát thương và máu thấp hơn Max Health. Em dùng event Hit khi mỗi lần bị Enemy đánh và mỗi lần bị đánh sẽ reset cooldown lại 5s; tức sau khi bị đánh thì máu thấp hơn Max Health và 5s kế tiếp mới được đặt Health + 1.</p>
+          <div class="gallery" data-slot="f6"></div>
+
+          <h3>Tính năng 7</h3>
+          <p>Player Death: em dùng node Op Update để kiểm tra khi Player có máu &lt;= 0 và Y &lt; -12 sẽ set bool Death ở Animator để thực hiện Animation Death của player và hiện menu GameOver và Destroy Player sau vài giây thực hiện animation.</p>
+          <div class="gallery" data-slot="f7"></div>
+
+          <h3>Tính năng 8</h3>
+          <p>Dung nham và Nước: Dung nham và nước sẽ bật tắt collider thêm dạng nhân vật (khi player ở dạng lava thì collider sẽ được bật để player đi qua); nếu ở dạng khác thì player sẽ bị rơi xuống và đặt máu về -5 (đặt về -5 để tránh player hồi máu vì không có event hit lúc này).</p>
+          <div class="gallery" data-slot="f8"></div>
+
+          <h3>Tính năng 9</h3>
+          <p>Layer Map được sắp xếp xa gần theo trục z và camera mode Perspective để tạo cảm giác không gian chân thực khi di chuyển.</p>
+          <div class="gallery" data-slot="f9"></div>
+
+          <h3>Tính năng 10</h3>
+          <p>Kĩ năng nhân vật: với các dạng khác nhau nhân vật sẽ chạy các lệnh khác nhau với Switch với cùng 1 input và dùng node Once và Cooldown để tạo thời gian hồi chiêu sau mỗi lần dùng. Player sẽ có các skill khác nhau:</p>
+          <ul>
+            <li><strong>Normal</strong>: player ở dạng mặc định các thông số bình thường và không có skill.</li>
+            <li><strong>Ice</strong>: player sẽ có các thông số máu, damage, tốc độ, và tốc đánh theo setup. Skill sẽ bắn ra viên đạn băng; khi chạm quái vật có tag là Enemy sẽ set velocity quái = vận tốc hiện tại – (vận tốc hiện tại / 1.7), sau 1 khoảng thời gian sẽ đặt vận tốc lại ban đầu để tạo hiệu ứng làm chậm.</li>
+            <li><strong>Fire</strong>: sẽ bật trigger hitbox vùng tấn công, khi có trigger với quái sẽ chạy vòng lặp trừ máu và add force có cooldown vài giây trước khi lặp lại để tạo hiệu ứng gây cháy và nockback.</li>
+            <li><strong>Stone</strong>: ở dạng này không có kĩ năng nhưng biến máu và damage tăng nhiều hơn.</li>
+            <li><strong>Wind</strong>: dạng này biến gravity giảm và độ lớn bật nhảy và tốc độ di chuyển cao hơn tạo cảm giác nhẹ nhàng lơ lững. Skill tạo ra viên đạn tương tự bên trên nhưng sẽ đặt gravity quái thấp và add force khiến quái đánh bay lên và lơ lững trong vài giây rồi set mọi thứ lại tạo cho cảm giác quái được hất tung và lơ lững.</li>
+          </ul>
+          <div class="gallery" data-slot="f10"></div>
+
+          <h3>Tính năng 11</h3>
+          <p>Xử lí hình ảnh – đồ hoạ: Em dùng thêm Volume với các mục như Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt. Phần này bao gồm ảnh tiêu đề (2 ảnh) và ảnh trước/sau khi thêm volume (mỗi phần 1 ảnh).</p>
+          <div class="gallery" data-slot="f11"></div>
+
+          <h3>Tính năng 12</h3>
+          <p>Hiệu ứng thanh máu sau khi nhận sát thương: em dùng Node set color thanh máu thành màu cam và dùng node cooldown để delay sau 0.5s sẽ đặt màu thanh máu lại màu đỏ.</p>
+          <div class="gallery" data-slot="f12"></div>
+
+          <h3>Tính năng 13</h3>
+          <p>Hiển thị Coin: em tạo biến Coin dạng INT để lưu số Coin, sau khi player kill được Enemy sẽ add 1 điểm vào Coin. Em dùng On Update để cập nhật Text điểm hiển thị trên UI bằng cách set Text bằng giá trị của biến Coin.</p>
+          <div class="gallery" data-slot="f13"></div>
+
+          <h3>Tính năng 14</h3>
+          <p>Hiệu ứng Nockback: mỗi khi có trigger va chạm với hitbox tấn công sẽ truyền event cùng với biến Right được cập nhật True/False khi di chuyển để xác định đối tượng tấn công đang xoay bên nào. Ở đối tượng bị tấn công sẽ xét giá trị biến Right mà thực hiện hướng Nockback với node Add Force.</p>
+          <div class="gallery" data-slot="f14"></div>
+
+          <h3>Tính năng 15</h3>
+          <p>ESC: em dùng ON Update kiểm tra khi người dùng ấn key ESC thì nó sẽ chạy lệnh ẩn tất cả UI trên màn hình.</p>
+          <div class="gallery" data-slot="f15"></div>
+
+          <h3>Tính năng 16</h3>
+          <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màn hình Win và sau 2s sẽ load scene về Menu.</p>
+          <div class="gallery" data-slot="f16"></div>
+
+        </div>
+      </div>
+    </section>
     <section>
       <h2>Liên kết tải về</h2>
       <p>Drive: <a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link">Tải từ Google Drive</a></p>
