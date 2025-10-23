@@ -1,221 +1,518 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elementaria Project - Nguyễn Gia Phú PS47618</title>
-  <style>
-    :root{--bg-1:#0f1724;--bg-2:#172033;--card:rgba(255,255,255,0.04);--accent:#f6d365;--muted:#c6d2e1}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:'Segoe UI',Tahoma, Geneva, Verdana, sans-serif;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--muted);-webkit-font-smoothing:antialiased}
-    header{display:flex;align-items:center;gap:16px;padding:22px 24px;border-bottom:1px solid rgba(255,255,255,0.03)}
-    header img{height:78px;width:auto;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
-    header .title{flex:1}
-    header h1{margin:0;color:var(--accent);font-size:20px}
-    header p{margin:4px 0 0;color:#d7e3f0}
-    main{max-width:1100px;margin:24px auto;padding:0 18px 120px}
-    section{background:var(--card);padding:18px;border-radius:12px;margin-bottom:20px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    h2{color:var(--accent);margin-top:0}h3{color:#fff;margin-bottom:6px}a{color:var(--accent)}
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-    .thumb{position:relative;overflow:hidden;border-radius:10px;background:linear-gradient(180deg,#0b1522,#0f2432);display:flex;align-items:center;justify-content:center;padding:6px}
-    .thumb img{width:100%;height:160px;object-fit:cover;border-radius:8px;display:block;transition:transform .28s ease,box-shadow .28s ease}
-    .thumb:hover img{transform:scale(1.03);box-shadow:0 8px 30px rgba(246,211,101,0.12)}
-    .thumb .caption{position:absolute;left:8px;bottom:8px;padding:6px 8px;background:rgba(0,0,0,0.35);border-radius:6px;font-size:13px}
-    /* Overlay */
-    #overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(6,8,12,0.75);backdrop-filter:blur(4px);z-index:60}
-    #overlay.show{display:flex;animation:fadeIn .28s ease}
-    #overlay .box{max-width:92%;max-height:92%;position:relative}
-    #overlay img{max-width:100%;max-height:100%;border-radius:10px;display:block}
-    #overlay .close{position:absolute;right:-8px;top:-8px;background:linear-gradient(180deg,#111,#222);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    .student-fixed{position:fixed;right:14px;bottom:14px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:8px 12px;border-radius:10px;color:var(--muted);font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
-    @media(max-width:600px){header{flex-direction:column;align-items:flex-start}.thumb img{height:140px}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Elementaria — Nguyễn Gia Phú (PS47618)</title>
+<style>
+  :root{
+    --glass-blur: 8px;
+    --overlay-alpha: 0.26;
+    --accent: #f6d365;
+    --muted: #c6d2e1;
+    --bg-dark:#0b1220;
+  }
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;color:var(--muted);background:linear-gradient(180deg,#071028,#0b1522);-webkit-font-smoothing:antialiased}
+  /* fixed background layer (blurred frosted glass) */
+  .bg-fixed{
+    position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .bg-fixed::before{
+    content:"";position:absolute;inset:0;
+    background-image: url('Image_Web/Background.png');
+    background-size:cover;background-position:center center;
+    filter: blur(var(--glass-blur)) saturate(1.05);
+    transform:scale(1.04);
+    opacity:0.98;
+  }
+  /* global overlay color that changes per section */
+  .bg-overlay{
+    position:absolute;inset:0;background:rgba(8,8,12,0.4);mix-blend-mode:multiply;transition:background 450ms ease;
+  }
+
+  /* container */
+  .wrap{position:relative;z-index:2;max-width:1100px;margin:40px auto;padding:24px}
+  header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+  header img{height:84px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+  header .title h1{margin:0;color:var(--accent);font-size:22px}
+  header .title p{margin:4px 0 0;color:#d7e3f0}
+
+  /* sections as panels. each 'element' section will control overlay & character */
+  section.element{
+    position:relative;padding:34px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.6);overflow:visible;margin-bottom:26px;backdrop-filter: blur(2px);
+  }
+  /* content container sits above the background character */
+  .element .content{position:relative;z-index:6;display:grid;grid-template-columns:1fr;gap:12px}
+  .element .content .inner{background:transparent;padding:6px 0}
+
+  /* character background (large, semi-transparent) */
+  .char-bg{
+    position:absolute;inset:0;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;transition:opacity 380ms ease, transform 380ms ease;
+    opacity:0;transform:scale(1.02);
+  }
+  .char-bg img{
+    max-width:46%;max-height:86%;opacity:0.18;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.6)) saturate(1.15);
+    transition:transform 320ms linear, opacity 320ms linear;
+  }
+  /* when active, make it visible */
+  .element.active .char-bg{opacity:1;transform:scale(1);}
+  .element.active .char-bg img{opacity:0.22}
+
+  /* position left / right variants (character anchored left/right) */
+  .element.left .char-bg{justify-content:flex-start;padding-left:6%}
+  .element.right .char-bg{justify-content:flex-end;padding-right:6%}
+  .element.left .char-bg img{transform-origin:left center}
+  .element.right .char-bg img{transform-origin:right center}
+
+  /* text layout that sits above */
+  .row{display:flex;gap:20px;align-items:center}
+  .col{text-align:left}
+  .col h2,h3{margin:0 0 8px 0}
+  .desc{color:#d7e3f0}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;z-index:6;position:relative}
+  .thumb{position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#08131b,#071224);display:flex;align-items:center;justify-content:center;padding:6px}
+  .thumb img{width:100%;height:160px;object-fit:cover;display:block;border-radius:6px;transition:transform .28s ease}
+  .thumb:hover img{transform:scale(1.03)}
+
+  /* overlay full image */
+  #imgOverlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,4,8,0.78);z-index:1000}
+  #imgOverlay.show{display:flex;animation:fadeIn .28s ease}
+  #imgOverlay img{max-width:92%;max-height:92%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.7)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+  /* signature */
+  .student-fixed{position:fixed;right:14px;bottom:14px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:8px 12px;border-radius:10px;color:var(--muted);font-size:13px;z-index:1200;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
+
+  /* responsive */
+  @media(max-width:900px){
+    .char-bg img{max-width:66%}
+    .row{flex-direction:column}
+  }
+  @media(max-width:520px){
+    header img{height:60px}
+    .thumb img{height:120px}
+  }
+
+  /* small helper for accent CTA */
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#ffd37f,#ffb86b);color:#111;font-weight:700;text-decoration:none;box-shadow:0 8px 28px rgba(246,211,101,0.12)}
+</style>
 </head>
 <body>
-  <header>
-    <img src="Image_Web/Logo.png" alt="Logo" onerror="this.style.opacity=0.2">
-    <div class="title">
-      <h1>Elementaria — ASM2</h1>
-      <p>Nguyễn Gia Phú - PS47618</p>
-    </div>
-    <div style="text-align:right"><small style="color:#9fb0c8">FPT Polytechnic · 2025</small></div>
-  </header>
+  <!-- Background fixed layer -->
+  <div class="bg-fixed" aria-hidden="true">
+    <div class="bg-overlay" id="bgOverlay"></div>
+  </div>
 
-  <main>
-    <section id="overview">
-      <h2>Tổng quan</h2>
-      <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
-      <h3>Cốt chuyện</h3>
-      <p>Nhập vai với 1 nhân vật sở hữu 4 nguyên tố: Lửa, nước, đá và khí. Phải chiến đấu với các quái vật là các khối đá nguyên tố hỗn loạn để đến được cánh cửa ma thuật ở cuối hành trình. Mỗi nguyên tố sẽ có ảnh hưởng đến chỉ số, nội tại, kĩ năng của nhân vật; nhân vật sẽ phải chuyển đổi giữa các nguyên tố sao cho phù hợp với tình hình để vượt qua thử thách.</p>
+  <div class="wrap">
+    <header>
+      <img src="Image_Web/Logo.png" alt="Logo Elementaria" onerror="this.style.opacity=0.3">
+      <div class="title">
+        <h1>Elementaria — ASM2</h1>
+        <p>Nguyễn Gia Phú · PS47618 — Nhập môn lập trình game</p>
+      </div>
+      <div style="margin-left:auto">
+        <a class="btn" href="#links">Tải / GitHub</a>
+      </div>
+    </header>
+
+    <!-- ELEMENT SECTIONS (each section will control which character/color is shown) -->
+    <!-- We'll render 5 element sections (Normal, Fire, Ice, Stone, Wind) followed by content sections -->
+    <!-- Section order mirrors the scroll-triggered elements and the rest of content remains below -->
+    <section class="element left" data-element="normal" id="element-normal">
+      <div class="char-bg"><img id="char-normal" src="Image_Web/Player_Normal_Idle1.png" alt="Normal" /></div>
+      <div class="content">
+        <div class="inner">
+          <h2>Normal — Elementaria</h2>
+          <p class="desc">Dạng Normal: nhân vật ở dạng mặc định với các thông số cơ bản. Không có kỹ năng đặc biệt nhưng là dạng cân bằng để làm quen với điều khiển và gameplay.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="images-in-game">
-      <h2>Hình Ảnh Trong Game</h2>
-      <div class="gallery" data-slot="images-in-game"></div>
+    <section class="element right" data-element="fire" id="element-fire">
+      <div class="char-bg"><img id="char-fire" src="Image_Web/Player_Fire_Idle1.png" alt="Fire" /></div>
+      <div class="content">
+        <div class="inner">
+          <h2>Fire — Lửa</h2>
+          <p class="desc">Dạng Fire: tấn công có hiệu ứng cháy, nockback; phù hợp cho lối chơi gây sát thương theo thời gian (DoT). Bật vùng hitbox để tạo hiệu ứng cháy và add force cho nockback.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="unity-prefabs">
-      <h2>Prefabs</h2>
-      <p>Quái vật, các viên đạn kĩ năng,… được tạo prefabs để được gọi ra nhiều lần nhưng cùng 1 dạng và thông số.</p>
-      <div class="gallery" data-slot="unity"></div>
+    <section class="element left" data-element="ice" id="element-ice">
+      <div class="char-bg"><img id="char-ice" src="Image_Web/Player_Ice_Idle1.png" alt="Ice" /></div>
+      <div class="content">
+        <div class="inner">
+          <h2>Ice — Băng</h2>
+          <p class="desc">Dạng Ice: bắn viên đạn băng làm chậm kẻ địch (giảm velocity tạm thời). Hữu ích để kiểm soát đám đông và tạo lợi thế chiến đấu.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="features">
-      <h2>Các tính năng (nguyên văn)</h2>
-
-      <h3>Tính năng 1</h3>
-      <p>Em dùng INPUT bằng cả Keyboard và Button trên màn hình để có thể chơi được bằng nhiều cách và thêm biến Hit Time khi đánh sẽ set Hit Time là true thì lúc này player sẽ không di chuyển được.</p>
-      <div class="gallery" data-slot="f1"></div>
-
-      <h3>Tính năng 2</h3>
-      <p>Nhân vật có 5 hình dạng em dùng biến Type kiểu Int và Switch, mỗi giá trị từ 0 – 4 sẽ quy định các chức năng của dạng đó mà không có các chức năng dạng khác được bật.</p>
-      <div class="gallery" data-slot="f2"></div>
-
-      <h3>Tính năng 3</h3>
-      <p>Menu chọn nhân vật sẽ xuất hiện khi ấn Q: em dùng get input khi ấn Q sẽ bật UI menu lên và với Type dạng nào thì sẽ vô hiệu hóa nút dạng đó để không biến thành dạng hiện tại và gọi event thoát menu khi chọn player xong để thực hiện lệnh ẩn menu.</p>
-      <div class="gallery" data-slot="f3"></div>
-
-      <h3>Tính năng 4</h3>
-      <p>Mini UI đổi nhân vật tương tự Menu ở trên, có thể ấn để chuyển đổi dạng nhưng dành cho Input bằng Click chuột. Sau khi chọn ở Mini Menu này hay Menu bên trên sẽ có một khoảng thời gian cooldown không thể chuyển dạng liên tục; ở tính năng này em bật UI ảnh cooldown lên nút để ngăn người dùng bấm và dùng Node Cooldown sau 1 thời gian sẽ tắt ảnh cooldown để người chơi có thể ấn lại được. Mỗi dạng sẽ có một icon được hiện màu vàng tương ứng để hiển thị dạng player đã chọn theo biến Type.</p>
-      <div class="gallery" data-slot="f4"></div>
-
-      <h3>Tính năng 5</h3>
-      <p>Health Bar: Dùng node Slider và cập nhật Value theo phần trăm máu và Max Value bằng biến Max Health. Để giữ tỉ lệ phần trăm máu sau khi đổi giữa các dạng có Max Health khác nhau thì em tạo thêm 1 biến tên MaxHealthOld để lưu Max Health của dạng trước trước khi set Max Health mới và dùng công thức: <br><code>Health = MaxHealthNew * (OldHealth / MaxHealthOld)</code></p>
-      <div class="gallery" data-slot="f5"></div>
-
-      <h3>Tính năng 6</h3>
-      <p>Player hồi máu sau 5s không nhận sát thương và máu thấp hơn Max Health. Em dùng event Hit khi mỗi lần bị Enemy đánh và mỗi lần bị đánh sẽ reset cooldown lại 5s; tức sau khi bị đánh thì máu thấp hơn Max Health và 5s kế tiếp mới được đặt Health + 1.</p>
-      <div class="gallery" data-slot="f6"></div>
-
-      <h3>Tính năng 7</h3>
-      <p>Player Death: em dùng node Op Update để kiểm tra khi Player có máu &lt;= 0 và Y &lt; -12 sẽ set bool Death ở Animator để thực hiện Animation Death của player và hiện menu GameOver và Destroy Player sau vài giây thực hiện animation.</p>
-      <div class="gallery" data-slot="f7"></div>
-
-      <h3>Tính năng 8</h3>
-      <p>Dung nham và Nước: Dung nham và nước sẽ bật tắt collider thêm dạng nhân vật (khi player ở dạng lava thì collider sẽ được bật để player đi qua); nếu ở dạng khác thì player sẽ bị rơi xuống và đặt máu về -5 (đặt về -5 để tránh player hồi máu vì không có event hit lúc này).</p>
-      <div class="gallery" data-slot="f8"></div>
-
-      <h3>Tính năng 9</h3>
-      <p>Layer Map được sắp xếp xa gần theo trục z và camera mode Perspective để tạo cảm giác không gian chân thực khi di chuyển.</p>
-      <div class="gallery" data-slot="f9"></div>
-
-      <h3>Tính năng 10</h3>
-      <p>Kĩ năng nhân vật: với các dạng khác nhau nhân vật sẽ chạy các lệnh khác nhau với Switch với cùng 1 input và dùng node Once và Cooldown để tạo thời gian hồi chiêu sau mỗi lần dùng. Player sẽ có các skill khác nhau:</p>
-      <ul>
-        <li><strong>Normal</strong>: player ở dạng mặc định các thông số bình thường và không có skill.</li>
-        <li><strong>Ice</strong>: player sẽ có các thông số máu, damage, tốc độ, và tốc đánh theo setup. Skill sẽ bắn ra viên đạn băng; khi chạm quái vật có tag là Enemy sẽ set velocity quái = vận tốc hiện tại – (vận tốc hiện tại / 1.7), sau 1 khoảng thời gian sẽ đặt vận tốc lại ban đầu để tạo hiệu ứng làm chậm.</li>
-        <li><strong>Fire</strong>: sẽ bật trigger hitbox vùng tấn công, khi có trigger với quái sẽ chạy vòng lặp trừ máu và add force có cooldown vài giây trước khi lặp lại để tạo hiệu ứng gây cháy và nockback.</li>
-        <li><strong>Stone</strong>: ở dạng này không có kĩ năng nhưng biến máu và damage tăng nhiều hơn.</li>
-        <li><strong>Wind</strong>: dạng này biến gravity giảm và độ lớn bật nhảy và tốc độ di chuyển cao hơn tạo cảm giác nhẹ nhàng lơ lững. Skill tạo ra viên đạn tương tự bên trên nhưng sẽ đặt gravity quái thấp và add force khiến quái đánh bay lên và lơ lững trong vài giây rồi set mọi thứ lại tạo cho cảm giác quái được hất tung và lơ lững.</li>
-      </ul>
-      <div class="gallery" data-slot="f10"></div>
-
-      <h3>Tính năng 11</h3>
-      <p>Xử lí hình ảnh – đồ hoạ: Em dùng thêm Volume với các mục như Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt.</p>
-      <div class="gallery" data-slot="f11"></div>
-
-      <h3>Tính năng 12</h3>
-      <p>Hiệu ứng thanh máu sau khi nhận sát thương: em dùng node set color thanh máu thành màu cam và dùng node cooldown để delay sau 0.5s sẽ đặt màu thanh máu lại màu đỏ.</p>
-      <div class="gallery" data-slot="f12"></div>
-
-      <h3>Tính năng 13</h3>
-      <p>Hiển thị Coin: em tạo biến Coin dạng INT để lưu số Coin, sau khi player kill được Enemy sẽ add 1 điểm vào Coin. Em dùng On Update để cập nhật Text điểm hiển thị trên UI bằng cách set Text bằng giá trị của biến Coin.</p>
-      <div class="gallery" data-slot="f13"></div>
-
-      <h3>Tính năng 14</h3>
-      <p>Hiệu ứng Nockback: mỗi khi có trigger va chạm với hitbox tấn công sẽ truyền event cùng với biến Right được cập nhật True/False khi di chuyển để xác định đối tượng tấn công đang xoay bên nào. Ở đối tượng bị tấn công sẽ xét giá trị biến Right mà thực hiện hướng Nockback với node Add Force.</p>
-      <div class="gallery" data-slot="f14"></div>
-
-      <h3>Tính năng 15</h3>
-      <p>ESC: em dùng ON Update kiểm tra khi người dùng ấn key ESC thì nó sẽ chạy lệnh ẩn tất cả UI trên màn hình.</p>
-      <div class="gallery" data-slot="f15"></div>
-
-      <h3>Tính năng 16</h3>
-      <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màn hình Win và sau 2s sẽ load scene về Menu.</p>
-      <div class="gallery" data-slot="f16"></div>
-
+    <section class="element right" data-element="stone" id="element-stone">
+      <div class="char-bg"><img id="char-stone" src="Image_Web/Player_Stone_Idle1.png" alt="Stone" /></div>
+      <div class="content">
+        <div class="inner">
+          <h2>Stone — Đá</h2>
+          <p class="desc">Dạng Stone: máu và sát thương tăng, ít kỹ năng di chuyển. Dùng để chống chịu và đột phá cửa phòng khó.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="links">
-      <h2>Liên kết tải về</h2>
-      <p>Drive: <a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Tải từ Google Drive</a></p>
-      <p>GitHub: <a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Xem mã nguồn</a></p>
+    <section class="element left" data-element="wind" id="element-wind">
+      <div class="char-bg"><img id="char-wind" src="Image_Web/Player_Wind_Idle1.png" alt="Wind" /></div>
+      <div class="content">
+        <div class="inner">
+          <h2>Wind — Khí</h2>
+          <p class="desc">Dạng Wind: giảm gravity, tăng nhảy và tốc độ di chuyển, tác động lên kẻ địch bằng việc đẩy và tạo cảm giác lơ lửng.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="extra-images" style="display:none">
-      <h2>Ảnh bổ sung</h2>
-      <div class="gallery" data-slot="extra"></div>
+    <!-- Main detailed content (keeps full PDF text except cover & TOC) -->
+    <section id="overview" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Tổng quan</h2>
+          <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
+          <h3>Cốt chuyện</h3>
+          <p>Nhập vai với 1 nhân vật sở hữu 4 nguyên tố: Lửa, nước, đá và khí. Phải chiến đấu với các quái vật là các khối đá nguyên tố hỗn loạn để đến được cánh cửa ma thuật ở cuối hành trình. Mỗi nguyên tố sẽ có ảnh hưởng đến chỉ số, nội tại, kĩ năng của nhân vật; nhân vật sẽ phải chuyển đổi giữa các nguyên tố sao cho phù hợp với tình hình để vượt qua thử thách.</p>
+        </div>
+      </div>
     </section>
 
-  </main>
+    <section id="images-in-game" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Hình Ảnh Trong Game</h2>
+          <div class="gallery" data-slot="images-in-game"></div>
+        </div>
+      </div>
+    </section>
 
-  <div id="overlay" onclick="closeOverlay(event)"><div class="box"><span class="close" onclick="closeOverlay(event)">×</span><img src="" alt="Ảnh phóng to"></div></div>
-  <p class="student-fixed">Facebook: <a href="https://facebook.com/JemNaNa" target="_blank">Gia Phú</a></div>
+    <section id="unity" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Unity · Prefabs</h2>
+          <p>Quái vật, các viên đạn kĩ năng,… được tạo prefabs để được gọi ra nhiều lần nhưng cùng 1 dạng và thông số.</p>
+          <div class="gallery" data-slot="unity"></div>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    // Use the sequence you provided; we'll assign Picture1..Picture57 sequentially until we run out.
-    const sequence = [2,1,3,2,4,4,6,1,1,3,2,12,3,3,5,2,1,2]; // sums to 60; we'll stop at 57
-    const slots = [];
-    // build slot names in order: images-in-game, unity, f1..f16
-    slots.push('images-in-game'); // for first 2
-    slots.push('unity'); // for next 1
-    for(let i=1;i<=16;i++) slots.push('f'+i);
+    <!-- 16 features sections, each with detail and gallery placeholder -->
+    <section id="features" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Các tính năng (nguyên văn)</h2>
 
-    // flatten sequence into slotOrder list
-    const slotOrder = [];
-    let slotIndex = 0;
-    for(let s=0;s<sequence.length;s++){
-      const count = sequence[s];
-      // pick slot name: first s==0 -> images-in-game, s==1 -> unity, then f1...
-      let slotName;
-      if(s===0) slotName='images-in-game';
-      else if(s===1) slotName='unity';
-      else slotName = 'f'+(s-1);
-      for(let k=0;k<count;k++) slotOrder.push(slotName);
+          <h3>Tính năng 1</h3>
+          <p>Em dùng INPUT bằng cả Keyboard và Button trên màn hình để có thể chơi được bằng nhiều cách và thêm biến Hit Time khi đánh sẽ set Hit Time là true thì lúc này player sẽ không di chuyển được.</p>
+          <div class="gallery" data-slot="f1"></div>
+
+          <h3>Tính năng 2</h3>
+          <p>Nhân vật có 5 hình dạng em dùng biến Type kiểu Int và Switch, mỗi giá trị từ 0 – 4 sẽ quy định các chức năng của dạng đó mà không có các chức năng dạng khác được bật.</p>
+          <div class="gallery" data-slot="f2"></div>
+
+          <h3>Tính năng 3</h3>
+          <p>Menu chọn nhân vật sẽ xuất hiện khi ấn Q: em dùng get input khi ấn Q sẽ bật UI menu lên và với Type dạng nào thì sẽ vô hiệu hóa nút dạng đó để không biến thành dạng hiện tại và gọi event thoát menu khi chọn player xong để thực hiện lệnh ẩn menu.</p>
+          <div class="gallery" data-slot="f3"></div>
+
+          <h3>Tính năng 4</h3>
+          <p>Mini UI đổi nhân vật tương tự Menu ở trên, có thể ấn để chuyển đổi dạng nhưng dành cho Input bằng Click chuột. Sau khi chọn ở Mini Menu này hay Menu bên trên sẽ có một khoảng thời gian cooldown không thể chuyển dạng liên tục; ở tính năng này em bật UI ảnh cooldown lên nút để ngăn người dùng bấm và dùng Node Cooldown sau 1 thời gian sẽ tắt ảnh cooldown để người chơi có thể ấn lại được. Mỗi dạng sẽ có một icon được hiện màu vàng tương ứng để hiển thị dạng player đã chọn theo biến Type.</p>
+          <div class="gallery" data-slot="f4"></div>
+
+          <h3>Tính năng 5</h3>
+          <p>Health Bar: Dùng node Slider và cập nhật Value theo phần trăm máu và Max Value bằng biến Max Health. Để giữ tỉ lệ phần trăm máu sau khi đổi giữa các dạng có Max Health khác nhau thì em tạo thêm 1 biến tên MaxHealthOld để lưu Max Health của dạng trước trước khi set Max Health mới và dùng công thức: <br><code>Health = MaxHealthNew * (OldHealth / MaxHealthOld)</code></p>
+          <div class="gallery" data-slot="f5"></div>
+
+          <h3>Tính năng 6</h3>
+          <p>Player hồi máu sau 5s không nhận sát thương và máu thấp hơn Max Health. Em dùng event Hit khi mỗi lần bị Enemy đánh và mỗi lần bị đánh sẽ reset cooldown lại 5s; tức sau khi bị đánh thì máu thấp hơn Max Health và 5s kế tiếp mới được đặt Health + 1.</p>
+          <div class="gallery" data-slot="f6"></div>
+
+          <h3>Tính năng 7</h3>
+          <p>Player Death: em dùng node Op Update để kiểm tra khi Player có máu &lt;= 0 và Y &lt; -12 sẽ set bool Death ở Animator để thực hiện Animation Death của player và hiện menu GameOver và Destroy Player sau vài giây thực hiện animation.</p>
+          <div class="gallery" data-slot="f7"></div>
+
+          <h3>Tính năng 8</h3>
+          <p>Dung nham và Nước: Dung nham và nước sẽ bật tắt collider thêm dạng nhân vật (khi player ở dạng lava thì collider sẽ được bật để player đi qua); nếu ở dạng khác thì player sẽ bị rơi xuống và đặt máu về -5 (đặt về -5 để tránh player hồi máu vì không có event hit lúc này).</p>
+          <div class="gallery" data-slot="f8"></div>
+
+          <h3>Tính năng 9</h3>
+          <p>Layer Map được sắp xếp xa gần theo trục z và camera mode Perspective để tạo cảm giác không gian chân thực khi di chuyển.</p>
+          <div class="gallery" data-slot="f9"></div>
+
+          <h3>Tính năng 10</h3>
+          <p>Kĩ năng nhân vật: với các dạng khác nhau nhân vật sẽ chạy các lệnh khác nhau với Switch với cùng 1 input và dùng node Once và Cooldown để tạo thời gian hồi chiêu sau mỗi lần dùng. Player sẽ có các skill khác nhau:</p>
+          <ul>
+            <li><strong>Normal</strong>: player ở dạng mặc định các thông số bình thường và không có skill.</li>
+            <li><strong>Ice</strong>: player sẽ có các thông số máu, damage, tốc độ, và tốc đánh theo setup. Skill sẽ bắn ra viên đạn băng; khi chạm quái vật có tag là Enemy sẽ set velocity quái = vận tốc hiện tại – (vận tốc hiện tại / 1.7), sau 1 khoảng thời gian sẽ đặt vận tốc lại ban đầu để tạo hiệu ứng làm chậm.</li>
+            <li><strong>Fire</strong>: sẽ bật trigger hitbox vùng tấn công, khi có trigger với quái sẽ chạy vòng lặp trừ máu và add force có cooldown vài giây trước khi lặp lại để tạo hiệu ứng gây cháy và nockback.</li>
+            <li><strong>Stone</strong>: ở dạng này không có kĩ năng nhưng biến máu và damage tăng nhiều hơn.</li>
+            <li><strong>Wind</strong>: dạng này biến gravity giảm và độ lớn bật nhảy và tốc độ di chuyển cao hơn tạo cảm giác nhẹ nhàng lơ lững. Skill tạo ra viên đạn tương tự bên trên nhưng sẽ đặt gravity quái thấp và add force khiến quái đánh bay lên và lơ lững trong vài giây rồi set mọi thứ lại tạo cho cảm giác quái được hất tung và lơ lững.</li>
+          </ul>
+          <div class="gallery" data-slot="f10"></div>
+
+          <h3>Tính năng 11</h3>
+          <p>Xử lí hình ảnh – đồ hoạ: Em dùng thêm Volume với các mục như Bloom và Chromatic Aberration để tạo hiệu ứng hình ảnh và ánh sáng bắt mắt. Phần này bao gồm ảnh tiêu đề (2 ảnh) và ảnh trước/sau khi thêm volume (mỗi phần 1 ảnh).</p>
+          <div class="gallery" data-slot="f11"></div>
+
+          <h3>Tính năng 12</h3>
+          <p>Hiệu ứng thanh máu sau khi nhận sát thương: em dùng Node set color thanh máu thành màu cam và dùng node cooldown để delay sau 0.5s sẽ đặt màu thanh máu lại màu đỏ.</p>
+          <div class="gallery" data-slot="f12"></div>
+
+          <h3>Tính năng 13</h3>
+          <p>Hiển thị Coin: em tạo biến Coin dạng INT để lưu số Coin, sau khi player kill được Enemy sẽ add 1 điểm vào Coin. Em dùng On Update để cập nhật Text điểm hiển thị trên UI bằng cách set Text bằng giá trị của biến Coin.</p>
+          <div class="gallery" data-slot="f13"></div>
+
+          <h3>Tính năng 14</h3>
+          <p>Hiệu ứng Nockback: mỗi khi có trigger va chạm với hitbox tấn công sẽ truyền event cùng với biến Right được cập nhật True/False khi di chuyển để xác định đối tượng tấn công đang xoay bên nào. Ở đối tượng bị tấn công sẽ xét giá trị biến Right mà thực hiện hướng Nockback với node Add Force.</p>
+          <div class="gallery" data-slot="f14"></div>
+
+          <h3>Tính năng 15</h3>
+          <p>ESC: em dùng ON Update kiểm tra khi người dùng ấn key ESC thì nó sẽ chạy lệnh ẩn tất cả UI trên màn hình.</p>
+          <div class="gallery" data-slot="f15"></div>
+
+          <h3>Tính năng 16</h3>
+          <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màn hình Win và sau 2s sẽ load scene về Menu.</p>
+          <div class="gallery" data-slot="f16"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="links" class="element">
+      <div class="content">
+        <div class="inner">
+          <h2>Liên kết tải về</h2>
+          <p>Drive: <a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank" rel="noopener">Tải từ Google Drive</a></p>
+          <p>GitHub: <a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank" rel="noopener">Xem mã nguồn</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="imgOverlay" onclick="closeImgOverlay(event)"><img src="" alt="ảnh phóng to"></div>
+  <div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
+
+<script>
+/* ============================
+   Config & Utilities
+   ============================ */
+const ELEMENTS = [
+  {key:'normal', color:'rgba(168,168,168,0.26)', spritePrefix:'Player_Normal_Idle', side:'left'},
+  {key:'fire', color:'rgba(255,85,34,0.28)', spritePrefix:'Player_Fire_Idle', side:'right'},
+  {key:'ice', color:'rgba(68,208,255,0.20)', spritePrefix:'Player_Ice_Idle', side:'left'},
+  {key:'stone', color:'rgba(122,91,67,0.25)', spritePrefix:'Player_Stone_Idle', side:'right'},
+  {key:'wind', color:'rgba(119,255,176,0.18)', spritePrefix:'Player_Wind_Idle', side:'left'}
+];
+// frames per sprite
+const FRAMES = 4;
+const FRAME_RATE = 220; // ms per frame
+
+// ensure bgOverlay exists
+const bgOverlay = document.getElementById('bgOverlay');
+
+/* ============================
+   Sprite animation: each element has its own interval when active
+   We'll preselect the img elements
+   ============================ */
+const spriteEls = {
+  normal: document.getElementById('char-normal'),
+  fire: document.getElementById('char-fire'),
+  ice: document.getElementById('char-ice'),
+  stone: document.getElementById('char-stone'),
+  wind: document.getElementById('char-wind')
+};
+const frameCounters = {normal:1,fire:1,ice:1,stone:1,wind:1};
+const intervals = {};
+
+// preload frames to reduce flicker
+function preloadSprites(){
+  for(const e of ELEMENTS){
+    for(let f=1;f<=FRAMES;f++){
+      const img = new Image();
+      img.src = `Image_Web/${e.spritePrefix}${f}.png`;
     }
+  }
+}
+preloadSprites();
 
-    // We'll attempt to load Picture1..Picture99 but stop after Picture57
-    const basePath = 'Image_Web/Picture';
-    const ext = '.png';
-    const maxPicture = 57; // user said Picture1..Picture57
+// start loops (they run always but we show/hide sprites by section activation)
+for(const e of ELEMENTS){
+  intervals[e.key] = setInterval(()=>{
+    frameCounters[e.key] = frameCounters[e.key] >= FRAMES ? 1 : frameCounters[e.key] + 1;
+    const el = spriteEls[e.key];
+    if(el) el.src = `Image_Web/${e.spritePrefix}${frameCounters[e.key]}.png`;
+  }, FRAME_RATE);
+}
 
-    function appendThumb(container, src, caption){
-      const div = document.createElement('div'); div.className='thumb';
-      const img = document.createElement('img'); img.src=src; img.alt=caption;
-      img.loading='lazy';
-      const cap = document.createElement('div'); cap.className='caption'; cap.textContent=caption;
-      div.appendChild(img); div.appendChild(cap); container.appendChild(div);
-      img.addEventListener('click', ()=>openOverlay(src));
-      img.onerror = ()=>{ img.style.opacity=0.2; img.alt='(Ảnh không tìm thấy) '+caption };
-    }
+/* ============================
+   IntersectionObserver to detect active element sections
+   - When an element-section (normal/fire/ice/stone/wind) is mostly in view, we
+     update overlay color and toggle .active on that element to reveal char-bg
+   - For other sections we keep normal background (no change)
+   ============================ */
+const elementSections = Array.from(document.querySelectorAll('section.element'));
+const ioOptions = { root: null, rootMargin: '0px', threshold: [0.45, 0.6] };
 
-    function openOverlay(src){
-      const overlay = document.getElementById('overlay');
-      const big = overlay.querySelector('img');
-      big.src = src; overlay.classList.add('show'); document.body.style.overflow='hidden';
-    }
-    function closeOverlay(e){ e.stopPropagation(); const overlay = document.getElementById('overlay'); overlay.classList.remove('show'); document.body.style.overflow='auto'; }
-
-    // populate images sequentially according to slotOrder, but stop at maxPicture
-    (function populate(){
-      let pic=1; let orderIdx=0;
-      while(pic<=maxPicture){
-        const slot = slotOrder[orderIdx] || 'extra';
-        const container = document.querySelector(`[data-slot="${slot}"]`);
-        const src = basePath+pic+ext;
-        if(container){ appendThumb(container, src, 'Picture'+pic+'.png'); }
-        else{
-          // put into extra
-          const extra = document.querySelector('[data-slot="extra"]');
-          if(extra) appendThumb(extra, src, 'Picture'+pic+'.png');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const sec = entry.target;
+    const isVisible = entry.intersectionRatio >= 0.45;
+    // check for our 5 special elements by data-element
+    const key = sec.dataset.element;
+    if(key){
+      // toggle active
+      if(isVisible){
+        sec.classList.add('active');
+        // set overlay color
+        const elCfg = ELEMENTS.find(x=>x.key===key);
+        if(elCfg){
+          bgOverlay.style.background = elCfg.color;
         }
-        pic++; orderIdx++;
+      } else {
+        sec.classList.remove('active');
       }
-      // show extra section only if it has children
-      const extra = document.querySelector('[data-slot="extra"]');
-      if(extra && extra.children.length>0) document.getElementById('extra-images').style.display='block';
-    })();
-  </script>
+    }
+  });
+}, ioOptions);
+
+elementSections.forEach(s=>{
+  io.observe(s);
+});
+
+/* ============================
+   Scroll-based subtle rotation (parallax) for visible character
+   ============================ */
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', ()=>{
+  const dy = window.scrollY - lastScrollY;
+  lastScrollY = window.scrollY;
+  // rotate visible sprites slightly based on scroll direction
+  for(const cfg of ELEMENTS){
+    const elSec = document.querySelector(`section[data-element="${cfg.key}"]`);
+    if(!elSec) continue;
+    if(elSec.classList.contains('active')){
+      const img = spriteEls[cfg.key];
+      if(img){
+        // small rotation proportional to scroll delta
+        const rot = Math.max(Math.min(dy * 0.08, 15), -15);
+        img.style.transform = `rotate(${rot}deg)`;
+        // fade rotation back to zero after short delay
+        clearTimeout(img._rotTimeout);
+        img._rotTimeout = setTimeout(()=>{ img.style.transform = `rotate(0deg)`; }, 220);
+      }
+    }
+  }
+});
+
+/* ============================
+   Gallery population according to sequence provided:
+   sequence counts starting from Picture1 → Picture57
+   Sequence given by user: 2,1,3,2,3,4,4,6,1,1,3,2,11,4,3,5,2,1,2
+   Mapping of sequence slots to sections:
+     slot 0 -> images-in-game (2)
+     slot 1 -> unity (1)
+     slot 2 -> f1 (3)
+     slot 3 -> f2 (2)
+     slot 4 -> f3 (3)
+     slot 5 -> f4 (4)
+     slot 6 -> f5 (4)
+     slot 7 -> f6 (6)
+     slot 8 -> f7 (1)
+     slot 9 -> f8 (1)
+     slot10 -> f9 (3)
+     slot11 -> f10 (2)
+     slot12 -> f11 (11)
+     slot13 -> f12 (4)
+     slot14 -> f13 (3)
+     slot15 -> f14 (5)
+     slot16 -> f15 (2)
+     slot17 -> f16 (1)
+     slot18 -> extra (2)  // sum = 60 but we stop at 57 as user requested Picture1..57
+   We will fill sequentially until Picture57
+   ============================ */
+const seq = [2,1,3,2,4,4,6,1,1,3,2,12,3,3,5,2,1,2];
+const slotNames = []; // produce slot list corresponding to seq
+for(let i=0;i<seq.length;i++){
+  let slotName;
+  if(i===0) slotName='images-in-game';
+  else if(i===1) slotName='unity';
+  else if(i>=2 && i<=17) slotName = 'f' + (i-1); // f1..f16
+  else slotName='extra';
+  for(let k=0;k<seq[i];k++) slotNames.push(slotName);
+}
+// ensure we only go up to 57
+const maxPicture = 57;
+let pic = 1;
+for(let idx=0; pic<=maxPicture && idx<slotNames.length; idx++, pic++){
+  const slot = slotNames[idx];
+  const container = document.querySelector(`[data-slot="${slot}"]`);
+  const src = `Image_Web/Picture${pic}.png`;
+  if(container){
+    const thumb = document.createElement('div'); thumb.className='thumb';
+    const img = document.createElement('img'); img.src = src; img.alt = `Picture${pic}.png`;
+    img.loading = 'lazy';
+    img.onerror = ()=>{ img.style.opacity = 0.35; img.alt = '(missing) ' + img.alt; };
+    const cap = document.createElement('div'); cap.className='caption'; cap.textContent = `Picture${pic}.png`;
+    thumb.appendChild(img); thumb.appendChild(cap); container.appendChild(thumb);
+    // click to open overlay
+    img.addEventListener('click', (e)=>{
+      const overlay = document.getElementById('imgOverlay');
+      overlay.classList.add('show');
+      overlay.querySelector('img').src = img.src;
+    });
+  } else {
+    // if container missing, append to extra
+    const extra = document.querySelector('[data-slot="extra"]');
+    if(extra){
+      const thumb = document.createElement('div'); thumb.className='thumb';
+      const img = document.createElement('img'); img.src = src; img.alt = `Picture${pic}.png`;
+      const cap = document.createElement('div'); cap.className='caption'; cap.textContent = `Picture${pic}.png`;
+      thumb.appendChild(img); thumb.appendChild(cap); extra.appendChild(thumb);
+      img.addEventListener('click', (e)=>{
+        const overlay = document.getElementById('imgOverlay');
+        overlay.classList.add('show');
+        overlay.querySelector('img').src = img.src;
+      });
+    }
+  }
+}
+// show extra images if any appended
+const extraContainer = document.querySelector('[data-slot="extra"]');
+if(extraContainer && extraContainer.children.length>0){
+  document.getElementById('extra-images').style.display = 'block';
+}
+
+/* ============================
+   Image overlay open/close handlers
+   ============================ */
+function closeImgOverlay(e){
+  const overlay = document.getElementById('imgOverlay');
+  if(e.target === overlay || e.target.tagName === 'IMG'){
+    // if clicked the image, keep open; if clicked outside, close
+    if(e.target === overlay){
+      overlay.classList.remove('show');
+      overlay.querySelector('img').src = '';
+    }
+  } else {
+    // fallback: remove
+    overlay.classList.remove('show');
+    overlay.querySelector('img').src = '';
+  }
+}
+document.getElementById('imgOverlay').addEventListener('click', function(e){
+  if(e.target === this) { this.classList.remove('show'); this.querySelector('img').src=''; }
+});
+
+/* ============================
+   Optional: click-to-jump for demo (not required)
+   ============================ */
+// nothing else necessary
+
+</script>
 </body>
 </html>
