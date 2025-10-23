@@ -1,0 +1,226 @@
+<!--
+Elementaria_Project_Website.html
+Generated for: Nguyễn Gia Phú (PS47618)
+Description: Single-file website based on the Word file PS47618_Nguyen Gia Phu_ASM2_GAM104.docx
+How to publish to GitHub Pages:
+1. Create a new GitHub repository (e.g. Elementaria-Project).
+2. Add this file as index.html to the repo root and commit.
+3. In repository settings > Pages, select branch 'main' (or 'gh-pages') and save.
+4. Your site will be available at https://<your-username>.github.io/<repo-name>/
+-->
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Elementaria — Project Overview | Nguyễn Gia Phú</title>
+  <style>
+    :root{--accent:#d97706;--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,#071028 0%, #071b2b 60%);color:#e6eef8;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1100px;margin:28px auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{background:var(--glass);padding:12px 16px;border-radius:10px;display:flex;flex-direction:column}
+    h1{margin:0;font-size:22px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+    nav{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    a.btn{background:var(--card);color:var(--accent);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,0.03)}
+    main{display:grid;grid-template-columns:320px 1fr;gap:20px;margin-top:22px}
+    aside{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:10px}
+    .toc h3{margin:0 0 8px 0}
+    .toc ul{padding-left:18px;margin:6px 0;color:var(--muted)}
+    section.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+    section.card h2{margin-top:0}
+    .feature{border-top:1px dashed rgba(255,255,255,0.03);padding-top:12px;margin-top:12px}
+    .feature h4{margin:6px 0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .img-placeholder{height:120px;background:linear-gradient(90deg,#021124,#08203a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+    footer{margin-top:20px;color:var(--muted);font-size:13px}
+    .links{display:flex;gap:8px;flex-wrap:wrap}
+    .collapsible{cursor:pointer;padding:8px 10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
+    .collapsible + .content{display:none;padding:10px 0}
+    .badge{background:rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:13px}
+    pre{white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px;color:#cfe9ff}
+    @media(max-width:880px){main{grid-template-columns:1fr}aside{order:2}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <strong>Elementaria</strong>
+        <small class="lead">Game project — Nguyễn Gia Phú (PS47618) · ASM2</small>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div class="links">
+          <a class="btn" href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Drive (Download)</a>
+          <a class="btn" href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">GitHub</a>
+        </div>
+        <p style="margin:8px 0 0;color:var(--muted)">Ho Chi Minh City — 2025</p>
+      </div>
+    </header>
+
+    <nav>
+      <a class="btn" href="#overview">Tổng quan</a>
+      <a class="btn" href="#features">Tính năng</a>
+      <a class="btn" href="#images">Hình ảnh</a>
+      <a class="btn" href="#unity">Unity</a>
+      <a class="btn" href="#contact">Liên kết</a>
+    </nav>
+
+    <main>
+      <aside>
+        <div class="toc card">
+          <h3>Mục lục</h3>
+          <ul>
+            <li>Thể loại</li>
+            <li>Cốt chuyện</li>
+            <li>Hình ảnh</li>
+            <li>Unity · Prefabs · Tính năng</li>
+          </ul>
+          <div style="margin-top:10px">
+            <span class="badge">Platformer · Action</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="card">
+          <h4>Quick Notes</h4>
+          <p style="color:var(--muted);font-size:14px">Trang này được tạo tự động để trình bày nội dung mô tả dự án. Bạn có thể chỉnh sửa nội dung trực tiếp trong file index.html trước khi đẩy lên GitHub.</p>
+        </div>
+      </aside>
+
+      <section class="card" id="overview">
+        <h2>Tổng quan</h2>
+        <p>Thể loại: <strong>FlatForm, Action Platformer</strong></p>
+        <h3>Cốt chuyện</h3>
+        <p>Nhập vai nhân vật sở hữu 4 nguyên tố: <strong>Lửa, Nước, Đá, Khí</strong>. Người chơi cần chuyển đổi nguyên tố hợp lý để chiến đấu và vượt qua thử thách, tiến tới cánh cửa ma thuật ở cuối hành trình.</p>
+
+        <div class="feature">
+          <h4>Hình ảnh trong game</h4>
+          <div class="grid-3">
+            <div class="img-placeholder">Menu (ảnh)</div>
+            <div class="img-placeholder">Gameplay (ảnh)</div>
+            <div class="img-placeholder">UI / HUD (ảnh)</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="unity">
+        <h2>Unity · Prefabs · Tính năng</h2>
+        <p>Prefabs: Quái vật, viên đạn, item... được tạo thành prefabs để tái sử dụng dễ dàng.</p>
+
+        <!-- Collapsible features (1..16) generated from document -->
+        <div id="features">
+          <!-- Feature template -->
+          <div>
+            <button class="collapsible">Tính năng 1 — Input (Keyboard + Buttons) <span class="badge">Input</span></button>
+            <div class="content"><p>Hỗ trợ input keyboard và nút trên màn hình; khi đang ở trạng thái Hit Time player không thể di chuyển.</p></div>
+
+            <button class="collapsible">Tính năng 2 — 5 dạng nhân vật (Type 0..4) <span class="badge">Forms</span></button>
+            <div class="content"><p>Sử dụng biến <code>Type</code> (int) và switch để bật/tắt chức năng theo dạng.</p></div>
+
+            <button class="collapsible">Tính năng 3 — Menu chọn nhân vật (Q) <span class="badge">UI</span></button>
+            <div class="content"><p>Nhấn Q mở menu, vô hiệu hóa nút chọn dạng đang dùng, gọi event để ẩn menu khi chọn xong.</p></div>
+
+            <button class="collapsible">Tính năng 4 — Mini UI đổi nhân vật (Click) <span class="badge">Cooldown</span></button>
+            <div class="content"><p>Mini menu cho click; bật ảnh cooldown trên nút; mỗi dạng có icon vàng khi được chọn.</p></div>
+
+            <button class="collapsible">Tính năng 5 — Health Bar (Slider) <span class="badge">UI</span></button>
+            <div class="content"><p>Giữ tỉ lệ phần trăm khi đổi dạng bằng biến <code>MaxHealthOld</code> và công thức: <code>Health = MaxHealthNew * (OldHealth / MaxHealthOld)</code>.</p></div>
+
+            <button class="collapsible">Tính năng 6 — Hồi máu sau 5s không nhận sát thương <span class="badge">Regen</span></button>
+            <div class="content"><p>Sử dụng event Hit để reset cooldown hồi máu; nếu không nhận dame trong 5s và máu nhỏ hơn Max thì bắt đầu hồi.</p></div>
+
+            <button class="collapsible">Tính năng 7 — Player Death <span class="badge">Death</span></button>
+            <div class="content"><p>Kiểm tra máu <=0 và Y &lt; -12 để play animation Death, show GameOver, destroy player sau vài giây.</p></div>
+
+            <button class="collapsible">Tính năng 8 — Dung nham & Nước (Collider bật/tắt) <span class="badge">Env</span></button>
+            <div class="content"><p>Khi player ở dạng Lava sẽ bật collider vùng lava để đi qua; nếu không, player rơi xuống và máu đặt về -5.</p></div>
+
+            <button class="collapsible">Tính năng 9 — Layer Map & Camera Perspective <span class="badge">Camera</span></button>
+            <div class="content"><p>Sắp xếp layer theo trục Z và dùng camera chế độ Perspective để tạo chiều sâu.</p></div>
+
+            <button class="collapsible">Tính năng 10 — Kĩ năng theo dạng <span class="badge">Skills</span></button>
+            <div class="content">
+              <p>Mô tả ngắn cho mỗi dạng:</p>
+              <ul>
+                <li><strong>Normal</strong>: không có skill đặc biệt.</li>
+                <li><strong>Ice</strong>: bắn viên đạn băng, làm chậm vận tốc quái (v = v - v/1.7) rồi phục hồi.</li>
+                <li><strong>Fire</strong>: bật hitbox gây cháy (dot), nockback.</li>
+                <li><strong>Stone</strong>: máu & dame tăng, không skill.</li>
+                <li><strong>Wind</strong>: giảm gravity của quái khi trúng, đẩy lên (float), velocity/gravity thay đổi tạm thời.</li>
+              </ul>
+            </div>
+
+            <button class="collapsible">Tính năng 11 — Volume (Bloom, Chromatic) <span class="badge">VFX</span></button>
+            <div class="content"><p>Sử dụng Post Processing Volume: Bloom, Chromatic Aberration để cải thiện đồ họa.</p></div>
+
+            <button class="collapsible">Tính năng 12 — Hiệu ứng thanh máu khi bị thương <span class="badge">UI</span></button>
+            <div class="content"><p>Đổi màu thanh máu sang cam khi nhận dame, delay 0.5s rồi trả về đỏ bằng node cooldown.</p></div>
+
+            <button class="collapsible">Tính năng 13 — Coin display <span class="badge">UI</span></button>
+            <div class="content"><p>Biến <code>Coin</code> (int), mỗi khi kill +1; OnUpdate cập nhật Text UI bằng giá trị biến.</p></div>
+
+            <button class="collapsible">Tính năng 14 — Nockback <span class="badge">Physics</span></button>
+            <div class="content"><p>Sử dụng biến <code>Right</code> để xác định hướng và dùng AddForce cho nockback.</p></div>
+
+            <button class="collapsible">Tính năng 15 — ESC hide UI <span class="badge">UX</span></button>
+            <div class="content"><p>OnUpdate check key ESC để ẩn tất cả UI.</p></div>
+
+            <button class="collapsible">Tính năng 16 — Door & Win <span class="badge">Flow</span></button>
+            <div class="content"><p>Collider gắn tag 'Door' — khi va chạm show Win UI và sau 2s load scene Menu.</p></div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px">
+          <h4>Ghi chú</h4>
+          <p style="color:var(--muted)">Tài liệu gốc có thêm link tải chi tiết dự án (Drive & GitHub). Xem link ở header để tải mã nguồn đầy đủ.</p>
+        </div>
+      </section>
+
+      <section class="card" id="images">
+        <h2>Hình ảnh & Screenshots</h2>
+        <p class="lead" style="color:var(--muted)">(Chèn ảnh thực tế từ dự án vào các khung bên dưới khi có)</p>
+        <div class="grid-3">
+          <div class="img-placeholder">Gameplay 1</div>
+          <div class="img-placeholder">Gameplay 2</div>
+          <div class="img-placeholder">Editor / Scene</div>
+        </div>
+      </section>
+
+      <section class="card" id="contact">
+        <h2>Liên kết & Tải về</h2>
+        <p>Drive (file nén, tài nguyên): <a href="https://drive.google.com/file/d/1et1HIVm3_XfGe3GCwTQ8yrz9itDcNMZT/view?usp=drive_link" target="_blank">Mở Drive</a></p>
+        <p>GitHub (source code): <a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Mở GitHub</a></p>
+        <hr>
+        <p style="color:var(--muted)">Bạn muốn tôi tách thành file index.html + style.css + script.js riêng không? Hoặc tạo sẵn repo cấu trúc GitHub cho bạn?</p>
+      </section>
+
+      <footer style="grid-column:1/-1">
+        <small>Generated from PS47618_Nguyen Gia Phu_ASM2_GAM104.docx · Created for quick GitHub presentation · 2025</small>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Collapsible behaviour
+    document.querySelectorAll('.collapsible').forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        const content = btn.nextElementSibling;
+        const isOpen = content.style.display === 'block';
+        document.querySelectorAll('.collapsible + .content').forEach(c=>c.style.display='none');
+        if(!isOpen) content.style.display = 'block';
+      });
+    });
+
+    // Smooth anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const target=document.querySelector(a.getAttribute('href'));
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
