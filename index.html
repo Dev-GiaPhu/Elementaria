@@ -55,7 +55,6 @@
             text-align: center;
             padding: 150px 0 120px;
             min-height: 400px;
-            /* Đảm bảo nội dung hero không bị che bởi các icon cố định */
             z-index: 10; 
             background-color: transparent;
         }
@@ -101,225 +100,133 @@
             border-color: var(--color-highlight);
         }
 
-        /* CÁC ICON ELEMENT BAY KHẮP TRANG (ĐÃ SỬA) */
+        /* CÁC ICON ELEMENT BAY KHẮP TRANG (SPRITE ANIMATION) */
         .element-orbit {
-            position: fixed; /* Cố định trên toàn bộ màn hình */
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh; 
-            pointer-events: none; /* Cho phép click xuyên qua */
-            z-index: 5; /* Nằm dưới nội dung chính (z-index 10) */
+            pointer-events: none; 
+            z-index: 5; 
         }
         .element-icon {
             position: absolute;
-            width: 200px; /* SỬA: Tăng kích thước lên 200px */
+            width: 200px; /* Kích thước khung hình */
             height: 200px;
-            opacity: 1; /* Giảm opacity để đỡ che nội dung */
-            object-fit: contain;
+            opacity: 1; 
             
-            /* Đã loại bỏ Glow và giữ pixel sắc nét */
+            /* Cấu hình cho Sprite Animation */
+            background-repeat: no-repeat;
             image-rendering: pixelated; 
             image-rendering: crisp-edges; 
         }
+        
+        /* ------------------------------------- */
+        /* KEYFRAMES: HOẠT ẢNH SPRITE IDLE (CHUNG CHO CẢ 5 DẠNG) */
+        /* ------------------------------------- */
+        @keyframes idle-animation {
+            /* Sheet 800px (4 frames * 200px). Chuyển vị trí nền 800px trong 4 bước */
+            to { background-position-x: -800px; }
+        }
 
-        /* Define the new, more random orbit animation (ĐÃ SỬA) */
-        @keyframes float-random-1 {
+        /* ------------------------------------- */
+        /* KEYFRAMES: HOẠT ẢNH FLOAT RANDOM (3 Quỹ đạo) */
+        /* ------------------------------------- */
+        @keyframes float-random-1 { /* Quỹ đạo 1 (Fire, Stone) */
             0% { transform: translate(10vw, 20vh) rotate(0deg) scale(1); }
             25% { transform: translate(80vw, 70vh) rotate(45deg) scale(1.1); }
             50% { transform: translate(30vw, 90vh) rotate(90deg) scale(0.9); }
             75% { transform: translate(5vw, 50vh) rotate(135deg) scale(1.2); }
             100% { transform: translate(10vw, 20vh) rotate(180deg) scale(1); }
         }
-        @keyframes float-random-2 {
+        @keyframes float-random-2 { /* Quỹ đạo 2 (Ice, Wind) */
             0% { transform: translate(90vw, 80vh) rotate(0deg) scale(0.9); }
             30% { transform: translate(20vw, 15vh) rotate(-45deg) scale(1.2); }
             60% { transform: translate(65vw, 40vh) rotate(-90deg) scale(1.1); }
             100% { transform: translate(90vw, 80vh) rotate(-180deg) scale(0.9); }
         }
-
-        /* Apply animation with different start times/speeds */
-        .element-1 {
-            animation: float-random-1 70s ease-in-out infinite alternate;
+        @keyframes float-random-3 { /* Quỹ đạo 3 (Normal) */
+            0% { transform: translate(50vw, 5vh) rotate(0deg) scale(1); }
+            30% { transform: translate(10vw, 40vh) rotate(-30deg) scale(1.1); }
+            60% { transform: translate(70vw, 85vh) rotate(-60deg) scale(0.95); }
+            100% { transform: translate(50vw, 5vh) rotate(-90deg) scale(1); }
         }
-        .element-2 {
-            animation: float-random-2 85s linear infinite alternate;
+
+        /* ------------------------------------- */
+        /* CẤU HÌNH TỪNG ELEMENT (5 DẠNG) */
+        /* ------------------------------------- */
+
+        /* NORMAL ELEMENT (Dạng mới, dùng float-random-3) */
+        .element-normal {
+            background-image: url('image_web/player_Normal_Idle_Sheet.png'); 
+            background-size: 800px 200px; 
+            animation: float-random-3 75s linear infinite alternate, 
+                       idle-animation 0.5s steps(4) infinite; 
+            animation-delay: -45s; /* Độ trễ độc lập */
+        }
+        
+        /* FIRE ELEMENT (Dùng float-random-1) */
+        .element-fire {
+            background-image: url('image_web/player_Fire_Idle_Sheet.png'); 
+            background-size: 800px 200px; 
+            animation: float-random-1 70s ease-in-out infinite alternate, 
+                       idle-animation 0.5s steps(4) infinite; 
+            /* animation-delay: 0s (default) */
+        }
+        /* ICE ELEMENT (Dùng float-random-2) */
+        .element-ice {
+            background-image: url('image_web/player_Ice_Idle_Sheet.png'); 
+            background-size: 800px 200px; 
+            animation: float-random-2 85s linear infinite alternate, 
+                       idle-animation 0.5s steps(4) infinite; 
             animation-delay: -15s; 
         }
-        .element-3 {
-            animation: float-random-1 60s ease-in-out infinite alternate;
+        /* STONE ELEMENT (Dùng float-random-1, khác tốc độ/delay) */
+        .element-stone {
+            background-image: url('image_web/player_Stone_Idle_Sheet.png'); 
+            background-size: 800px 200px; 
+            animation: float-random-1 60s ease-in-out infinite alternate, 
+                       idle-animation 0.5s steps(4) infinite; 
             animation-delay: -30s; 
         }
-        .element-4 {
-            animation: float-random-2 95s linear infinite alternate;
+        /* WIND ELEMENT (Dùng float-random-2, khác tốc độ/delay) */
+        .element-wind {
+            background-image: url('image_web/player_Wind_Idle_Sheet.png'); 
+            background-size: 800px 200px; 
+            animation: float-random-2 95s linear infinite alternate, 
+                       idle-animation 0.5s steps(4) infinite; 
             animation-delay: -5s; 
         }
 
         /* ======================================= */
-        /* 3. LIGHTBOX (Xem ảnh toàn màn hình) */
+        /* CÁC PHẦN CSS KHÁC KHÔNG ĐỔI */
         /* ======================================= */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            text-align: center;
-            padding: 20px;
-            transition: opacity 0.3s;
-        }
-        .lightbox:target {
-            display: block;
-        }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            margin-top: 5vh;
-            border: 5px solid white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            object-fit: contain;
-            width: auto !important; 
-            height: auto !important; 
-        }
-        .lightbox .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: 0.3s;
-            line-height: 1;
-        }
-        .lightbox .close:hover {
-            color: var(--color-highlight);
-        }
 
-        /* ======================================= */
-        /* 4. CONTENT GRID VÀ CARD (Bố cục mới: Ảnh dưới dạng lưới) */
-        /* ======================================= */
-        .section h2 {
-            text-align: center;
-            font-size: 2.5em;
-            color: var(--color-highlight);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-        .intro-text {
-            background-color: rgba(0, 77, 77, 0.5);
-            padding: 20px 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .intro-text h3 {
-             color: var(--color-highlight);
-             margin-top: 0;
-        }
-        
-        .feature-grid {
-            display: flex;
-            flex-direction: column; 
-            gap: 20px;
-        }
-        
-        .feature-card {
-            padding: 25px;
-            border-radius: 15px;
-            width: 100%; 
-            display: block; 
-            text-align: left;
-            
-            background-color: rgba(0, 77, 77, 0.7); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card-content {
-            padding-right: 0;
-            padding-bottom: 10px;
-        }
-        .card-images {
-            /* Hiển thị ảnh dưới dạng lưới (Grid) */
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 15px;
-            max-width: 100%; 
-            padding: 10px 0;
-            margin-top: 10px;
-        }
-        .card-images a {
-            display: block;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border: 3px solid var(--color-primary); 
-            transition: transform 0.3s;
-        }
-        .card-images a:hover {
-            transform: scale(1.02);
-            border-color: var(--color-highlight);
-        }
-        .card-images img {
-            width: 100%;
-            height: 150px; 
-            object-fit: cover; 
-            display: block;
-            cursor: pointer;
-            border: none;
-            border-radius: 0;
-        }
-        .feature-card h3 {
-            color: var(--color-highlight);
-            margin-top: 0;
-            font-size: 1.8em;
-            border-left: 5px solid var(--color-primary);
-            padding-left: 10px;
-        }
-        .feature-card h4 { 
-            color: var(--color-highlight);
-            font-size: 1.4em;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .list-unstyled {
-            list-style: none;
-            padding-left: 0;
-        }
-        .list-unstyled li {
-            background: rgba(0,0,0,0.2);
-            margin-bottom: 5px;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        /* Icon Mạng Xã Hội */
-        #social-icon {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #1877f2;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            transition: background-color 0.3s;
-        }
-        #social-icon:hover {
-            background-color: #145cb7;
-        }
+        .lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); text-align: center; padding: 20px; transition: opacity 0.3s; }
+        .lightbox:target { display: block; }
+        .lightbox img { max-width: 90%; max-height: 90%; margin-top: 5vh; border: 5px solid white; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); object-fit: contain; width: auto !important; height: auto !important; }
+        .lightbox .close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; font-weight: bold; text-decoration: none; transition: 0.3s; line-height: 1; }
+        .lightbox .close:hover { color: var(--color-highlight); }
+        .section h2 { text-align: center; font-size: 2.5em; color: var(--color-highlight); margin-bottom: 40px; text-transform: uppercase; }
+        .intro-text { background-color: rgba(0, 77, 77, 0.5); padding: 20px 30px; border-radius: 10px; margin-bottom: 30px; }
+        .intro-text h3 { color: var(--color-highlight); margin-top: 0; }
+        .feature-grid { display: flex; flex-direction: column; gap: 20px; }
+        .feature-card { padding: 25px; border-radius: 15px; width: 100%; display: block; text-align: left; background-color: rgba(0, 77, 77, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); transition: transform 0.3s, box-shadow 0.3s; }
+        .card-content { padding-right: 0; padding-bottom: 10px; }
+        .card-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 100%; padding: 10px 0; margin-top: 10px; }
+        .card-images a { display: block; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border: 3px solid var(--color-primary); transition: transform 0.3s; }
+        .card-images a:hover { transform: scale(1.02); border-color: var(--color-highlight); }
+        .card-images img { width: 100%; height: 150px; object-fit: cover; display: block; cursor: pointer; border: none; border-radius: 0; }
+        .feature-card h3 { color: var(--color-highlight); margin-top: 0; font-size: 1.8em; border-left: 5px solid var(--color-primary); padding-left: 10px; }
+        .feature-card h4 { color: var(--color-highlight); font-size: 1.4em; margin-top: 20px; margin-bottom: 10px; text-align: center; }
+        #social-icon { position: fixed; bottom: 20px; left: 20px; background-color: #1877f2; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 100; transition: background-color 0.3s; }
+        #social-icon:hover { background-color: #145cb7; }
 
         /* CHÂN TRANG (FOOTER) - ĐÃ SỬA */
         footer {
             padding: 20px 0;
-            text-align: center; /* SỬA: Canh giữa footer */
+            text-align: center; /* Canh giữa footer */
             background-color: rgba(0, 0, 0, 0.5);
             border-top: 1px solid var(--color-primary);
         }
@@ -328,10 +235,11 @@
 <body>
     
     <div class="element-orbit">
-        <img src="image_web/player_Fire_Idle1.png" alt="Fire Element" class="element-icon element-1">
-        <img src="image_web/player_Ice_Idle1.png" alt="Ice Element" class="element-icon element-2">
-        <img src="image_web/player_Stone_Idle1.png" alt="Stone Element" class="element-icon element-3">
-        <img src="image_web/player_Wind_Idle1.png" alt="Wind Element" class="element-icon element-4">
+        <div class="element-icon element-normal"></div> 
+        <div class="element-icon element-fire"></div>
+        <div class="element-icon element-ice"></div>
+        <div class="element-icon element-stone"></div>
+        <div class="element-icon element-wind"></div>
     </div>
 
     <section id="hero">
