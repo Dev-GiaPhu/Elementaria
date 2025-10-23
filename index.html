@@ -12,13 +12,12 @@
   --accent:#f6d365;
   --muted:#c6d2e1;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 body{
   margin:0;
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   background:#000 url('Image_Web/Background.png') center/cover no-repeat fixed;
   color:var(--muted);
-  -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 header{
@@ -36,11 +35,9 @@ header img{
   border-radius:10px;
   box-shadow:0 6px 18px rgba(0,0,0,0.5);
 }
-header .title{
-  flex:1;
-}
-header h1{margin:0;color:var(--accent);font-size:20px}
-header p{margin:4px 0 0;color:#d7e3f0}
+header .title{flex:1;}
+header h1{margin:0;color:var(--accent);font-size:20px;}
+header p{margin:4px 0 0;color:#d7e3f0;}
 main{
   max-width:1100px;
   margin:24px auto;
@@ -54,10 +51,20 @@ section{
   margin-bottom:20px;
   box-shadow:0 8px 30px rgba(2,6,23,0.6);
   backdrop-filter:blur(6px);
+  position:relative;
 }
-h2{color:var(--accent);margin-top:0}
-h3{color:#fff;margin-bottom:6px}
-a{color:var(--accent)}
+section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45); /* làm tối nội dung */
+  backdrop-filter:blur(6px); /* blur phần nội dung */
+  border-radius:12px;
+  z-index:-1;
+}
+h2{color:var(--accent);margin-top:0;}
+h3{color:#fff;margin-bottom:6px;}
+a{color:var(--accent);}
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -97,7 +104,7 @@ a{color:var(--accent)}
   backdrop-filter:blur(4px);
   z-index:60;
 }
-#overlay.show{display:flex;animation:fadeIn .28s ease}
+#overlay.show{display:flex;animation:fadeIn .28s ease;}
 #overlay .box{
   max-width:92%;
   max-height:92%;
@@ -157,7 +164,6 @@ a{color:var(--accent)}
 .player{
   position:fixed;
   bottom:0;
-  left:0; /* ban đầu hiển thị cạnh trái */
   width:auto;
   height:auto;
   image-rendering:pixelated;
@@ -165,13 +171,12 @@ a{color:var(--accent)}
   z-index:50;
   transition:transform 0.5s linear,left 0.5s linear,top 0.5s linear;
 }
-
 </style>
 </head>
 <body>
 
 <header>
-  <img src="Image_Web/Logo.png" alt="Logo" onerror="this.style.opacity=0.2">
+  <img src="Image_Web/Logo.png" alt="Logo">
   <div class="title">
     <h1>Elementaria — ASM2</h1>
     <p>Nguyễn Gia Phú · PS47618 — Nhập môn lập trình game</p>
@@ -180,6 +185,7 @@ a{color:var(--accent)}
 </header>
 
 <main>
+  <!-- Tổng quan -->
   <section id="overview">
     <h2>Tổng quan</h2>
     <p><strong>Thể loại:</strong> FlatForm, Action Platformer</p>
@@ -187,17 +193,20 @@ a{color:var(--accent)}
     <p>Nhập vai với 1 nhân vật sở hữu 4 nguyên tố: Lửa, Nước, Đá, Khí. Phải chiến đấu với các quái vật là các khối đá nguyên tố hỗn loạn để đến cánh cửa ma thuật cuối hành trình. Mỗi nguyên tố ảnh hưởng tới chỉ số, nội tại, kĩ năng của nhân vật; người chơi phải chuyển đổi nguyên tố phù hợp để vượt thử thách.</p>
   </section>
 
+  <!-- Hình ảnh trong game -->
   <section id="images-in-game">
     <h2>Hình Ảnh Trong Game</h2>
     <div class="gallery" data-slot="images-in-game"></div>
   </section>
 
+  <!-- Unity Prefabs -->
   <section id="unity-prefabs">
     <h2>Unity · Prefabs</h2>
     <p>Quái vật, viên đạn kĩ năng… được tạo prefabs để gọi ra nhiều lần với cùng dạng và thông số.</p>
     <div class="gallery" data-slot="unity"></div>
   </section>
 
+  <!-- Tính năng đầy đủ 16 -->
   <section id="features">
     <h2>Các tính năng (nguyên văn)</h2>
 
@@ -271,6 +280,7 @@ a{color:var(--accent)}
     <h3>Tính năng 16</h3>
     <p>Door: Em tạo một collider với cánh cửa và gắn tag là Door, khi player va chạm với vật tag là Door thì sẽ thực hiện hiển thị màn hình Win và sau 2s sẽ load scene về Menu.</p>
     <div class="gallery" data-slot="f16"></div>
+
   </section>
 
   <section id="links">
@@ -279,18 +289,11 @@ a{color:var(--accent)}
     <p>GitHub: <a href="https://github.com/Dev-GiaPhu/Elementaria/tree/master" target="_blank">Xem mã nguồn</a></p>
   </section>
 
-  <section id="extra-images" style="display:none">
-    <h2>Ảnh bổ sung</h2>
-    <div class="gallery" data-slot="extra"></div>
-  </section>
-
 </main>
 
 <div id="overlay" onclick="closeOverlay(event)"><div class="box"><span class="close" onclick="closeOverlay(event)">×</span><img src="" alt="Ảnh phóng to"></div></div>
-
 <div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
 <div class="facebook-icon" onclick="window.open('https://facebook.com/JemNaNa','_blank')">Facebook: Gia Phú</div>
-
 <img id="player" class="player" src="Image_Web/PLayer_Normal_Idle1.png" alt="Player">
 
 <script>
@@ -314,15 +317,7 @@ function openOverlay(src){
   overlay.querySelector('img').src=src;
   overlay.classList.add('show'); document.body.style.overflow='hidden';
 }
-section::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.45); /* làm tối */
-  backdrop-filter:blur(6px); /* blur */
-  border-radius:12px;
-  z-index:-1;
-}
+
 function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementById('overlay'); overlay.classList.remove('show'); document.body.style.overflow='auto';}
 
 // populate galleries
@@ -340,12 +335,9 @@ function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementB
     }
     slotIdx++;
   }
-  // show extra if any
-  const extra=document.querySelector('[data-slot="extra"]');
-  if(extra.children.length>0) document.getElementById('extra-images').style.display='block';
 })();
 
-// player animation idle
+// player animation
 const player=document.getElementById('player');
 const playerStates={
   'Normal':['PLayer_Normal_Idle1.png','PLayer_Normal_Idle2.png','PLayer_Normal_Idle3.png','PLayer_Normal_Idle4.png'],
@@ -361,20 +353,15 @@ setInterval(()=>{
   frame=(frame+1)%animFrames.length;
 },200);
 
-// player scroll positions (5 sections)
-const scrollPositions=[];
-const sectionHeight=document.body.scrollHeight/5;
-for(let i=0;i<5;i++) scrollPositions.push(i*sectionHeight);
-
-// alternate sides left/right
+// player scroll position update
 function updatePlayerPosition(){
   const scrollY=window.scrollY + window.innerHeight/2;
   const sectionHeight=document.body.scrollHeight/5;
   let section=Math.floor(scrollY/sectionHeight);
   if(section>4) section=4;
 
-  // alternating sides
-  let side=(section%2===0)?10:window.innerWidth-150; // 10px hoặc cách phải 150px
+  // alternate left/right
+  let side=(section%2===0)?10:window.innerWidth-150;
   player.style.left=side+'px';
   player.style.top=(sectionHeight*section + sectionHeight/2 - player.offsetHeight/2)+'px';
 
