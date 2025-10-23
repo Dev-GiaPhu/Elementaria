@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Left
+  - Right
+  - Jump
+  - E
+  - CheckBase_Player
+  - Collider
+  - Attack
+  - Icon_0
+  - Icon_1
+  - Icon_2
+  - Icon_3
+  - Icon_4
+  - Normal
+  - Ice
+  - Fire
+  - Stone
+  - Wind
+  - Skill
+  - Attack_HitBox
+  - Enemy
+  - Check_Base
+  - Check_Wall
+  - Play
+  - Quit
+  - Wall
+  - Door
+  - Enemy_Attack
+  - Check_Player
+  - Skill_Ice
+  - Ban 0
+  - Ban 1
+  - Ban 2
+  - Ban 3
+  - Ban 4
+  - Skill_Fire
+  - Select_Type
+  - Cooldown Screen
+  - Lava
+  - Water
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Check_Base
+  - Water
+  - UI
+  - Collider_Map
+  - Enemy
+  - Player
+  - HitBox_Attack
+  - HitBox_Attack_Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BG
+    uniqueID: 499037541
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default
