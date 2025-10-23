@@ -8,7 +8,7 @@
 :root{
   --bg-1:#0f1724;
   --bg-2:#172033;
-  --card:rgba(128, 255, 219, 0.08); /* Đã thay đổi màu xanh ngọc và độ trong suốt */
+  --card:rgba(128, 255, 219, 0.08); /* Màu xanh ngọc nhạt, trong suốt */
   --accent:#f6d365;
   --muted:#c6d2e1;
 }
@@ -16,6 +16,7 @@
 body{
   margin:0;
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  /* Đảm bảo đường dẫn ảnh này đúng: Image_Web/Background.png */
   background:#000 url('Image_Web/Background.png') center/cover no-repeat fixed;
   color:var(--muted);
   overflow-x:hidden;
@@ -50,10 +51,10 @@ section{
   border-radius:12px;
   margin-bottom:20px;
   box-shadow:0 8px 30px rgba(2,6,23,0.6);
-  backdrop-filter:blur(6px); /* Giữ lại blur cho section chính nếu muốn */
+  backdrop-filter:blur(6px);
   position:relative;
 }
-/* Đã XÓA section::before ở đây */
+/* Đã loại bỏ section::before (phần làm tối/blur nền) để màu card xanh ngọc rõ hơn */
 h2{color:var(--accent);margin-top:0;}
 h3{color:#fff;margin-bottom:6px;}
 a{color:var(--accent);}
@@ -294,9 +295,8 @@ const maxPicture=57;
 function appendThumb(container,src,caption){
   const div=document.createElement('div'); div.className='thumb';
   const img=document.createElement('img'); img.src=src; img.alt=caption; img.loading='lazy';
-  // const cap=document.createElement('div'); cap.className='caption'; cap.textContent=caption; // Dòng này đã bị comment/xoá
-  div.appendChild(img); // div.appendChild(cap); // Dòng này cũng đã bị comment/xoá
-  container.appendChild(div);
+  // Đã loại bỏ phần caption để không hiện chữ "PictureX.png"
+  div.appendChild(img); container.appendChild(div);
   img.addEventListener('click',()=>openOverlay(src));
   img.onerror=()=>{img.style.opacity=0.2; img.alt='(Ảnh không tìm thấy) '+caption};
 }
