@@ -156,14 +156,16 @@ a{color:var(--accent)}
 }
 .player{
   position:fixed;
-  bottom:60px;
+  bottom:0;
+  left:0; /* ban đầu hiển thị cạnh trái */
   width:auto;
   height:auto;
   image-rendering:pixelated;
   transform:scale(2);
-  z-index:5;
+  z-index:50;
   transition:transform 0.5s linear,left 0.5s linear,top 0.5s linear;
 }
+
 </style>
 </head>
 <body>
@@ -312,6 +314,15 @@ function openOverlay(src){
   overlay.querySelector('img').src=src;
   overlay.classList.add('show'); document.body.style.overflow='hidden';
 }
+section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45); /* làm tối */
+  backdrop-filter:blur(6px); /* blur */
+  border-radius:12px;
+  z-index:-1;
+}
 function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementById('overlay'); overlay.classList.remove('show'); document.body.style.overflow='auto';}
 
 // populate galleries
@@ -357,13 +368,21 @@ for(let i=0;i<5;i++) scrollPositions.push(i*sectionHeight);
 
 // alternate sides left/right
 function updatePlayerPosition(){
-  const scrollY=window.scrollY+window.innerHeight/2;
+  const scrollY=window.scrollY + window.innerHeight/2;
+  const sectionHeight=document.body.scrollHeight/5;
   let section=Math.floor(scrollY/sectionHeight);
   if(section>4) section=4;
-  let side=(section%2===0)?-0.15:0.85; // -0.15=left ló, 0.85=right
-  player.style.left=(window.innerWidth*side)+'px';
+
+  // alternating sides
+  let side=(section%2===0)?10:window.innerWidth-150; // 10px hoặc cách phải 150px
+  player.style.left=side+'px';
   player.style.top=(sectionHeight*section + sectionHeight/2 - player.offsetHeight/2)+'px';
+
+  // change animation per section
+  const types=['Normal','Ice','Fire','Stone','Wind'];
+  animFrames=playerStates[types[section%types.length]];
 }
+
 window.addEventListener('scroll',updatePlayerPosition);
 window.addEventListener('resize',updatePlayerPosition);
 updatePlayerPosition();
