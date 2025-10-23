@@ -21,8 +21,8 @@
 body{
   margin:0;
   font-family:'Roboto', sans-serif;
-  /* Đường dẫn ảnh nền (Cùng cấp) */
-  background:#000 url('Background.png') center/cover no-repeat fixed;
+  /* ĐÃ SỬA: Image_Web/Background.png */
+  background:#000 url('Image_Web/Background.png') center/cover no-repeat fixed;
   color:var(--text-muted);
   overflow-x:hidden;
   line-height:1.6;
@@ -182,7 +182,7 @@ section li{margin-bottom:8px;}
 <body>
 
 <header>
-    <img src="Logo.png" alt="Logo Elementaria">
+    <img src="Image_Web/Logo.png" alt="Logo Elementaria">
   <div class="title">
     <h1>Elementaria — ASM2</h1>
     <p>Nguyễn Gia Phú · PS47618 — Nhập môn lập trình game</p>
@@ -296,7 +296,7 @@ section li{margin-bottom:8px;}
 <div id="overlay" onclick="closeOverlay(event)"><div class="box"><span class="close" onclick="closeOverlay(event)">×</span><img src="" alt="Ảnh phóng to"></div></div>
 <div class="student-fixed">Nguyễn Gia Phú – PS47618</div>
 <div class="facebook-icon" onclick="window.open('https://facebook.com/JemNaNa','_blank')">Facebook: Gia Phú</div>
-<img id="player" class="player" src="PLayer_Normal_Idle1.png" alt="Player Character">
+<img id="player" class="player" src="Image_Web/PLayer_Normal_Idle1.png" alt="Player Character">
 
 <script>
 // Cấu hình số lượng ảnh cho mỗi section (Tổng cộng 57 ảnh)
@@ -322,8 +322,8 @@ const adjusted_sequence = [
 ];
 
 const slots=['images-in-game','unity','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11','f12','f13','f14','f15','f16'];
-// Đường dẫn cơ sở: "Picture" (Cùng cấp)
-const basePath='Picture'; 
+// ĐÃ SỬA: Image_Web/Picture
+const basePath='Image_Web/Picture'; 
 const ext='.png';
 const maxPicture=57;
 
@@ -352,7 +352,7 @@ function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementB
     const container=document.querySelector(`[data-slot="${slotName}"]`);
     for(let i=0;i<adjusted_sequence[s];i++){
       if(pic>maxPicture) break;
-      // Đường dẫn ảnh PictureX.png (Cùng cấp)
+      // ĐÃ SỬA: Image_Web/PictureX.png
       if(container) appendThumb(container,basePath+pic+ext,'Picture'+pic+'.png');
       else appendThumb(document.querySelector('[data-slot="extra"]'),basePath+pic+ext,'Picture'+pic+'.png');
       pic++;
@@ -363,18 +363,18 @@ function closeOverlay(e){e.stopPropagation(); const overlay=document.getElementB
 
 // player animation
 const player=document.getElementById('player');
-// Tên file đã sửa: PL viết hoa (Cùng cấp)
+// ĐÃ SỬA: Image_Web/PLayer_... (PL viết hoa)
 const playerStates={
-  'Normal':['PLayer_Normal_Idle1.png','PLayer_Normal_Idle2.png','PLayer_Normal_Idle3.png','PLayer_Normal_Idle4.png'],
-  'Ice':['PLayer_Ice_Idle1.png','PLayer_Ice_Idle2.png','PLayer_Ice_Idle3.png','PLayer_Ice_Idle4.png'],
-  'Fire':['PLayer_Fire_Idle1.png','PLayer_Fire_Idle2.png','PLayer_Fire_Idle3.png','PLayer_Fire_Idle4.png'],
-  'Stone':['PLayer_Stone_Idle1.png','PLayer_Stone_Idle2.png','PLayer_Stone_Idle3.png','PLayer_Stone_Idle4.png'],
-  'Wind':['PLayer_Wind_Idle1.png','PLayer_Wind_Idle2.png','PLayer_Wind_Idle3.png','PLayer_Wind_Idle4.png']
+  'Normal':['Image_Web/PLayer_Normal_Idle1.png','Image_Web/PLayer_Normal_Idle2.png','Image_Web/PLayer_Normal_Idle3.png','Image_Web/PLayer_Normal_Idle4.png'],
+  'Ice':['Image_Web/PLayer_Ice_Idle1.png','Image_Web/PLayer_Ice_Idle2.png','Image_Web/PLayer_Ice_Idle3.png','Image_Web/PLayer_Ice_Idle4.png'],
+  'Fire':['Image_Web/PLayer_Fire_Idle1.png','Image_Web/PLayer_Fire_Idle2.png','Image_Web/PLayer_Fire_Idle3.png','Image_Web/PLayer_Fire_Idle4.png'],
+  'Stone':['Image_Web/PLayer_Stone_Idle1.png','Image_Web/PLayer_Stone_Idle2.png','Image_Web/PLayer_Stone_Idle3.png','Image_Web/PLayer_Stone_Idle4.png'],
+  'Wind':['Image_Web/PLayer_Wind_Idle1.png','Image_Web/PLayer_Wind_Idle2.png','Image_Web/PLayer_Wind_Idle3.png','Image_Web/PLayer_Wind_Idle4.png']
 };
 let animFrames=playerStates['Normal'];
 let frame=0;
 setInterval(()=>{
-  // Đường dẫn ảnh Player animation (Cùng cấp)
+  // Đường dẫn ảnh Player animation
   player.src=animFrames[frame];
   frame=(frame+1)%animFrames.length;
 },200);
