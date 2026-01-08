@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
+using UnityEngine.UI;
 public class Player_Controller : MonoBehaviour
 {
     public enum ElementType { Normal, Fire, Water, Earth, Air };
@@ -33,6 +34,12 @@ public class Player_Controller : MonoBehaviour
     public float damageplayer;
     public float damageSkill;
 
+    [Header("Unlock")]
+    public bool UnlockWater;
+    public bool UnlockFire;
+    public bool UnlockEarth;
+    public bool UnlockAir;
+
     [Header("Trạng thái nhân vật")]
     public bool isGrounded;
     public bool isJumping;
@@ -43,11 +50,13 @@ public class Player_Controller : MonoBehaviour
     public GameObject UItransStyle;
     public bool isShowUItransStyle;
     private CanvasGroup canvasGroup;
+    public GameObject textLocked;
 
 
     private Rigidbody2D rb;
     private Animator animator;
     private BoxCollider2D CheckGround;
+    
 
 
     public void NormalStyle()
@@ -58,29 +67,44 @@ public class Player_Controller : MonoBehaviour
     }
     public void WaterStyle()
     {
-        typePlayer = ElementType.Water;
+        if (UnlockWater == true)
+        {
+            typePlayer = ElementType.Water;
+        }
+        else
+        {
+            textLocked.SetActive(true);
+        }
         StartCoroutine(FadeOutUITransStyle());
         isShowUItransStyle = false;
     }
     public void FireStyle()
     {
-        typePlayer = ElementType.Fire;
-        StartCoroutine(FadeOutUITransStyle());
-        isShowUItransStyle = false;
+        if (UnlockFire == true)
+        {
+            typePlayer = ElementType.Fire;
+            StartCoroutine(FadeOutUITransStyle());
+            isShowUItransStyle = false;
+        }
     }
     public void EarthStyle()
     {
-        typePlayer = ElementType.Earth;
-        StartCoroutine(FadeOutUITransStyle());
-        isShowUItransStyle = false;
+        if(UnlockEarth == true)
+        {
+            typePlayer = ElementType.Earth;
+            StartCoroutine(FadeOutUITransStyle());
+            isShowUItransStyle = false;
+        }
     }
     public void AirStyle()
     {
-        typePlayer = ElementType.Air;
-        StartCoroutine(FadeOutUITransStyle());
-        isShowUItransStyle = false;
+        if (UnlockAir == true)
+        {
+            typePlayer = ElementType.Air;
+            StartCoroutine(FadeOutUITransStyle());
+            isShowUItransStyle = false;
+        }
     }
-
 
 
     void Awake()
@@ -89,6 +113,11 @@ public class Player_Controller : MonoBehaviour
         animator = GetComponent<Animator>();
         CheckGround = gameObject.transform.Find("Check Base").GetComponent<BoxCollider2D>();
         canvasGroup = UItransStyle.GetComponent<CanvasGroup>();
+
+        GameObject Ice = GameObject.FindWithTag("Ice");
+        GameObject Fire = GameObject.FindWithTag("Fire");
+        GameObject Stone = GameObject.FindWithTag("Stone");
+        GameObject Wind = GameObject.FindWithTag("Wind");
     }
     void Start()
     {
@@ -103,11 +132,26 @@ public class Player_Controller : MonoBehaviour
         }
         MovePlayer();
         Flip();
-
+        ActionPlayer();
         UpdateAnimations();
         UI();
     }
 
+    void ActionPlayer()
+    {
+        if( (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("Fire1")) && isAttacking == false)
+        {
+            StartCoroutine(Attack());
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        isAttacking = true;
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+        isAttacking = false;
+    }
     void OnTriggerEnter2D(Collider2D trigger)
     {
         if (trigger.gameObject.CompareTag("Collider"))
@@ -200,9 +244,9 @@ public class Player_Controller : MonoBehaviour
 
     IEnumerator FadeInUITransStyle()
     {
-        float duration = 0.3f;
+        float duration = 0.5f;
         float elapsed = 0f;
-
+        textLocked.SetActive(false);
         UItransStyle.SetActive(true);
         while (elapsed < duration)
         {
@@ -216,9 +260,10 @@ public class Player_Controller : MonoBehaviour
 
     IEnumerator FadeOutUITransStyle()
     {
-        float duration = 0.3f; // Thời gian mờ dần
-        float elapsed = 0f; 
-
+        float duration = 0.5f; // Thời gian mờ dần
+        if( textLocked.activeSelf == true) {duration = 1f;}
+        float elapsed = 0f;
+        canvasGroup.alpha = 1f;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -231,7 +276,10 @@ public class Player_Controller : MonoBehaviour
     }
     public void ApplyStats() 
     {
-        foreach (var config in allStats) 
+        GameObject partical = gameObject.transform.Find("Particle").gameObject;
+        partical.GetComponent<ParticleSystem>().Play();
+        animator.SetTrigger("TransType");
+        foreach (var config in allStats)
         {
             if (config.name == typePlayer.ToString()) 
             {
